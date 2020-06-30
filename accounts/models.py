@@ -12,15 +12,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class MyAccountManager(BaseUserManager):
-	def create_user(self, email, username, first_name, last_name, password=None):
+	def create_user(self, email, username, password=None):
 		if not email:
 			raise ValueError('Users must have an email address')
 		if not username:
 			raise ValueError('Users must have a username')
 
 		user = self.model(
-			firs_name=first_name,
-			last_name=last_name,
 			email=self.normalize_email(email),
 			username=username,
 		)
@@ -94,6 +92,12 @@ class Users(AbstractBaseUser):
 
 
 
+def image_profile_upload(instance,filename):
+	imgename , extention = filename.split('.')
+	return f'profile/{instance.id}/{instance}/{imgename}.{extention}'
+
+
+
 
 
 
@@ -102,8 +106,7 @@ class Profile(models.Model):
 
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE)
 	username			= models.CharField(max_length=30)
-	first_name			= models.CharField(max_length=30)
-	last_name			= models.CharField(max_length=30)
+	picture				= models.ImageField(upload_to=image_profile_upload,default="default.jpg")
 	bio					= models.TextField(max_length=150, blank=True, null=True)
 	university			= models.CharField(max_length=30)
 	faculty				= models.CharField(max_length=30)
@@ -118,16 +121,7 @@ class Profile(models.Model):
 			Profile.objects.create(
 				user=instance,
 				username=instance.username,
-				first_name = instance.first_name,
-				last_name=instance.last_name,
-
 			)
-		else:
-			x = Profile.objects.get(user=instance)
-			x.username 		= instance.username
-			x.first_name 	= instance.first_name
-			x.last_name 	= instance.last_name
-			x.save()
 
 
 
