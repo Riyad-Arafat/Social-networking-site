@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+        <section class="p_h container-fluid">
+            <div class="cover-page">
+                <img src="img/My Profile Bn.png">
+            </div>
+            <div class="user-p col">
+                <img src="img/Riyad.jpg">
+            </div>
+
+
+            <div class="info-user">
+                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <div class="row">
+                    <div class="bio col-sm-6">
+                        <h4>Bio</h4>
+                        <span>
+                            {{ user.bio }}
+                        </span>
+                    </div>
+                </div>
+                <br>
+                <div class="row row-cols-2 offset-md-1">
+                    <div class="career col  row-cols-12 ">
+                        <div class="col" >
+                            <h6>University: <span><a href="#">{{ user.university }}</a></span></h6>
+                        </div>
+                        <div class="col" >
+                            <h6>Faculty: <span><a href="#">{{ user.faculty }}</a></span></h6>
+                        </div>
+                        <div class="col" >
+                            <h6>Level: <span>{{user.level}}</span></h6>
+                        </div>
+                        <div class="col" >
+                            <h6>Nationality: <span>{{ user.nationality }}</span></h6>
+                        </div>
+                        <div class="col" >
+                            <h6>Location: <span>{{ user.location }}</span></h6>
+                        </div>
+                    </div>
+                    <div class="career col row-cols-12">
+                        <div class="col" >
+                            <h6>Flowers: <span><a href="#">100+</a></span></h6>
+                            <h6>Flowing: <span><a href="#">100+</a></span></h6>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+        <section id="posts-list" class="container">
+            <div class="row row-cols-1">
+                <div id="post-m" class="col">
+                    <div id="ov" class="op"></div>
+                    <div class="fm create-post">
+                        <div class="_hp">Creat Post</div>
+                        <div class="_bp">
+                            <textarea name="post" rows="4" cols="50" placeholder="what's on your mind" id="post"></textarea>
+                            <input class="btn-post" type="submit" value="Post">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="time-line">
+                    <div class="post-body col container">
+                        <div class="row row-cols-1">
+                            <div class="publisher col">
+                                <img src="img/Riyad.jpg" class="col">
+                                <span>UserName</span>
+                            </div>
+                            <div class="post-content col">
+                                <p>
+                                    skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi
+                                </p>
+                            </div>
+                            <div class="_ip col ">
+                                <ul class="row row-cols=3">
+
+
+                                    <a class="col" href="#">Like</a>
+
+                                    <a class="col" href="#">Comment</a>
+
+                                    <a class="col" href="#">Share</a>
+
+
+                                </ul>
+
+                            </div>
+                            <div id="comments-area" class="container">
+                                <div class="cooment col">
+                                    <div>
+                                        <div class="u_c col">
+                                            <div>
+                                                <a href="#"><img src="img/Riyad.jpg" class="col"></a>
+                                                <span><a href="#">UserName</a></span>
+                                            </div>
+                                            <div class="rp col">
+                                                <span>sdfwg</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+{% endblock %}
