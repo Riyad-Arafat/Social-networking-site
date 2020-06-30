@@ -8,6 +8,7 @@ from .models import  Profile
 # Create your views here.
 
 
+################################# SIGNUP FORM VIEW #########################
 
 def signup(request):
     user = request.user
@@ -29,6 +30,10 @@ def signup(request):
     template = 'registration/sign_up.html'
     return render(request, template, context)
 
+
+
+
+######################### LOGIN FORM VIEW #############################3
 
 
 def loginForm(request):
@@ -60,6 +65,11 @@ def loginForm(request):
     template = 'registration/login.html'
     return  render(request, template,context)
 
+
+
+
+
+##################### PROFILE VIEW ############################
 
 def profile(request,username):
     pro = Profile.objects.get(username=username)

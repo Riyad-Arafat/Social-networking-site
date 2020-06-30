@@ -1,14 +1,12 @@
 from django.db import models
 from django.utils import timezone
-
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 
-
+#################### USER CUSTOMIZE ###################################
 
 
 class MyAccountManager(BaseUserManager):
@@ -90,7 +88,7 @@ class Users(AbstractBaseUser):
 
 
 
-
+###################### PROFILE METHOD ########################
 
 def profile_picture_upload(instance,filename):
 	imgename , extention = filename.split('.')
@@ -98,13 +96,6 @@ def profile_picture_upload(instance,filename):
 def profile_cover_upload(instance,filename):
 	imgename , extention = filename.split('.')
 	return f'profile/{instance.id}/cover/{imgename}.{extention}'
-
-
-
-
-
-
-
 
 class Profile(models.Model):
 
@@ -128,10 +119,8 @@ class Profile(models.Model):
 				username=instance.username,
 			)
 
-
-
-
-
-
 	def __str__(self):
 		return self.user.username
+
+
+

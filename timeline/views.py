@@ -4,6 +4,9 @@ from accounts.models import  Profile
 # Create your views here.
 
 
+
+
+################# TIME LINE VIEW #############################
 def home_page(request):
     user = request.user
     if user.is_authenticated:

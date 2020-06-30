@@ -5,6 +5,10 @@ from .models import Users
 
 
 
+
+
+########################### USER SIGNUP FORM #########################
+
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=32)
     last_name = forms.CharField(max_length=32)
@@ -24,6 +28,9 @@ class UserRegistrationForm(UserCreationForm):
 
 
 
+
+
+######################## USER LOGIN FORM #######################################
 
 class UserLoginForm(forms.ModelForm):
     email    = forms.EmailField(max_length=100)
