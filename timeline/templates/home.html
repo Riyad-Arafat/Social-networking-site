@@ -5,8 +5,11 @@
                 <section id="left-side" class=" col col-md-4 container-fluid ">
                     <div class="info-side row row-cols-1">
                         <div class="user col">
-                            <img src="img/Riyad.jpg">
-                            <span>{{ user.first_name }} {{ user.last_name }}</span>
+                            <a href="{% url 'profile' user.username %}">
+                                <img src="{{ user.picture.url }}" alt="{{ user.username }}"><br>
+                                <span>{{ user.user.first_name }} {{ user.user.last_name }}</span>
+                            </a>
+
                         </div>
                     </div>
                 </section>

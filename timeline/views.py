@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.models import Users, Profile
+from accounts.models import  Profile
 
 # Create your views here.
 
@@ -7,7 +7,7 @@ from accounts.models import Users, Profile
 def home_page(request):
     user = request.user
     if user.is_authenticated:
-        user = Users.objects.get(username=request.user)
+        user = Profile.objects.get(user=request.user)
         context = {
             'user' : user,
         }

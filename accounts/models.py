@@ -92,9 +92,13 @@ class Users(AbstractBaseUser):
 
 
 
-def image_profile_upload(instance,filename):
+def profile_picture_upload(instance,filename):
 	imgename , extention = filename.split('.')
-	return f'profile/{instance.id}/{instance}/{imgename}.{extention}'
+	return f'profile/{instance.id}/picture/{imgename}.{extention}'
+def profile_cover_upload(instance,filename):
+	imgename , extention = filename.split('.')
+	return f'profile/{instance.id}/cover/{imgename}.{extention}'
+
 
 
 
@@ -106,7 +110,8 @@ class Profile(models.Model):
 
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE)
 	username			= models.CharField(max_length=30)
-	picture				= models.ImageField(upload_to=image_profile_upload,default="default.jpg")
+	picture				= models.ImageField(upload_to=profile_picture_upload,default="default.jpg")
+	cover				= models.ImageField(upload_to=profile_cover_upload,default="default.jpg")
 	bio					= models.TextField(max_length=150, blank=True, null=True)
 	university			= models.CharField(max_length=30)
 	faculty				= models.CharField(max_length=30)

@@ -2,15 +2,15 @@
 {% block content %}
         <section class="p_h container-fluid">
             <div class="cover-page">
-                <img src="img/My Profile Bn.png">
+                <img src="{{ user.cover.url }}">
             </div>
             <div class="user-p col">
-                <img src="img/Riyad.jpg">
+                <img src="{{ user.picture.url }}">
             </div>
 
 
             <div class="info-user">
-                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <h2>{{ user.user.first_name }} {{ user.user.last_name }}</h2>
                 <div class="row">
                     <div class="bio col-sm-6">
                         <h4>Bio</h4>
