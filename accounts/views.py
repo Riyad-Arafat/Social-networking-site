@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,logout,login
-
+from posts.forms import NewPost
 from .forms import UserRegistrationForm, UserLoginForm
 from .models import  Profile
+from posts.models import Post
 
 # Create your views here.
 
@@ -72,12 +73,29 @@ def loginForm(request):
 ##################### PROFILE VIEW ############################
 
 def profile(request,username):
-    pro = Profile.objects.get(username=username)
-
+    user = request.user
+    profile = Profile.objects.get(username=username)
+    posts = profile.posts.all().order_by('-created_at')
+    post_form = NewPost()
+    new_post = None
     context = {
 
-        'user': pro
+        'user': user,
+        'profile' : profile,
+        'posts' : posts,
+        'post_form': post_form,
     }
     template = 'profile.html'
+
+    if request.method == 'POST':
+        post = NewPost(request.POST)
+        if post.is_valid:
+            new_post = post.save(commit=False)
+            new_post.author = Profile.objects.get(username=request.user)
+            new_post.save()
+            post_form = NewPost()
+    else:
+        post_form = NewPost()
+
 
     return render(request, template, context)

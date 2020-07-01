@@ -101,6 +101,8 @@ class Profile(models.Model):
 
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE)
 	username			= models.CharField(max_length=30)
+	first_name 			= models.CharField(max_length=30)
+	last_name 			= models.CharField(max_length=30)
 	picture				= models.ImageField(upload_to=profile_picture_upload,default="default.jpg")
 	cover				= models.ImageField(upload_to=profile_cover_upload,default="default.jpg")
 	bio					= models.TextField(max_length=150, blank=True, null=True)
@@ -117,7 +119,18 @@ class Profile(models.Model):
 			Profile.objects.create(
 				user=instance,
 				username=instance.username,
+				first_name=instance.first_name,
+				last_name=instance.last_name,
 			)
+		else:
+			profile = Profile.objects.get(user=instance)
+			profile.username = instance.username
+			profile.first_name = instance.first_name
+			profile.last_name = instance.last_name
+			profile.save()
+
+
+
 
 	def __str__(self):
 		return self.user.username

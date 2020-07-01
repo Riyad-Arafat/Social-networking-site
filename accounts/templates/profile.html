@@ -2,20 +2,20 @@
 {% block content %}
         <section class="p_h container-fluid">
             <div class="cover-page">
-                <img src="{{ user.cover.url }}">
+                <img src="{{ profile.cover.url }}">
             </div>
             <div class="user-p col">
-                <img src="{{ user.picture.url }}">
+                <img src="{{ profile.picture.url }}">
             </div>
 
 
             <div class="info-user">
-                <h2>{{ user.user.first_name }} {{ user.user.last_name }}</h2>
+                <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
                 <div class="row">
                     <div class="bio col-sm-6">
                         <h4>Bio</h4>
                         <span>
-                            {{ user.bio }}
+                            {{ profile.bio }}
                         </span>
                     </div>
                 </div>
@@ -23,19 +23,19 @@
                 <div class="row row-cols-2 offset-md-1">
                     <div class="career col  row-cols-12 ">
                         <div class="col" >
-                            <h6>University: <span><a href="#">{{ user.university }}</a></span></h6>
+                            <h6>University: <span><a href="#">{{ profile.university }}</a></span></h6>
                         </div>
                         <div class="col" >
-                            <h6>Faculty: <span><a href="#">{{ user.faculty }}</a></span></h6>
+                            <h6>Faculty: <span><a href="#">{{ profile.faculty }}</a></span></h6>
                         </div>
                         <div class="col" >
-                            <h6>Level: <span>{{user.level}}</span></h6>
+                            <h6>Level: <span>{{profile.level}}</span></h6>
                         </div>
                         <div class="col" >
-                            <h6>Nationality: <span>{{ user.nationality }}</span></h6>
+                            <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
                         </div>
                         <div class="col" >
-                            <h6>Location: <span>{{ user.location }}</span></h6>
+                            <h6>Location: <span>{{ profile.location }}</span></h6>
                         </div>
                     </div>
                     <div class="career col row-cols-12">
@@ -59,28 +59,29 @@
                     <div class="fm create-post">
                         <div class="_hp">Creat Post</div>
                         <div class="_bp">
-                            <textarea name="post" rows="4" cols="50" placeholder="what's on your mind" id="post"></textarea>
-                            <input class="btn-post" type="submit" value="Post">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ post_form.content }}
+                                <input class="btn-post" type="submit" value="Post">
+                            </form>
                         </div>
                     </div>
                 </div>
 
-
                 <div id="time-line">
-                    <div class="post-body col container">
+                    {% for post in posts %}
+                    <div class="post-body col-8 container">
                         <div class="row row-cols-1">
                             <div class="publisher col">
-                                <img src="img/Riyad.jpg" class="col">
-                                <span>UserName</span>
+                                <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
+                                <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
                             </div>
                             <div class="post-content col">
-                                <p>
-                                    skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi skfniwrhjitj  joi
-                                </p>
+                                <p>{{ post.content | linebreaksbr}}</p>
                             </div>
+                            <hr>
                             <div class="_ip col ">
                                 <ul class="row row-cols=3">
-
 
                                     <a class="col" href="#">Like</a>
 
@@ -112,6 +113,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
             </div>
