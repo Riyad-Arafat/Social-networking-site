@@ -54,19 +54,7 @@
 
         <section id="posts-list" class="container">
             <div class="row row-cols-1">
-                <div id="post-m" class="col">
-                    <div id="ov" class="op"></div>
-                    <div class="fm create-post">
-                        <div class="_hp">Creat Post</div>
-                        <div class="_bp">
-                            <form method="POST">
-                                {% csrf_token %}
-                                {{ post_form.content }}
-                                <input class="btn-post" type="submit" value="Post">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                {% include 'create_post.html' %}
 
                 <div id="time-line">
                     {% for post in posts %}

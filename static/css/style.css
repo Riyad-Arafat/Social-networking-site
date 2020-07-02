@@ -163,7 +163,7 @@ a:hover{
     padding: 18px;
     box-shadow: 0px 1px 8px 0px grey;
     margin-top: 24px;
-    width: fit-content;
+    width: 660px;
 }
 .publisher img{
     width: 80px;
@@ -268,7 +268,8 @@ a:hover{
     text-align: center;
 }
 .user img{
-    width: 130px;
+    width: 120px;
+    height: 100px;
     border-radius: 100%;
     position: relative;
 }
