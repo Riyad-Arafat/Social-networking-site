@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,logout,login
 
 from .forms import UserRegistrationForm, UserLoginForm
-from .models import  Profile
+from .models import  Profile, Users
+from posts.models import Comment
 
 
 # Create your views here.
@@ -70,14 +71,17 @@ def loginForm(request):
 ##################### PROFILE VIEW ############################
 
 def profile(request,username):
-    user = request.user
+    x = request.user
+    user = Profile.objects.get(username=x)
     profile = get_object_or_404(Profile ,username=username)
     posts = profile.posts.all().order_by('-created_at')
+    comments = Comment.objects.all().order_by('-created_at')
     context = {
 
         'user': user,
         'profile' : profile,
         'posts' : posts,
+        'comments': comments,
     }
     template = 'profile.html'
 

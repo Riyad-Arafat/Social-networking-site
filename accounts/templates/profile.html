@@ -57,51 +57,7 @@
                 {% include 'create_post.html' %}
 
                 <div id="time-line">
-                    {% for post in posts %}
-                    <div class="post-body col-8 container">
-                        <div class="row row-cols-1">
-                            <div class="publisher col">
-                                <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
-                                <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
-                            </div>
-                            <div class="post-content col">
-                                <p>{{ post.content | linebreaksbr}}</p>
-                            </div>
-                            <hr>
-                            <div class="_ip col ">
-                                <ul class="row row-cols=3">
-
-                                    <a class="col" href="#">Like</a>
-
-                                    <a class="col" href="#">Comment</a>
-
-                                    <a class="col" href="#">Share</a>
-
-
-                                </ul>
-
-                            </div>
-                            <div id="comments-area" class="container">
-                                <div class="cooment col">
-                                    <div>
-                                        <div class="u_c col">
-                                            <div>
-                                                <a href="#"><img src="img/Riyad.jpg" class="col"></a>
-                                                <span><a href="#">UserName</a></span>
-                                            </div>
-                                            <div class="rp col">
-                                                <span>sdfwg</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                    {% include 'post-box.html' %}
                 </div>
 
             </div>

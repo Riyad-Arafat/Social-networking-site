@@ -99,7 +99,7 @@ def profile_cover_upload(instance,filename):
 
 class Profile(models.Model):
 
-	user                = models.OneToOneField(Users, on_delete=models.CASCADE)
+	user                = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='profile')
 	username			= models.CharField(max_length=30)
 	first_name 			= models.CharField(max_length=30)
 	last_name 			= models.CharField(max_length=30)

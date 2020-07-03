@@ -1,10 +1,12 @@
 $(document).ready(function () {
+    $('textarea').autoResize();
     $('#creat_post').submit(function (e) {
-        e.preventDefault()
-        content = $('#post').val()
-        if (content !== ""){
 
-            x = $.ajax({
+        e.preventDefault()
+        post = $('#post').val()
+        if (post !== ""){
+
+            $.ajax({
                 url : 'create/post',
                 type : 'POST',
                 data:{
@@ -35,3 +37,5 @@ $(document).ready(function () {
 
     })
 })
+
+

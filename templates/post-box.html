@@ -1,0 +1,50 @@
+{% for post in posts %}
+    <div class="post-body col container">
+        <div class="row row-cols-1">
+            <div class="publisher col">
+                <a href="{% url 'profile' post.author.username %}">
+                    <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
+                    <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                </a>
+                <hr>
+            </div>
+
+            <div class="post-content col">
+                <p>{{ post.content | linebreaksbr}}</p>
+            </div>
+             <hr>
+            <div class="_ip col ">
+                <ul class="row row-cols=3">
+
+                    <a class="col" href="#">Like</a>
+
+                    <a class="col" href="#">Comment</a>
+
+                    <a class="col" href="#">Share</a>
+                </ul>
+            </div>
+            <div id="comments-area" class="container">
+                {% include 'creat_comment.html' %}
+                {% for comment in comments %}
+                    {% if comment.post == post %}
+                    <ul class="comment col">
+                        <li class="u_c col">
+                            <div>
+                                <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
+
+                            </div>
+                            <div class="rp col">
+                                <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
+                                <span>{{ comment.content }}</span>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

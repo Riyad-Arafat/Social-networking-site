@@ -1,0 +1,51 @@
+{% if request.user.is_authenticated %}
+<div class="creat_comment row">
+    <a href="{% url 'profile' user.username  %}"><img src="{{user.picture.url }}" class="col"></a>
+    <form id="{{ post.id }}_comment_form" action="" method="POST" class= "col form-group">
+        {% csrf_token %}
+        <textarea  id="{{ post.id }}_content" class="comment_content" placeholder="Create Comment"></textarea>
+        <input id="{{ post.id }}_id" type="hidden" value="{{ post.id }}">
+        <input class="btn-post" type="submit" value="Post">
+    </form>
+
+
+
+</div><br>
+<script>
+
+
+$(document).ready(function () {
+    $("#{{ post.id }}_comment_form").submit(function (e) {
+        e.preventDefault()
+        comment = $("#{{ post.id }}_content").val()
+        post = $("#{{ post.id }}_id").val()
+        if (comment !== ""){
+            $.ajax({
+                url : 'create/comment',
+                type : 'POST',
+                data :{
+                    content : comment,
+                    post : post,
+                    csrfmiddlewaretoken : $("input[name='csrfmiddlewaretoken']").val(),
+                },
+                success: function (data,status,xhr) {
+                    $("body").load(data);
+
+                },
+                error: function (data,status,xhr) {
+                    $("html").load(data);
+                }
+
+            })
+
+        }
+
+
+    })
+})
+
+
+</script>
+
+
+{% endif %}

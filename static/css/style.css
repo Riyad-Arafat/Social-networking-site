@@ -103,7 +103,7 @@ a:hover{
 .create-post {
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: 1px 0px 7px grey;
+
     z-index: 2222;
 }
 ._hp{
@@ -119,7 +119,8 @@ a:hover{
     z-index: 311 !important;
     left: 0;
     top: 0;
-    overflow: auto; 
+    overflow: auto;
+    border: 1px solid #7d7d7d94;
 }
 
 .op{
@@ -161,7 +162,6 @@ a:hover{
     background-color: #fff;
     border-radius: 3px ;
     padding: 18px;
-    box-shadow: 0px 1px 8px 0px grey;
     margin-top: 24px;
     width: 660px;
 }
@@ -199,39 +199,66 @@ a:hover{
 }
 
 
+
+.creat_comment img{
+    width: 70px;
+    height: 40px;
+    border-radius: 100%;
+
+}
+
+.comment_content{
+    width: 90%;
+    outline: none;
+    background-color: #e9ebee;
+    padding: 1px 6px;
+    border: 1px solid #ccd0d5;
+    border-radius: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
 #comments-area{
     margin-top: 21px;
 }
 .cooment{
-    margin: 0px 14px 10px;
     width: fit-content;
-    background: #e9ebee;
-    padding: 4px 3px 5px 10px;
-    border-radius: 12px;
 }
 
 .u_c{
+    display: flex;
+    width: fit-content;
     padding:  0;
     padding-right: 10px;
 }
 
 .u_c img{
     width: 65px;
+    height: 35px;
     border-radius: 100%;
 }
 
 .u_c .rp {
     width: fit-content;
-    padding: 0px 18px 0px 68px;
+    background: #e9ebee;
+    border-radius: 15px;
+
 }
-
-
 
 .pm{
     position: -webkit-sticky;
     position: sticky;
     top: 58px;
     z-index: 33;
+}
+
+.form-group{
+    display: flex;
+}
+.form-group input{
+    width: unset;
 }
 
 
@@ -259,7 +286,6 @@ a:hover{
     top: 59px;
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: 0px 1px 5px 2px grey;
     overflow: hidden;  
     padding: 15px 1px 17px 1px;
 }

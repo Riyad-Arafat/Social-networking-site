@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('timeline.urls')),
     path('',include('posts.urls')),
     path('', include('accounts.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/admin', admin.site.urls),
 
 ]
 
