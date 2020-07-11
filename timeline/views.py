@@ -4,6 +4,9 @@ from django.utils import timezone
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.cache import cache
+
+
 from posts.models import Post, Comment
 from accounts.models import Profile
 from django.db.models import Q
@@ -14,6 +17,7 @@ from django.db.models import Q
 
 ################# TIME LINE VIEW #############################
 def home_page(request):
+    cache.clear()
     user = request.user
     if user.is_authenticated:
         user_authenticated = Profile.objects.get(user=request.user)

@@ -27,11 +27,11 @@ $('#creat_post').submit(function (e) {
 
 ////////////////////////////// Get Comments of post ////////////////////////
 $(document).bind('DOMSubtreeModified', function() {
+    autosize_textarea()
     $('.comment-btn').off('click').on('click',function (e) {
         e.preventDefault()
         var $x = e.target;
         var $post = $($x).offsetParent().offsetParent()
-
         $.ajax({
             url: 'get/comments',
             type: 'GET',
@@ -40,8 +40,6 @@ $(document).bind('DOMSubtreeModified', function() {
                 post: $post.attr("data-key"),
             },
             success: function (data, status, xhr) {
-                console.log($post.find('#comments').length)
-                $data = $.parseHTML(data)
                 if ($post.find('#comments').length > 0){
                     $post.find('#comments').remove()
                 }else {
@@ -58,8 +56,46 @@ $(document).bind('DOMSubtreeModified', function() {
 })
 
 
+/////////////////// like button ////////////////////////
+$(document).bind('DOMSubtreeModified', function() {
+    $('.like-btn').off('click').on('click',function (e) {
+        e.preventDefault()
+        var $x = e.target;
+        var $post = $($x).offsetParent().offsetParent()
+
+        $.ajax({
+            url: 'post/like',
+            type: 'GET',
+            cache: false,
+            data: {
+                post: $post.attr("data-key"),
+            },
+            success: function (data, status, xhr) {
+                $data = $.parseHTML(data)
+                console.log(data)
+                $s = $data[1]
+                console.log($post.find('.post-body'))
+                $post.find('.stat').replaceWith($($data).find('.stat'))
 
 
+                $audio.play()
+
+            },
+            error: function (data, status, xhr) {
+
+            },
+        }).done(function () {
+            if( $post.find(".like-btn").hasClass('active')){
+                $post.find(".like-btn").removeClass('active');
+
+            }else {
+
+                $post.find(".like-btn").addClass('active');
+            }
+        })
+
+    })
+})
 
 
 
@@ -86,6 +122,8 @@ $(document).bind('DOMSubtreeModified', function(){
                 success: function (data,status,xhr){
 
                     $comment.val(null)
+                    console.log($comment.css('height', 'unset'))
+                    $comment.scrollHeight = 0
                     $data= $.parseHTML(data);
                     $($data).prependTo($new_comment)
                     $audio.play();

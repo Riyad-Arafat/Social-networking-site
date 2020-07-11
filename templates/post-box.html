@@ -18,17 +18,23 @@
             <div class="post-content col">
                 <p>{{ post.content |safe|linebreaksbr}}</p>
             </div>
+            <ul class="stat" style="text-align: end; list-style: none; margin: 0; padding: 0px 5px; font-size: small;">
             {% if post.comments.count > 0 %}
-                <ul style="text-align: end; list-style: none; margin: 0; padding: 0px 5px; font-size: small;">
                 <span>{{ post.comments.count }} comments</span>
-            </ul>
             {% endif %}
+            {% if post.likes.count > 0 %}
+                <span>{{ post.likes.count }} likes</span>
+            {% endif %}
+            </ul>
             <hr>
 
             <div class="_ip col ">
                 <ul class="row row-cols=3">
-
-                    <a class="col" href="#">Like</a>
+                    {% if request.user in post.likes.all %}
+                        <a class="col like-btn active" href="#">Like</a>
+                        {% else %}
+                            <a class="col like-btn" href="#">Like</a>
+                    {% endif %}
 
                     <a   class="col comment-btn" href="#">Comment</a>
 

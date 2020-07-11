@@ -16,6 +16,8 @@ textarea{
 
 
 
+
+
 /* login page */
 
 .log{
@@ -220,6 +222,13 @@ textarea{
 }
 ._ip ul a:hover{
     background-color: #bcc0c5;
+}
+._ip .active {
+    background-color: #56a7ff;
+    color: #fff;
+}
+._ip .active:hover{
+    background-color: #56a7ff;
 }
 
 

@@ -15,7 +15,7 @@ from .models import Post, Comment, Profile, Users
 # Create your views here.
 
 
-
+## create post fun
 @csrf_protect
 def CreatePost(request):
     if request.method == 'POST' and request.is_ajax():
@@ -28,6 +28,9 @@ def CreatePost(request):
     return redirect("timeline_page")
 
 
+
+
+## Creat comment fun
 @csrf_protect
 def CreateComment(request):
     if request.method == 'POST' and request.is_ajax():
@@ -56,7 +59,7 @@ def CreateComment(request):
 
 
 
-
+## Get comments that related to post fun
 def get_comments(request):
     if request.method == 'GET' and request.is_ajax():
         post = request.GET['post']
@@ -71,6 +74,35 @@ def get_comments(request):
     return redirect("timeline_page")
 
 
+## like button
+def like_button(request):
+    if request.method == 'GET' and request.is_ajax():
+        user = Users.objects.get(username=request.user)
+        pk = request.GET['post']
+        post = Post.objects.get(id=pk)
+        likes = post.likes.all()
+        if user not in likes:
+            post.likes.add(user)
+            post.save()
+        else:
+            post.likes.remove(user)
+            post.save()
+
+        context = {
+            'user': user,
+            'post': post
+        }
+        template = "post-box.html"
+        return render(request, template, context)
+
+    return redirect("timeline_page")
+
+
+
+
+
+
+## Count views of posts that show in time line
 def count_post_views(request):
     if request.user.is_authenticated and request.is_ajax():
         user = Users.objects.get(username=request.user)

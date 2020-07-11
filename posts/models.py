@@ -14,6 +14,7 @@ class Post(models.Model):
     created_at      = models.DateTimeField(default=timezone.now)
     update_at       = models.DateTimeField(auto_now=True)
     viewers         = models.ManyToManyField(Users, related_name='viewed_posts', default=None, blank=True)
+    likes          = models.ManyToManyField(Users, related_name='liked_posts', default=None, blank=True)
 
     def save(self, *args, **kwargs):
 
