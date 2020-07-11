@@ -1,0 +1,12 @@
+
+<ul class="comment col">
+    <li class="u_c col">
+        <div>
+            <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
+        </div>
+        <div class="rp col">
+            <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
+            <span>{{ comment.content }}</span>
+        </div>
+    </li>
+</ul>

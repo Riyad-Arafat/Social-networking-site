@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
         <section class="p_h container-fluid">
             <div class="cover-page">
@@ -54,16 +55,58 @@
 
         <section id="posts-list" class="container">
             <div class="row row-cols-1">
-                {% include 'create_post.html' %}
-
-                <div id="time-line">
-                    {% include 'post-box.html' %}
+                {% if user == profile %}
+                    {% include 'create_post.html' %}
+                {% endif %}
+                <div id="time-line" class="infinite-container">
+                    {% for post in posts %}
+                        <div class="infinite-item">
+                            {% include 'post-box.html' %}
+                        </div>
+                    {% endfor %}
                 </div>
-
+                {% if posts.has_next %}
+                    <a class="infinite-more-link" href="?page={{ posts.next_page_number }}">More</a>
+                {% endif %}
+                <div class="loading" style="display: none;">Loading...</div>
             </div>
-
-
         </section>
+
+    <script>
+        var infinite = new Waypoint.Infinite({
+          element: $('.infinite-container')[0],
+          onBeforePageLoad: function () {
+            $('.loading').show();
+            $(".infinite-more-link").hide()
+            $('textarea').autoResize();
+          },
+          onAfterPageLoad: function ($items) {
+              $(".infinite-more-link").show()
+              $('.loading').hide();
+              $('textarea').autoResize();
+
+             function ss(){
+                var i, x = document.querySelectorAll(".post-body");
+
+                for (i=0 ; i < x.length; i++){
+
+                    $.ajax({
+                        url: 'posts/count_views',
+                        data: {
+                            id: $(x[i]).attr("data-key"),
+                        },
+                        success: function (data) {
+
+
+                        }
+                    })
+                }
+             }
+             ss()
+          }
+        });
+    </script>
+
 
 
 {% endblock %}

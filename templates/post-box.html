@@ -1,50 +1,41 @@
-{% for post in posts %}
-    <div class="post-body col container">
+    <div data-key="{{ post.id }}" class="post-body col container">
         <div class="row row-cols-1">
             <div class="publisher col">
-                <a href="{% url 'profile' post.author.username %}">
-                    <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
-                    <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
-                </a>
-                <hr>
+                <div>
+                    <a href="{% url 'profile' post.author.username %}">
+                        <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
+                        <span style="color: #385898" >{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                    </a>
+                </div>
+                {% if post.created_at|date:'P' == now|date:'P' %}
+                    <span class="since" style="color: #007bff">Now</span>
+                {% elif post.created_at|date:'Y' <  now|date:'Y' %}
+                    <span class="since">{{ post.created_at|date:'Y,M,d' }}</span>
+                {% else %}
+                    <span class="since">{{ post.created_at  | timesince }} ago</span>
+                {% endif %}
             </div>
-
             <div class="post-content col">
-                <p>{{ post.content | linebreaksbr}}</p>
+                <p>{{ post.content |safe|linebreaksbr}}</p>
             </div>
-             <hr>
+            {% if post.comments.count > 0 %}
+                <ul style="text-align: end; list-style: none; margin: 0; padding: 0px 5px; font-size: small;">
+                <span>{{ post.comments.count }} comments</span>
+            </ul>
+            {% endif %}
+            <hr>
+
             <div class="_ip col ">
                 <ul class="row row-cols=3">
 
                     <a class="col" href="#">Like</a>
 
-                    <a class="col" href="#">Comment</a>
+                    <a   class="col comment-btn" href="#">Comment</a>
 
                     <a class="col" href="#">Share</a>
                 </ul>
             </div>
-            <div id="comments-area" class="container">
-                {% include 'creat_comment.html' %}
-                {% for comment in comments %}
-                    {% if comment.post == post %}
-                    <ul class="comment col">
-                        <li class="u_c col">
-                            <div>
-                                <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
-
-                            </div>
-                            <div class="rp col">
-                                <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
-                                <span>{{ comment.content }}</span>
-                            </div>
-                        </li>
-
-
-
-                    </ul>
-                    {% endif %}
-                {% endfor %}
-            </div>
         </div>
     </div>
-{% endfor %}
+
+

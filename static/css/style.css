@@ -2,10 +2,16 @@ body{
     background-color: #e9ebee;
     overflow-wrap: break-word;
 }
-
+a{
+    outline: none;
+}
 a:hover{
     text-decoration: unset;
 
+}
+textarea{
+    overflow: hidden;
+    resize: none;
 }
 
 
@@ -103,7 +109,6 @@ a:hover{
 .create-post {
     background-color: #fff;
     border-radius: 3px;
-
     z-index: 2222;
 }
 ._hp{
@@ -143,17 +148,26 @@ a:hover{
 .create-post textarea{
     width: 100%;
     border: 0;
+    padding: 0px;
+    margin: 0px;
     resize: none;
     outline: none;
 }
 .btn-post{
     width: 100%;
-    background: #40a8f1;
+    color: black;
     border: 0;
     padding: 6px;
-    color: #fff;
+    color: black;
+    background-color: #b3d7ff;
     border-radius: 6px;
     margin: 0;
+
+}
+.btn-post:hover{
+    color: #fff;
+    background: #40a8f1;
+
 }
 
 
@@ -170,7 +184,14 @@ a:hover{
     height: 45px;
     border-radius: 100%;
 }
-
+.since{
+    position: relative;
+    left: 87px;
+    top: -13px;
+    font-size: 1px;
+    font-weight: 500;
+    color: #000000d1;
+}
 .post-content{
     padding: 10px 7px 0px 16px;
 }
@@ -197,6 +218,9 @@ a:hover{
     overflow-wrap: break-word;
     border-radius: 5px;
 }
+._ip ul a:hover{
+    background-color: #bcc0c5;
+}
 
 
 
@@ -211,19 +235,39 @@ a:hover{
     width: 90%;
     outline: none;
     background-color: #e9ebee;
-    padding: 1px 6px;
+    padding: 0px 6px;
+    margin: 0px;
     border: 1px solid #ccd0d5;
     border-radius: 16px;
-    display: flex;
     justify-content: flex-end;
 }
 
 
 
-#comments-area{
+.comments-area{
     margin-top: 21px;
+    max-height: 510px;
+    overflow: auto;
 }
-.cooment{
+.comments-area::-webkit-scrollbar{
+    width: 10px;
+    max-height: 20px;
+}
+.comments-area::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.comments-area::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+.comments-area .btn-post{
+    max-height: 40px;
+    left: 5px;
+    top: 5px;
+    outline: none;
+    position: relative;
+}
+.comment{
     width: fit-content;
 }
 
@@ -242,6 +286,8 @@ a:hover{
 
 .u_c .rp {
     width: fit-content;
+    padding: 6px 14px;
+    overflow-wrap: break-word;
     background: #e9ebee;
     border-radius: 15px;
 
@@ -254,17 +300,39 @@ a:hover{
     z-index: 33;
 }
 
-.form-group{
+.comment-form{
     display: flex;
 }
-.form-group input{
+.comment-form input{
     width: unset;
+    background-color: unset;
+    color: black;
+    border: 1px solid grey;
+}
+.comment-form input:hover{
+    background-color: #40a8f1;
+    color: #fff;
+
 }
 
 
 
 
+.get-more-posts{
+    text-align: center;
+    margin: 22px 0px;
 
+}
+.get-more-posts a{
+    transition: all 0.25s ease;
+    background: #adb5bd5e;
+}
+.get-more-posts a:hover{
+    background-color: #393e46;
+    color: #fff;
+    font-size: 18pt;
+    transition: all 0.25s ease;
+}
 
 
 
@@ -283,7 +351,7 @@ a:hover{
 .info-side {
     position: -webkit-sticky;
     position: sticky;
-    top: 59px;
+    top: 65px;
     background-color: #fff;
     border-radius: 3px;
     overflow: hidden;  

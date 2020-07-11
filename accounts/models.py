@@ -91,11 +91,11 @@ class Users(AbstractBaseUser):
 ###################### PROFILE METHOD ########################
 
 def profile_picture_upload(instance,filename):
-	imgename , extention = filename.split('.')
-	return f'profile/{instance.id}/picture/{imgename}.{extention}'
+	iconname , extension = filename.split('.')
+	return f'profile/{instance.id}/picture/{iconname}.{extension}'
 def profile_cover_upload(instance,filename):
-	imgename , extention = filename.split('.')
-	return f'profile/{instance.id}/cover/{imgename}.{extention}'
+	iconname , extension = filename.split('.')
+	return f'profile/{instance.id}/cover/{iconname}.{extension}'
 
 class Profile(models.Model):
 
@@ -103,8 +103,8 @@ class Profile(models.Model):
 	username			= models.CharField(max_length=30)
 	first_name 			= models.CharField(max_length=30)
 	last_name 			= models.CharField(max_length=30)
-	picture				= models.ImageField(upload_to=profile_picture_upload,default="default.jpg")
-	cover				= models.ImageField(upload_to=profile_cover_upload,default="default.jpg")
+	picture				= models.ImageField(upload_to=profile_picture_upload, default="default.jpg")
+	cover				= models.ImageField(upload_to=profile_cover_upload, default="default.jpg")
 	bio					= models.TextField(max_length=150, blank=True, null=True)
 	university			= models.CharField(max_length=30)
 	faculty				= models.CharField(max_length=30)

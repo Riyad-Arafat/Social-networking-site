@@ -1,10 +1,13 @@
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate,logout,login
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from django.contrib.auth import authenticate, logout, login
 
 from .forms import UserRegistrationForm, UserLoginForm
-from .models import  Profile, Users
-from posts.models import Comment
+
+from .models import Profile, Users
+from posts.models import Comment , Post
 
 
 # Create your views here.
@@ -15,7 +18,7 @@ from posts.models import Comment
 def signup(request):
     user = request.user
     if user.is_authenticated:
-        return redirect("home_page")
+        return redirect("timeline_page")
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -38,10 +41,10 @@ def signup(request):
 ######################### LOGIN FORM VIEW #############################3
 
 
-def loginForm(request):
+def login_form(request):
     user = request.user
     if user.is_authenticated:
-        return redirect("home_page")
+        return redirect("timeline_page")
 
     if request.method == 'POST':
         form = UserLoginForm()
@@ -62,7 +65,17 @@ def loginForm(request):
 
 
     template = 'registration/login.html'
-    return  render(request, template,context)
+    return render(request, template,context)
+
+
+################################ logout ###################################33
+
+def log_out(request):
+    logout(request)
+    return redirect('/')
+
+
+
 
 
 
@@ -70,18 +83,33 @@ def loginForm(request):
 
 ##################### PROFILE VIEW ############################
 
-def profile(request,username):
+def profile(request, username):
     x = request.user
-    user = Profile.objects.get(username=x)
-    profile = get_object_or_404(Profile ,username=username)
-    posts = profile.posts.all().order_by('-created_at')
-    comments = Comment.objects.all().order_by('-created_at')
+    if x.is_authenticated:
+        user = Profile.objects.get(username=x)
+    else:
+        user = None
+    profile_user = get_object_or_404(Profile, username=username)
+    posts = profile_user.posts.all().order_by('-created_at')
+    comments = Comment.objects.all().order_by("-created_at")
+    page = request.GET.get('page', 1)
+    paginator = Paginator(posts, 2)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+
+
     context = {
 
         'user': user,
-        'profile' : profile,
+        'profile' : profile_user,
         'posts' : posts,
         'comments': comments,
+        'now': timezone.now
     }
     template = 'profile.html'
 

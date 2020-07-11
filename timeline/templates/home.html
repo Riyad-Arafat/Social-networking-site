@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <div id="home-body" class="container">
         <div class="row row-cols-md-2 row-cols-1">
@@ -9,22 +10,39 @@
                             <img src="{{ user.picture.url }}" alt="{{ user.username }}"><br>
                             <span>{{ user.user.first_name }} {{ user.user.last_name }}</span>
                         </a>
-
                     </div>
                 </div>
             </section>
 
-            <section class="container">
+            <div class="container">
                 <div class="row row-cols-1">
 
                     {% include 'create_post.html' %}
 
+
                     <div id="time-line">
-                        {% include 'post-box.html' %}
+                        {% for post in posts %}
+                            {% include 'post-box.html' %}
+                        {% endfor %}
+                        {% if posts.has_next %}
+                            <div>اعلان</div>
+                        {% endif %}
                     </div>
+                    {% if posts.has_next %}
+                        <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
+                        <div class="loading" style="display: none;">Loading...</div>
+                        {% else %}
+                             <div class="get-more-posts" style="display: none" >
+                        <a class="nav-link" href="">Get more update</a>
+                    </div>
+                    {% endif %}
+
+
                 </div>
-            </section>
+            </div>
         </div>
+
     </div>
+
 
 {% endblock %}
