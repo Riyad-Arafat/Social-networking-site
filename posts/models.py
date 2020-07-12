@@ -1,7 +1,9 @@
+import re
+
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField
-from accounts.models import Profile,Users
+from accounts.models import Profile, Users
 
 from urlextract import URLExtract
 
@@ -10,7 +12,7 @@ from urlextract import URLExtract
 
 class Post(models.Model):
     author          = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
-    content         = RichTextField(blank=True, null=True)
+    content         = models.TextField(blank=True, null=True)
     created_at      = models.DateTimeField(default=timezone.now)
     update_at       = models.DateTimeField(auto_now=True)
     viewers         = models.ManyToManyField(Users, related_name='viewed_posts', default=None, blank=True)
@@ -18,15 +20,30 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
 
-        extractor = URLExtract()
-        urls = extractor.find_urls(self.content)
-        x = self.content
-        y = 0
-        while y < len(urls):
-            i = f'<a href="{urls[y]}">{urls[y]}</a>'
+        regex_url = '(http[s]?:\/\/[^"<\s]+)(?![^<>]*>|[^"]*?<\/a)'
+        urls = re.findall(regex_url, self.content, re.MULTILINE)
+
+        regex_hash_tag = '(#[^"<\s]+)(?![^<>]*>|[^"]*?<\/a)'
+        hash_tag = re.findall(regex_hash_tag, self.content, re.MULTILINE)
+
+        regex_mentions = '(@[^"<\s]+)(?![^<>]*>|[^"]*?<\/a)'
+        mentions = re.findall(regex_mentions, self.content, re.MULTILINE)
+
+        for url in urls:
+            i = f'<a target="_blank" href="{url}">{url}</a>'
             if i not in self.content:
-                self.content = x.replace(urls[y], f'<a href="{urls[y]}">{urls[y]}</a>')
-            y += 1
+                self.content = self.content.replace(str(url), i)
+
+        for tag in hash_tag:
+            i = f'<a href="{tag[1:]}">{tag}</a>'
+            if i not in self.content:
+                self.content = self.content.replace(tag, i)
+
+        for tag in mentions:
+            i = f'<a href="{tag[1:]}">{tag[1:]}</a>'
+            if i not in self.content:
+                self.content = self.content.replace(tag, i)
+
 
         super(Post, self).save(*args, **kwargs)
 

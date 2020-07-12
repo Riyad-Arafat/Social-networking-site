@@ -389,6 +389,13 @@ textarea{
 
 /* profile page */
 
+.follow-btn{
+    outline: none;
+    background-color: white;
+    color: #000;
+    border: 1px solid #464545;
+}
+
 .p_h{
     justify-content: center;
     text-align: center;
@@ -442,9 +449,7 @@ textarea{
     overflow-wrap: break-word;
 }
 
-.career{
-    text-align: left;
-}
+
 
 .career h6{
     font-weight: unset;

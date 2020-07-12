@@ -22,10 +22,10 @@
 
                     <div id="time-line">
                         {% for post in posts %}
-                            {% include 'post-box.html' %}
+                            <div class="post">{% include 'post-box.html' %}</div>
                         {% endfor %}
                         {% if posts.has_next %}
-                            <div>اعلان</div>
+                            <div class="post">اعلان</div>
                         {% endif %}
                     </div>
                     {% if posts.has_next %}

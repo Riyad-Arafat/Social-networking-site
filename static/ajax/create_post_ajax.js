@@ -145,20 +145,22 @@ $(document).bind('DOMSubtreeModified', function(){
 ////////////////////////////////// Loading posts in time line when scroll down ///////////////////////////////
 
 $(window).off('scroll').on('scroll',function() {
-    if($(window).scrollTop() == $(document).height() - $(window).height()) {
+    if($(window).scrollTop() === $(document).height() - $(window).height()) {
         var $more = $('.page-more-link')
+
         /// Before loading items /////
         $('.get-more-posts').hide()
 
         //// Get new items //////
-        $.get($($more).attr('href'), $.proxy(function(data) {
+        if($more.length > 0){
+            $.get($($more).attr('href'), $.proxy(function(data) {
             var $data = $($.parseHTML(data))
             var $newMore = $data.find('.page-more-link')
-            var $items = $data.find('.post-body')
+            var $items = $data.find('.post')
             var $container = $('#time-line')
 
             if (!$items.length) {
-                   $items = $data.filter('.post-body')
+                   $items = $data.filter('.post')
                }
             $container.append($items)
 
@@ -177,7 +179,7 @@ $(window).off('scroll').on('scroll',function() {
             $('.get-more-posts').show()
             /// count views of posts fun /////
             function countViews(){
-                var i, x = $items
+                var i, x = $items.find('.post-body')
                 for (i=0 ; i < x.length; i++){
                     $.ajax({
                         url: 'posts/count_views',
@@ -190,5 +192,32 @@ $(window).off('scroll').on('scroll',function() {
             countViews()
 
         }))
+        }
+
     }
 });
+
+
+
+///////////////////// follow profile ////////////////
+
+$(document).ready(function () {
+    $('.follow-btn').off('click').on('click',function (e) {
+        e.preventDefault()
+        var $x = e.target;
+
+        var $id = $($x).attr('data-key')
+
+        $.ajax({
+            url : 'follow/profile',
+            type: 'Get',
+            cache: false,
+            data : {
+                id : $id
+
+            },
+        })
+    })
+
+})
+

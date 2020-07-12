@@ -21,7 +21,7 @@ def home_page(request):
     user = request.user
     if user.is_authenticated:
         user_authenticated = Profile.objects.get(user=request.user)
-        posts = Post.objects.all().order_by('-created_at')
+        posts = Post.objects.filter(author__in=user.following.all()).order_by('-created_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(posts, 5)
         try:

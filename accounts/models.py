@@ -111,6 +111,8 @@ class Profile(models.Model):
 	level				= models.CharField(max_length=30)
 	nationality			= models.CharField(max_length=30)
 	location			= models.CharField(max_length=30)
+	followers 			= models.ManyToManyField(Users, related_name='followers', default=None, blank=True)
+	following 			= models.ManyToManyField(Users, related_name='following', default=None, blank=True)
 
 
 	@receiver(post_save, sender=Users)

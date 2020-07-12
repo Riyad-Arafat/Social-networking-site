@@ -10,6 +10,12 @@ from .models import Profile, Users
 from posts.models import Comment , Post
 
 
+
+
+from django.http import HttpResponse, HttpResponseRedirect
+from urlextract import URLExtract
+
+
 # Create your views here.
 
 
@@ -89,11 +95,12 @@ def profile(request, username):
         user = Profile.objects.get(username=x)
     else:
         user = None
+
     profile_user = get_object_or_404(Profile, username=username)
     posts = profile_user.posts.all().order_by('-created_at')
     comments = Comment.objects.all().order_by("-created_at")
     page = request.GET.get('page', 1)
-    paginator = Paginator(posts, 2)
+    paginator = Paginator(posts, 5)
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -113,6 +120,25 @@ def profile(request, username):
     }
     template = 'profile.html'
 
-
-
     return render(request, template, context)
+
+
+############ follow profile #######################
+
+def follow(request):
+    if request.user.is_authenticated and request.is_ajax():
+        pk = request.GET['id']
+        user = Profile.objects.get(username=request.user)
+        user2 = Users.objects.get(profile=pk)
+
+        profile1 = Profile.objects.get(id=pk)
+        print(profile1)
+
+        following = user.following.all()
+        if user2 not in following:
+            user.following.add(user2)
+            user.save()
+            profile1.followers.add(request.user)
+            profile1.save()
+
+        return HttpResponse('')

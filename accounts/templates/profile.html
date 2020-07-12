@@ -10,8 +10,21 @@
             </div>
 
 
+
             <div class="info-user">
+
                 <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+                {% if request.user.is_authenticated %}
+                {% if user != profile %}
+                <span>
+                    {% if request.user in profile.followers.all %}
+                        <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="unFollow">
+                        {% else %}
+                        <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                    {% endif %}
+                </span>
+                {% endif %}
+                {% endif %}
                 <div class="row">
                     <div class="bio col-sm-6">
                         <h4>Bio</h4>
@@ -21,7 +34,8 @@
                     </div>
                 </div>
                 <br>
-                <div class="row row-cols-2 offset-md-1">
+                <div class="container">
+                    <div class="row row-cols-2 offset-md-1">
                     <div class="career col  row-cols-12 ">
                         <div class="col" >
                             <h6>University: <span><a href="#">{{ profile.university }}</a></span></h6>
@@ -41,15 +55,13 @@
                     </div>
                     <div class="career col row-cols-12">
                         <div class="col" >
-                            <h6>Flowers: <span><a href="#">100+</a></span></h6>
-                            <h6>Flowing: <span><a href="#">100+</a></span></h6>
+                            <h6>Followers: <span><a href="#">{{ profile.followers.count }}</a></span></h6>
+                            <h6>Following: <span><a href="#">{{ profile.following.count }}</a></span></h6>
 
                         </div>
                     </div>
                 </div>
-
-
-
+                </div>
             </div>
         </section>
 

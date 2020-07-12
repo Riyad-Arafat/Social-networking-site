@@ -41,8 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'timeline',
     'posts',
-    'ckeditor'
+    
 ]
+
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+
 
 AUTH_USER_MODEL = 'accounts.Users'
 MIDDLEWARE = [
@@ -124,10 +129,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+
 ]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+

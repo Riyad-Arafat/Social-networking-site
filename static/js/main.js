@@ -47,10 +47,7 @@ if  (C_POST){
 
 
     };
-}
-
-
-window.onclick = function(event) {
+    window.onclick = function(event) {
     if (event.target == ov) {
         var x = document.getElementById("ov"),
             nav = nav = document.getElementsByTagName("header")[0],
@@ -61,6 +58,9 @@ window.onclick = function(event) {
 
     }
 };
+}
+
+
 
 
 /////////////////////////////////// count views of post ////////////////////////

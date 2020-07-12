@@ -1,14 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.utils import timezone
-from django.http import JsonResponse
-from django.core import serializers
+
 
 from django.views.decorators.csrf import csrf_protect
 
 
-from rest_framework.response import Response
+
 
 
 from .models import Post, Comment, Profile, Users
@@ -115,3 +113,6 @@ def count_post_views(request):
 
         return HttpResponse('')
     return redirect("timeline_page")
+
+
+
