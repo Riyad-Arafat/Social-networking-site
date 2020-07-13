@@ -3,14 +3,17 @@
 
 $('#creat_post').submit(function (e) {
     e.preventDefault()
-    post = $('#post').val()
-    if (post !== ""){
+
+    var $content = $('#post').val()
+    var $post = '<p dir="auto">' + $content.replace(/\n/g, "</p>\n<p dir='auto' >") + '</p>';
+
+    if ($content !== "" && $content !== ' '){
         $.ajax({
             url : 'create/post',
             type : 'POST',
             cache: false,
             data:{
-                content : $('#post').val(),
+                content : $post,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
 
             },
@@ -21,6 +24,9 @@ $('#creat_post').submit(function (e) {
             error: function (data,status,xhr) {
             }
         })
+    }
+    else{
+        alert('Plz write post')
     }
 })
 
@@ -72,11 +78,8 @@ $(document).bind('DOMSubtreeModified', function() {
             },
             success: function (data, status, xhr) {
                 $data = $.parseHTML(data)
-                console.log(data)
                 $s = $data[1]
-                console.log($post.find('.post-body'))
                 $post.find('.stat').replaceWith($($data).find('.stat'))
-
 
                 $audio.play()
 
@@ -122,7 +125,7 @@ $(document).bind('DOMSubtreeModified', function(){
                 success: function (data,status,xhr){
 
                     $comment.val(null)
-                    console.log($comment.css('height', 'unset'))
+
                     $comment.scrollHeight = 0
                     $data= $.parseHTML(data);
                     $($data).prependTo($new_comment)
@@ -145,54 +148,43 @@ $(document).bind('DOMSubtreeModified', function(){
 ////////////////////////////////// Loading posts in time line when scroll down ///////////////////////////////
 
 $(window).off('scroll').on('scroll',function() {
-    if($(window).scrollTop() === $(document).height() - $(window).height()) {
+    if( $(window).scrollTop(0)) {
         var $more = $('.page-more-link')
 
-        /// Before loading items /////
-        $('.get-more-posts').hide()
+        ///// Before loading new items ////
+        $('.get-more-posts').hide();
+        $('.loading').show();
 
-        //// Get new items //////
-        if($more.length > 0){
-            $.get($($more).attr('href'), $.proxy(function(data) {
-            var $data = $($.parseHTML(data))
-            var $newMore = $data.find('.page-more-link')
-            var $items = $data.find('.post')
-            var $container = $('#time-line')
+        $.get($($more).attr('href'), $.proxy(function(data) {
+            var $data = $($.parseHTML(data));
+            var $newMore = $data.find('.page-more-link');
+            var $items = $data.find('.post');
+            var $container = $('#time-line');
 
             if (!$items.length) {
-                   $items = $data.filter('.post')
+                   $items = $data.filter('.post');
                }
-            $container.append($items)
+
+            $container.append($items);
 
             if (!$newMore.length) {
-                   $newMore = $data.filter('.page-more-link')
+                   $newMore = $data.filter('.page-more-link');
                }
             if ($newMore.length) {
                 $more.replaceWith($newMore)
                 $more = $newMore
             }
             else {
-                   $more.remove()
+                   $more.remove();
             }
             ///// After loading new items ////
-            autosize_textarea()
-            $('.get-more-posts').show()
+            autosize_textarea();
+            $('.get-more-posts').show();
+            $('.loading').hide()
             /// count views of posts fun /////
-            function countViews(){
-                var i, x = $items.find('.post-body')
-                for (i=0 ; i < x.length; i++){
-                    $.ajax({
-                        url: 'posts/count_views',
-                        data: {
-                            id: $(x[i]).attr("data-key"),
-                        },
-                    })
-                }
-            }
-            countViews()
+            countViews($($items).find('.post-body'));
 
         }))
-        }
 
     }
 });

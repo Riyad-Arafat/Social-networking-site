@@ -18,8 +18,6 @@
                 <div class="row row-cols-1">
 
                     {% include 'create_post.html' %}
-
-
                     <div id="time-line">
                         {% for post in posts %}
                             <div class="post">{% include 'post-box.html' %}</div>
@@ -31,10 +29,9 @@
                     {% if posts.has_next %}
                         <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
                         <div class="loading" style="display: none;">Loading...</div>
-                        {% else %}
-                             <div class="get-more-posts" style="display: none" >
-                        <a class="nav-link" href="">Get more update</a>
-                    </div>
+                        <div class="get-more-posts" style="display: none" >
+                             <a class="nav-link" href="">Get more update</a>
+                         </div>
                     {% endif %}
 
 

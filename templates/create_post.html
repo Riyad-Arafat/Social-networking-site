@@ -5,11 +5,13 @@
         <div class="_hp">Creat Post</div>
             <div class="_bp">
                 <form id="creat_post" action="" method="POST"> {% csrf_token %}
-                    <textarea id="post" placeholder="what's on your mind"></textarea>
+                        <textarea dir=auto role="textbox" contenteditable id="post" placeholder="what's on your mind" name="post"></textarea>
                     <input class="btn-post" type="submit" value="Post">
                 </form>
             </div>
         </div>
+    </div>
 </div>
+
 
 {% endif %}

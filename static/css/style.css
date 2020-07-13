@@ -196,6 +196,22 @@ textarea{
 }
 .post-content{
     padding: 10px 7px 0px 16px;
+    overflow: hidden;
+}
+.post-content p{
+    margin-bottom: 0px;
+    text-align: justify;
+}
+.load-more{
+    text-align: center;
+}
+.load-more a::after {
+    content: "\27F1";
+    font-size: 26px;
+    color: #000;
+    position: relative;
+    display: block;
+    margin-top: -14px;
 }
 
 

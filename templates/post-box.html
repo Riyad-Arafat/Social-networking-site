@@ -16,8 +16,10 @@
                 {% endif %}
             </div>
             <div class="post-content col">
-                <p>{{ post.content |safe|linebreaksbr}}</p>
+                {{ post.content |safe}}
+
             </div>
+            <div class="load-more" style="display: none"><a href="#">There is more</a></div>
             <ul class="stat" style="text-align: end; list-style: none; margin: 0; padding: 0px 5px; font-size: small;">
             {% if post.comments.count > 0 %}
                 <span>{{ post.comments.count }} comments</span>

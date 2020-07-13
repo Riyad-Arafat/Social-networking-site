@@ -1,5 +1,4 @@
 /////////////// main functions //////////////////
-
 function autosize_textarea() {
     $('textarea').on('input',function autosize() {
         var el = this;
@@ -14,8 +13,8 @@ function autosize_textarea() {
 
 }
 
-function countViews(){
-    var i, x = document.querySelectorAll(".post-body");
+function countViews(x){
+    var i;
     for (i=0 ; i < x.length; i++){
         $.ajax({
             url: 'posts/count_views',
@@ -26,6 +25,18 @@ function countViews(){
     }
 }
 
+function max_height() {
+  var $post = $('.post-content');
+  for (var i=0; i < $post.length; i++){
+      if($($post[i]).height() > 130){
+          $($post[i]).css('height', '130px')
+          $($post[i]).offsetParent().find('.load-more').show()
+
+      }
+
+  }
+
+}
 
 
 
@@ -33,7 +44,8 @@ function countViews(){
 
 
 
-// CREAT POST MODEL
+
+/////////////////// CREAT POST MODEL
 
 var C_POST = document.getElementById("post");
 if  (C_POST){
@@ -48,7 +60,7 @@ if  (C_POST){
 
     };
     window.onclick = function(event) {
-    if (event.target == ov) {
+    if (event.target === ov) {
         var x = document.getElementById("ov"),
             nav = nav = document.getElementsByTagName("header")[0],
             y = document.getElementById('post-m');
@@ -62,11 +74,13 @@ if  (C_POST){
 
 
 
-
 /////////////////////////////////// count views of post ////////////////////////
 $(document).ready(function () {
-    autosize_textarea()
-    countViews();
+    max_height();
+    autosize_textarea();
+    var x = document.querySelectorAll(".post-body")
+    countViews(x);
+
 
 })
 
@@ -74,9 +88,9 @@ $(document).ready(function () {
 
 
 
-// COMMUNITY TAGS PAGE 
+//////////////////////////////// COMMUNITY TAGS PAGE
 
-  var swiper = new Swiper('.swiper-tags', {
+var swiper = new Swiper('.swiper-tags', {
     slidesPerView: 5,
     freemode: true,
     centeredSlides: true,

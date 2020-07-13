@@ -5,14 +5,14 @@ from django.utils import timezone
 
 from accounts.models import Profile, Users
 
-from urlextract import URLExtract
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
 
 class Post(models.Model):
     author          = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
-    content         = models.TextField(blank=True, null=True)
+    content         = RichTextField(blank=True, null=True)
     created_at      = models.DateTimeField(default=timezone.now)
     update_at       = models.DateTimeField(auto_now=True)
     viewers         = models.ManyToManyField(Users, related_name='viewed_posts', default=None, blank=True)
