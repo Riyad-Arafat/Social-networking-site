@@ -19,9 +19,19 @@ from .models import Post, Comment, Profile, Users
 def CreatePost(request):
     if request.method == 'POST' and request.is_ajax():
         content = request.POST['content']
-        Post.objects.create(
-            author = Profile.objects.get(username=request.user),
-            content = content)
+        community = request.POST['community']
+        if community != 'none':
+            Post.objects.create(
+                author=Profile.objects.get(username=request.user),
+                content=content,
+                community_id=community
+            )
+        else:
+            Post.objects.create(
+                author=Profile.objects.get(username=request.user),
+                content=content,
+            )
+
 
         return HttpResponseRedirect(reverse("timeline_page"))
     return redirect("timeline_page")

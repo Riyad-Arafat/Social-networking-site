@@ -3,17 +3,25 @@
 
 $('#creat_post').submit(function (e) {
     e.preventDefault()
-
-    var $content = $('#post').val()
+    var $community = $('#community');
+    var $cid;
+    if ($community.length > 0 ){
+        $cid = $($community).attr('data-key')
+    }else {
+        $cid = 'none';
+    }
+    var $content = $('#post').val();
     var $post = '<p dir="auto">' + $content.replace(/\n/g, "</p>\n<p dir='auto' >") + '</p>';
+
 
     if ($content !== "" && $content !== ' '){
         $.ajax({
-            url : 'create/post',
+            url : $creat_post,
             type : 'POST',
             cache: false,
             data:{
                 content : $post,
+                community : $cid,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
 
             },
@@ -39,7 +47,7 @@ $(document).bind('DOMSubtreeModified', function() {
         var $x = e.target;
         var $post = $($x).offsetParent().offsetParent()
         $.ajax({
-            url: 'get/comments',
+            url: $get_comments,
             type: 'GET',
             cache: false,
             data: {
@@ -70,7 +78,7 @@ $(document).bind('DOMSubtreeModified', function() {
         var $post = $($x).offsetParent().offsetParent()
 
         $.ajax({
-            url: 'post/like',
+            url: $like_btn,
             type: 'GET',
             cache: false,
             data: {
@@ -114,7 +122,7 @@ $(document).bind('DOMSubtreeModified', function(){
 
         if ($comment.val() !== "" ){
             $.ajax({
-                url : 'create/comment',
+                url : $creat_comment,
                 type : 'POST',
                 cache: false,
                 data :{
@@ -142,7 +150,7 @@ $(document).bind('DOMSubtreeModified', function(){
 })
 
 var infinite = new Waypoint.Infinite({
-    element: $('#time-line'),
+    element: $('#time-line')[0],
     items: '.post',
     more: '.page-more-link',
     onBeforePageLoad: function () {

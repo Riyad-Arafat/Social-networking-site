@@ -17,7 +17,7 @@ function countViews(x){
     var i;
     for (i=0 ; i < x.length; i++){
         $.ajax({
-            url: 'posts/count_views',
+            url: $count_views,
             data: {
                 id: $(x[i]).attr("data-key"),
             },
@@ -103,9 +103,9 @@ $(document).ready(function () {
 //////////////////////////////// COMMUNITY TAGS PAGE
 
 var swiper = new Swiper('.swiper-tags', {
-    slidesPerView: 5,
+    slidesPerView: 4,
+    spaceBetween: 30,
     freemode: true,
-    centeredSlides: true,
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',

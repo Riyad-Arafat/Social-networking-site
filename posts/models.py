@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from accounts.models import Profile, Users
-
+from community.models import Community
 from ckeditor.fields import RichTextField
 
 # Create your models here.
@@ -12,6 +12,7 @@ from ckeditor.fields import RichTextField
 
 class Post(models.Model):
     author          = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
+    community       = models.ForeignKey(Community, on_delete=models.CASCADE, default=None, related_name='posts', blank=True, null=True)
     content         = RichTextField(blank=True, null=True)
     created_at      = models.DateTimeField(default=timezone.now)
     update_at       = models.DateTimeField(auto_now=True)

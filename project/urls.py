@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('timeline.urls')),
     path('',include('posts.urls')),
     path('', include('accounts.urls')),
+    path('',include('community.urls')),
     path('admin/admin', admin.site.urls),
 
 ]

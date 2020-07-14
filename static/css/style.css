@@ -4,9 +4,10 @@ body{
 }
 a{
     outline: none;
+    text-decoration:none;
 }
 a:hover{
-    text-decoration: unset;
+    text-decoration: none;
 
 }
 textarea{
@@ -112,7 +113,7 @@ textarea{
 /* Time Line */
 #time-line{
     margin-top: 25px;
-    margin-bottom: 200px;
+
 }
 .create-post {
     background-color: #fff;
@@ -355,7 +356,7 @@ textarea{
     transition: all 0.25s ease;
     background: #adb5bd5e;
     position: relative;
-    bottom: 166px;
+
 }
 .get-more-posts a:hover{
     background-color: #393e46;
@@ -495,7 +496,6 @@ textarea{
     background-color: #fff;
     border-radius: 3px;
     padding: 10px;
-    box-shadow: 0px 1px 8px 2px grey;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -512,11 +512,10 @@ textarea{
 }
 .linkers img{
     width: 80px;
+    height: 45px;
     border-radius: 100%;
 
 }
-
-
 
 
 
@@ -541,5 +540,27 @@ textarea{
     background-color: #fff;
     padding: 20px;
     border-radius: 3px;
-    box-shadow: 0px 1px 5px 1px grey;
+}
+.swiper-button{
+    background: #e9ebee;
+    border-radius: 39px;
+    width: 51px;
+    height: 52px;
+    box-shadow: 0px 0px 2px 1px #0000007d;
+}
+.swiper-button-prev{
+    left: 1px;
+    top: 29px;
+}
+.swiper-button-next{
+    top: 29px;
+    right: 2px;
+}
+.swiper-button-disabled{
+    display: none;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+    font-size: 33px;
+    font-weight: bolder;
+
 }
