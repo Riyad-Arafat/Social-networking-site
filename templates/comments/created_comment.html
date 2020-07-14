@@ -6,7 +6,7 @@
         </div>
         <div class="rp col">
             <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
-            <span>{{ comment.content }}</span>
+            <span>{{ comment.content | linebreaks}}</span>
         </div>
     </li>
 </ul>

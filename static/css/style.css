@@ -15,7 +15,11 @@ textarea{
 }
 
 
-
+.loading{
+    background-color: white;
+    position: relative;
+    bottom: 166px;
+}
 
 
 /* login page */
@@ -105,9 +109,11 @@ textarea{
     margin-top: 50px;
 }
 
-
-
 /* Time Line */
+#time-line{
+    margin-top: 25px;
+    margin-bottom: 200px;
+}
 .create-post {
     background-color: #fff;
     border-radius: 3px;
@@ -120,7 +126,6 @@ textarea{
 ._bp{
     padding: 10px 6px 20px 16px;
 }
-
 .fm{
     position: relative;
     z-index: 311 !important;
@@ -129,7 +134,6 @@ textarea{
     overflow: auto;
     border: 1px solid #7d7d7d94;
 }
-
 .op{
     background: #000;
     bottom: 100%;
@@ -146,7 +150,6 @@ textarea{
     opacity: 0.6;
     transition: opacity .3s;
 }
-
 .create-post textarea{
     width: 100%;
     border: 0;
@@ -172,13 +175,13 @@ textarea{
 
 }
 
-
-
+.post{
+    margin-bottom: 25px;
+}
 .post-body{
     background-color: #fff;
     border-radius: 3px ;
     padding: 18px;
-    margin-top: 24px;
     width: 660px;
 }
 .publisher img{
@@ -351,6 +354,8 @@ textarea{
 .get-more-posts a{
     transition: all 0.25s ease;
     background: #adb5bd5e;
+    position: relative;
+    bottom: 166px;
 }
 .get-more-posts a:hover{
     background-color: #393e46;

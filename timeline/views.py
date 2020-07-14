@@ -8,7 +8,7 @@ from django.core.cache import cache
 
 
 from posts.models import Post, Comment
-from accounts.models import Profile
+from accounts.models import Profile, Users
 from django.db.models import Q
 
 
@@ -20,8 +20,8 @@ def home_page(request):
     cache.clear()
     user = request.user
     if user.is_authenticated:
-        user_authenticated = Profile.objects.get(user=request.user)
-        posts = Post.objects.filter(author__in=user.following.all()).order_by('-created_at')
+        user = Users.objects.get(username=request.user)
+        posts = Post.objects.filter(Q(author__followers=user) | Q(author=user.profile)).order_by('-created_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(posts, 5)
         try:
@@ -32,7 +32,7 @@ def home_page(request):
             posts = paginator.page(paginator.num_pages)
 
         context = {
-            'user' : user_authenticated,
+            'user' : user.profile,
             'posts' : posts,
             'now': timezone.now
 

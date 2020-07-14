@@ -25,16 +25,26 @@ function countViews(x){
     }
 }
 
-function max_height() {
-  var $post = $('.post-content');
-  for (var i=0; i < $post.length; i++){
-      if($($post[i]).height() > 130){
-          $($post[i]).css('height', '130px')
-          $($post[i]).offsetParent().find('.load-more').show()
+function max_height(post) {
+  for (var i=0; i < post.length; i++){
+      if($(post[i]).height() > 260){
+          $(post[i]).css('height', '130px')
+          $(post[i]).offsetParent().find('.load-more').show()
 
       }
 
   }
+}
+
+function read_more() {
+        var $loadMore = $('.load-more');
+        $($loadMore).on('click',function (e) {
+          e.preventDefault()
+          var $x =e.target
+          var $content = $($x).offsetParent().find('.post-content')
+          $($content).css('height', 'unset')
+          $($x).hide()
+      })
 
 }
 
@@ -45,7 +55,7 @@ function max_height() {
 
 
 
-/////////////////// CREAT POST MODEL
+/////////////////// CREAT POST MODEL///////////////
 
 var C_POST = document.getElementById("post");
 if  (C_POST){
@@ -76,7 +86,9 @@ if  (C_POST){
 
 /////////////////////////////////// count views of post ////////////////////////
 $(document).ready(function () {
-    max_height();
+    var $post = $('.post-content');
+    max_height($post);
+    read_more()
     autosize_textarea();
     var x = document.querySelectorAll(".post-body")
     countViews(x);

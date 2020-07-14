@@ -31,16 +31,14 @@
             <hr>
 
             <div class="_ip col ">
-                <ul class="row row-cols=3">
+                <ul class="row">
                     {% if request.user in post.likes.all %}
                         <a class="col like-btn active" href="#">Like</a>
                         {% else %}
                             <a class="col like-btn" href="#">Like</a>
                     {% endif %}
 
-                    <a   class="col comment-btn" href="#">Comment</a>
-
-                    <a class="col" href="#">Share</a>
+                    <a class="col comment-btn" href="#">Comment</a>
                 </ul>
             </div>
         </div>

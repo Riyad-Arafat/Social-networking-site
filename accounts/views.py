@@ -130,9 +130,7 @@ def follow(request):
         pk = request.GET['id']
         user = Profile.objects.get(username=request.user)
         user2 = Users.objects.get(profile=pk)
-
         profile1 = Profile.objects.get(id=pk)
-        print(profile1)
 
         following = user.following.all()
         if user2 not in following:
@@ -140,5 +138,13 @@ def follow(request):
             user.save()
             profile1.followers.add(request.user)
             profile1.save()
+        else:
+            user.following.remove(user2)
+            user.save()
+            profile1.followers.remove(request.user)
+            profile1.save()
+
+
+
 
         return HttpResponse('')

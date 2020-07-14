@@ -125,8 +125,8 @@ $(document).bind('DOMSubtreeModified', function(){
                 success: function (data,status,xhr){
 
                     $comment.val(null)
+                    $($comment).css('height' , 'unset')
 
-                    $comment.scrollHeight = 0
                     $data= $.parseHTML(data);
                     $($data).prependTo($new_comment)
                     $audio.play();
@@ -141,53 +141,31 @@ $(document).bind('DOMSubtreeModified', function(){
     })
 })
 
+var infinite = new Waypoint.Infinite({
+    element: $('#time-line'),
+    items: '.post',
+    more: '.page-more-link',
+    onBeforePageLoad: function () {
+        $('.get-more-posts').hide();
+        $('.loading').show();
+    },
+    onAfterPageLoad: function ($items) {
+         max_height($items.find('.post-content'));
+         read_more();
+         autosize_textarea();
+         $('.get-more-posts').show();
+         $('.loading').hide();
+         /// count views of posts fun /////
+        countViews($($items).find('.post-body'));
+    }
+});
+
 
 
 
 
 ////////////////////////////////// Loading posts in time line when scroll down ///////////////////////////////
 
-$(window).off('scroll').on('scroll',function() {
-    if( $(window).scrollTop(0)) {
-        var $more = $('.page-more-link')
-
-        ///// Before loading new items ////
-        $('.get-more-posts').hide();
-        $('.loading').show();
-
-        $.get($($more).attr('href'), $.proxy(function(data) {
-            var $data = $($.parseHTML(data));
-            var $newMore = $data.find('.page-more-link');
-            var $items = $data.find('.post');
-            var $container = $('#time-line');
-
-            if (!$items.length) {
-                   $items = $data.filter('.post');
-               }
-
-            $container.append($items);
-
-            if (!$newMore.length) {
-                   $newMore = $data.filter('.page-more-link');
-               }
-            if ($newMore.length) {
-                $more.replaceWith($newMore)
-                $more = $newMore
-            }
-            else {
-                   $more.remove();
-            }
-            ///// After loading new items ////
-            autosize_textarea();
-            $('.get-more-posts').show();
-            $('.loading').hide()
-            /// count views of posts fun /////
-            countViews($($items).find('.post-body'));
-
-        }))
-
-    }
-});
 
 
 
@@ -208,6 +186,17 @@ $(document).ready(function () {
                 id : $id
 
             },
+            success: function () {
+
+                if ( $($x).val() ==='Follow'){
+                    $($x).val('Unfollow');
+                }
+                else {
+                    $($x).val('Follow');
+                }
+
+
+            }
         })
     })
 
