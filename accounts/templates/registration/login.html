@@ -1,20 +1,28 @@
 {% extends "base_generic.html" %}
- {% block content %}
+     {% block content %}
 
+         <div class="container">
+             <div class="container log">
+                 <div class="login-form  bg-light m-auto mt-5 col-md-6">
+                     {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-warning">{{ message }}</div>
+                        {% endfor %}
+                     {% endif %}
+                     <form method="POST" class="form-group" autocomplete="on">
+                         {% csrf_token %}
+                         {{ form }}
+                         <br>
+                         <input class="btn" type="submit" value="login" />
+                         <input type="hidden" name="next" value="{{ next }}" />
+                     </form>
+                    <hr>
+                     <div>
+                         <span>if you do not have account</span>
+                         <a class="btn btn-primary" href="{% url 'signup' %}">Sign up</a>
+                    </div>
+                 </div>
 
-        <div class="container">
-            <div class="container log">
-                <div class="login-form  bg-light m-auto mt-5 col-md-6">
-                    {{ form.error }}
-                    <form method="POST" class="form-group" autocomplete="on">
-                        {% csrf_token %}
-
-                        {{ form }}
-
-                        <input type="submit" value="login" />
-                        <input type="hidden" name="next" value="{{ next }}" />
-                    </form>
-                </div>
-            </div>
-
-{% endblock %}
+             </div>
+         </div>
+     {% endblock %}

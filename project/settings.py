@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 ]
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
 

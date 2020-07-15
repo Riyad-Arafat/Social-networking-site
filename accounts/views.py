@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth import authenticate, logout, login
 
 from .forms import UserRegistrationForm, UserLoginForm
+from django.contrib import messages
 
 from .models import Profile, Users
 from posts.models import Comment , Post
@@ -51,7 +52,6 @@ def login_form(request):
     user = request.user
     if user.is_authenticated:
         return redirect("timeline_page")
-
     if request.method == 'POST':
         form = UserLoginForm()
         email       = request.POST['email']
@@ -60,7 +60,8 @@ def login_form(request):
         if user is not None:
             login(request, user)
             return redirect("timeline_page")
-
+        else:
+            messages.warning(request, 'The username and password you entered did not match our records. Please double-check and try again.')
     else:
         form = UserLoginForm()
 

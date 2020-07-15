@@ -34,13 +34,16 @@
                 <div class="_ip col ">
                     <ul class="row">
                         {% if request.user in post.likes.all %}
-                            <a class="col like-btn active" href="#">Like</a>
+                            <a class="col like-btn active" href="#"><i class="icofont-like"></i></a>
                             {% else %}
-                                <a class="col like-btn" href="#">Like</a>
+                                <a class="col like-btn" href="#"><i class="icofont-like"></i></a>
                         {% endif %}
                         <a class="col comment-btn" href="#">Comment</a>
                     </ul>
                 </div>
             </div>
         </div>
+
     </div>
+
+

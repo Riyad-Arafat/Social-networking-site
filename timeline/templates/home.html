@@ -28,7 +28,7 @@
 
                     </div>
                     {% if posts.has_next %}
-                        <a class="page-more-link" href="?={{ posts.next_page_number }}">More</a>
+                        <a class="page-more-link" style="display: none" href="?={{ posts.next_page_number }}">More</a>
                     {% endif %}
                     <div class="loading" style="display: none;">Loading...</div>
                 </div>

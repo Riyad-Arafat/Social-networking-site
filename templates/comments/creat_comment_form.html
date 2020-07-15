@@ -3,7 +3,7 @@
     <a href="{% url 'profile' user.username  %}"><img src="{{user.picture.url }}" class="col"></a>
     <form id="comment_form" action="" method="POST" class= "col comment-form">
         {% csrf_token %}
-        <textarea  id="content" class="comment_content" placeholder="Create Comment"></textarea>
+        <textarea dir="auto" id="content" class="comment_content" placeholder="Create Comment"></textarea>
         <input id="post_id" type="hidden" value="{{ post.id }}">
         <input class="btn-post" type="submit" value="Post">
     </form>

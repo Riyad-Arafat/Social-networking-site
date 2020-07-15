@@ -19,14 +19,14 @@ textarea{
 .loading{
     background-color: white;
     position: relative;
-    bottom: 166px;
+
 }
 
 
 /* login page */
 
 .log{
-    padding: 18% 0%;
+    margin-top: 12%;
 }
 
 
@@ -54,6 +54,21 @@ textarea{
 }
 
 
+.form-group .btn:hover{
+    background-color: #007cffd9;
+    color: #fff;
+
+}
+ul.errorlist{
+    list-style: none;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
 
 
 
@@ -94,11 +109,6 @@ textarea{
 .dropdown .btn i{
     font-size: 20pt;
 }
-
-
-
-
-
 
 
 

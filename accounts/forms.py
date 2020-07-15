@@ -11,9 +11,9 @@ from .models import Users
 ########################### USER SIGNUP FORM #########################
 
 class UserRegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=32)
-    last_name = forms.CharField(max_length=32)
-
+    first_name  = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'autocomplete': 'on', 'autofocus' : "on"}))
+    last_name   = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'autocomplete': 'on'}))
+    email       = forms.CharField(max_length=50, widget=forms.TextInput(attrs={"type" : 'email', 'autocomplete': 'on', }))
 
     class Meta(UserCreationForm.Meta):
         model = Users

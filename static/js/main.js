@@ -30,7 +30,6 @@ function max_height(post) {
       if($(post[i]).height() > 260){
           $(post[i]).css('height', '130px')
           $(post[i]).offsetParent().find('.load-more').show()
-
       }
 
   }
@@ -88,15 +87,15 @@ if  (C_POST){
 
 /////////////////////////////////// count views of post ////////////////////////
 $(document).ready(function () {
-    var $post = $('.post-content');
-    max_height($post);
     read_more()
     autosize_textarea();
-    var x = document.querySelectorAll(".post-body")
-    countViews(x);
+    var $x = $(".post-body")
+    countViews($x);
 
 
 })
+
+
 
 
 

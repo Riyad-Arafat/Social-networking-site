@@ -170,12 +170,13 @@ var infinite = new Waypoint.Infinite({
 
     },
     onAfterPageLoad: function ($items) {
-
-         read_more();
-         autosize_textarea();
-         $('.loading').hide();
-         /// count views of posts fun /////
+        read_more();
+        autosize_textarea();
+        $('.loading').hide();
+        /// count views of posts fun /////
         countViews($($items).find('.post-body'));
+
+
     }
 });
 
@@ -198,7 +199,7 @@ $(document).ready(function () {
 
             },
             success: function () {
-
+                $audio.play();
                 if ( $($x).val() ==='Follow'){
                     $($x).val('Unfollow');
                 }

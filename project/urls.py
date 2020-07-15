@@ -27,6 +27,7 @@ urlpatterns = [
     path('',include('community.urls')),
     path('admin/admin', admin.site.urls),
 
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
