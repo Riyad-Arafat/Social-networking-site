@@ -19,20 +19,18 @@
                     {% include 'create_post.html' %}
                     <div id="time-line">
                         {% for post in posts %}
-                            <div class="post">{% include 'post-box.html' %}</div>
+                            {% include 'post-box.html' %}
+
                         {% endfor %}
                         {% if posts.has_next %}
                             <div class="post">اعلان</div>
                         {% endif %}
+
                     </div>
                     {% if posts.has_next %}
-                        <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
+                        <a class="page-more-link" href="?={{ posts.next_page_number }}">More</a>
                     {% endif %}
                     <div class="loading" style="display: none;">Loading...</div>
-                    <div class="get-more-posts" style="display: none" >
-                        <a class="nav-link" href="">Get more update</a>
-                    </div>
-
                 </div>
             </div>
         </div>

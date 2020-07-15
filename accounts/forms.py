@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from .models import Users
@@ -34,7 +35,7 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserLoginForm(forms.ModelForm):
     email    = forms.EmailField(max_length=100)
-    password    = forms.CharField(max_length=100,widget=forms.PasswordInput())
+    password    = forms.CharField(max_length=100,widget=forms.PasswordInput(attrs={'autocomplete':'on'}))
     class Meta:
         model = Users
         fields = ( 'email', 'password')

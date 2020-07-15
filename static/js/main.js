@@ -70,7 +70,9 @@ if  (C_POST){
 
     };
     window.onclick = function(event) {
-    if (event.target === ov) {
+        var $postBtn = $('.btn-post')
+
+        if (event.target === ov || event.target === $postBtn[0] ) {
         var x = document.getElementById("ov"),
             nav = nav = document.getElementsByTagName("header")[0],
             y = document.getElementById('post-m');

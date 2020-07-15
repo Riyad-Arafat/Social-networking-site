@@ -6,7 +6,7 @@
             <div class="container log">
                 <div class="login-form  bg-light m-auto mt-5 col-md-6">
                     {{ form.error }}
-                    <form method="POST" class="form-group">
+                    <form method="POST" class="form-group" autocomplete="on">
                         {% csrf_token %}
 
                         {{ form }}

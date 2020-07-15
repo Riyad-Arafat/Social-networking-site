@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 
 
 from django.views.decorators.csrf import csrf_protect
-
-
 
 
 
@@ -21,19 +20,26 @@ def CreatePost(request):
         content = request.POST['content']
         community = request.POST['community']
         if community != 'none':
-            Post.objects.create(
+            post = Post.objects.create(
                 author=Profile.objects.get(username=request.user),
                 content=content,
                 community_id=community
             )
         else:
-            Post.objects.create(
+            post = Post.objects.create(
                 author=Profile.objects.get(username=request.user),
                 content=content,
             )
+        pk = post.pk
+        post = Post.objects.get(pk=pk)
+        context = {
+            'post': post,
+            'now': timezone.now,
+        }
 
+        template = "post-box.html"
+        return render(request, template, context)
 
-        return HttpResponseRedirect(reverse("timeline_page"))
     return redirect("timeline_page")
 
 

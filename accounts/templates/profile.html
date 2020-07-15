@@ -72,7 +72,7 @@
                 {% endif %}
                 <div id="time-line">
                         {% for post in posts %}
-                            <div class="post">{% include 'post-box.html' %}</div>
+                            {% include 'post-box.html' %}
                         {% endfor %}
                 </div>
                 {% if posts.has_next %}

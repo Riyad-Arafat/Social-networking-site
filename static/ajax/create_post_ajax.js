@@ -26,7 +26,10 @@ $('#creat_post').submit(function (e) {
 
             },
             success: function (data,status,xhr) {
-                x = $('body').load('')
+                $('#post').val(null)
+                $('#post').css('height' , 'unset')
+                var $new_post = $.parseHTML(data)
+                $('#time-line').prepend($new_post)
                 $audio.play();
             },
             error: function (data,status,xhr) {
@@ -149,24 +152,7 @@ $(document).bind('DOMSubtreeModified', function(){
     })
 })
 
-var infinite = new Waypoint.Infinite({
-    element: $('#time-line')[0],
-    items: '.post',
-    more: '.page-more-link',
-    onBeforePageLoad: function () {
-        $('.get-more-posts').hide();
-        $('.loading').show();
-    },
-    onAfterPageLoad: function ($items) {
-         max_height($items.find('.post-content'));
-         read_more();
-         autosize_textarea();
-         $('.get-more-posts').show();
-         $('.loading').hide();
-         /// count views of posts fun /////
-        countViews($($items).find('.post-body'));
-    }
-});
+
 
 
 
@@ -174,7 +160,24 @@ var infinite = new Waypoint.Infinite({
 
 ////////////////////////////////// Loading posts in time line when scroll down ///////////////////////////////
 
+var infinite = new Waypoint.Infinite({
+    element: $('#time-line')[0],
+    items: '.post',
+    more: '.page-more-link',
+    loadingClass: 'infinite-loading',
+    onBeforePageLoad: function () {
+        $('.loading').show();
 
+    },
+    onAfterPageLoad: function ($items) {
+
+         read_more();
+         autosize_textarea();
+         $('.loading').hide();
+         /// count views of posts fun /////
+        countViews($($items).find('.post-body'));
+    }
+});
 
 
 ///////////////////// follow profile ////////////////

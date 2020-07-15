@@ -33,7 +33,7 @@
                                 </a>
                                 {% endfor %}
                             </div>
-                            <a class="btn-post" href="#">More</a>
+                            <a class="btn btn-primary" href="#">More</a>
 
                         </div>
 
@@ -56,7 +56,11 @@
 
             <div  class="col container">
                 <div class="row row-cols-1">
-                    <div id="community" data-key="{{ community.pk }}">{% include 'create_post.html' %}</div>
+                    {% if request.user in community.members.all %}
+                        <div id="community" data-key="{{ community.pk }}">
+                            {% include 'create_post.html' %}
+                        </div>
+                    {% endif %}
 
 
                     <div id="co_s_t">
@@ -94,7 +98,7 @@
 
                     <div id="time-line">
                         {% for post in posts %}
-                            <div class="post">{% include 'post-box.html' %}</div>
+                            {% include 'post-box.html' %}
                         {% endfor %}
                         {% if posts.has_next %}
                             <div class="post">اعلان</div>
