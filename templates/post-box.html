@@ -4,7 +4,7 @@
                 <div class="publisher col">
                     <div>
                         <a href="{% url 'profile' post.author.username %}">
-                            <img src="{{ post.author.picture.url }}" alt="{{ post.author.username }}" class="col">
+                            <img src="{{ post.author.profile.picture.url }}" alt="{{ post.author.username }}" class="col">
                             <span style="color: #385898" >{{ post.author.first_name }} {{ post.author.last_name }}</span>
                         </a>
                     </div>

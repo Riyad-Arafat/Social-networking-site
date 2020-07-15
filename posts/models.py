@@ -11,7 +11,7 @@ from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
-    author          = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
+    author          = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
     community       = models.ForeignKey(Community, on_delete=models.CASCADE, default=None, related_name='posts', blank=True, null=True)
     content         = RichTextField(blank=True, null=True)
     created_at      = models.DateTimeField(default=timezone.now)

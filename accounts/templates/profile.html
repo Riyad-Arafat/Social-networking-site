@@ -9,11 +9,9 @@
                 <img src="{{ profile.picture.url }}">
             </div>
 
-
-
             <div class="info-user">
 
-                <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+                <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
                 {% if request.user.is_authenticated %}
                 {% if user != profile %}
                 <span>

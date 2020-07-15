@@ -100,9 +100,6 @@ def profile_cover_upload(instance,filename):
 class Profile(models.Model):
 
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='profile')
-	username			= models.CharField(max_length=30)
-	first_name 			= models.CharField(max_length=30)
-	last_name 			= models.CharField(max_length=30)
 	picture				= models.ImageField(upload_to=profile_picture_upload, default="default.jpg")
 	cover				= models.ImageField(upload_to=profile_cover_upload, default="default.jpg")
 	bio					= models.TextField(max_length=150, blank=True, null=True)
@@ -113,23 +110,6 @@ class Profile(models.Model):
 	location			= models.CharField(max_length=30)
 	followers 			= models.ManyToManyField(Users, related_name='followers', default=None, blank=True)
 	following 			= models.ManyToManyField(Users, related_name='following', default=None, blank=True)
-
-
-	@receiver(post_save, sender=Users)
-	def create_user_profile(sender, instance, created, **kwargs):
-		if created:
-			Profile.objects.create(
-				user=instance,
-				username=instance.username,
-				first_name=instance.first_name,
-				last_name=instance.last_name,
-			)
-		else:
-			profile = Profile.objects.get(user=instance)
-			profile.username = instance.username
-			profile.first_name = instance.first_name
-			profile.last_name = instance.last_name
-			profile.save()
 
 
 

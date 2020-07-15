@@ -7,8 +7,8 @@
                 <div class="info-side row row-cols-1">
                     <div class="user col">
                         <a href="{% url 'profile' user.username %}">
-                            <img src="{{ user.picture.url }}" alt="{{ user.username }}"><br>
-                            <span>{{ user.user.first_name }} {{ user.user.last_name }}</span>
+                            <img src="{{ user.profile.picture.url }}" alt="{{ user.username }}"><br>
+                            <span>{{ user.first_name }} {{ user.last_name }}</span>
                         </a>
                     </div>
                 </div>

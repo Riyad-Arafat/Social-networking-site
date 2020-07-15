@@ -1,6 +1,6 @@
 {% if request.user.is_authenticated %}
 <div class="creat_comment row">
-    <a href="{% url 'profile' user.username  %}"><img src="{{user.picture.url }}" class="col"></a>
+    <a href="{% url 'profile' user.username  %}"><img src="{{user.profile.picture.url }}" class="col"></a>
     <form id="comment_form" action="" method="POST" class= "col comment-form">
         {% csrf_token %}
         <textarea dir="auto" id="content" class="comment_content" placeholder="Create Comment"></textarea>

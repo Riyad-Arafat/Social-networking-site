@@ -93,12 +93,12 @@ def log_out(request):
 def profile(request, username):
     x = request.user
     if x.is_authenticated:
-        user = Profile.objects.get(username=x)
+        user = Users.objects.get(username=x)
     else:
         user = None
 
-    profile_user = get_object_or_404(Profile, username=username)
-    posts = profile_user.posts.all().order_by('-created_at')
+    profile_user = get_object_or_404(Profile, user__username=username)
+    posts = profile_user.user.posts.all().order_by('-created_at')
     comments = Comment.objects.all().order_by("-created_at")
     page = request.GET.get('page', 1)
     paginator = Paginator(posts, 5)
@@ -129,19 +129,19 @@ def profile(request, username):
 def follow(request):
     if request.user.is_authenticated and request.is_ajax():
         pk = request.GET['id']
-        user = Profile.objects.get(username=request.user)
+        user = Users.objects.get(username=request.user)
         user2 = Users.objects.get(profile=pk)
         profile1 = Profile.objects.get(id=pk)
 
-        following = user.following.all()
+        following = user.profile.following.all()
         if user2 not in following:
-            user.following.add(user2)
-            user.save()
+            user.profile.following.add(user2)
+            user.profile.save()
             profile1.followers.add(request.user)
             profile1.save()
         else:
-            user.following.remove(user2)
-            user.save()
+            user.profile.following.remove(user2)
+            user.profile.save()
             profile1.followers.remove(request.user)
             profile1.save()
 

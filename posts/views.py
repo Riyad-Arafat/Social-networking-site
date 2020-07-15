@@ -21,13 +21,13 @@ def CreatePost(request):
         community = request.POST['community']
         if community != 'none':
             post = Post.objects.create(
-                author=Profile.objects.get(username=request.user),
+                author=Users.objects.get(username=request.user),
                 content=content,
                 community_id=community
             )
         else:
             post = Post.objects.create(
-                author=Profile.objects.get(username=request.user),
+                author=Users.objects.get(username=request.user),
                 content=content,
             )
         pk = post.pk
@@ -78,7 +78,7 @@ def CreateComment(request):
 def get_comments(request):
     if request.method == 'GET' and request.is_ajax():
         post = request.GET['post']
-        user = Profile.objects.get(user=request.user)
+        user = Users.objects.get(username=request.user)
         comments = Comment.objects.filter(post=post).order_by('-created_at')
         context = {
             'user': user,

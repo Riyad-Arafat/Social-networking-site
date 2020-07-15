@@ -21,7 +21,7 @@ def home_page(request):
     user = request.user
     if user.is_authenticated:
         user = Users.objects.get(username=request.user)
-        posts = Post.objects.filter(Q(author__followers=user) | Q(author=user.profile)).order_by('-created_at')
+        posts = Post.objects.filter(Q(author__profile__followers=user) | Q(author=user)).order_by('-created_at')
         page = request.GET.get('', 1)
         paginator = Paginator(posts, 5)
         try:
@@ -32,7 +32,7 @@ def home_page(request):
             posts = paginator.page(paginator.num_pages)
 
         context = {
-            'user' : user.profile,
+            'user' : user,
             'posts' : posts,
             'now': timezone.now
 
