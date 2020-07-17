@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.contrib.auth import authenticate, logout, login
 
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, UserForm, ProfileForm
 from django.contrib import messages
 
 from .models import Profile, Users
@@ -72,7 +72,7 @@ def login_form(request):
 
 
     template = 'registration/login.html'
-    return render(request, template,context)
+    return render(request, template, context)
 
 
 ################################ logout ###################################33
@@ -122,6 +122,39 @@ def profile(request, username):
     template = 'profile.html'
 
     return render(request, template, context)
+
+
+
+################# Edit profile #############333
+def edit_profile(request, username):
+
+    if request.user.is_authenticated:
+        user = get_object_or_404(Users, username=username)
+        if request.user == user:
+            if request.method == 'POST':
+                user_form = UserForm(request.POST, instance=user)
+                profile_form = ProfileForm(request.POST, request.FILES, instance=user.profile)
+                if user_form.is_valid and profile_form.is_valid :
+                    user_form.save()
+                    profile_form.save()
+                    messages.success(request, 'update profile is done')
+                    username = user_form.cleaned_data['username']
+                    return redirect('edit_profile', username)
+            else:
+                user_form = UserForm(instance=user)
+                profile_form = ProfileForm(instance=user.profile)
+
+            context = {
+                'user_form' : user_form,
+                'profile_form' : profile_form
+            }
+            template = 'edit_profile.html'
+            return render(request, template, context)
+        else:
+            return redirect('timeline_page')
+    else:
+        return redirect('timeline_page')
+
 
 
 ############ follow profile #######################

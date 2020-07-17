@@ -102,7 +102,7 @@ class Profile(models.Model):
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='profile')
 	picture				= models.ImageField(upload_to=profile_picture_upload, default="default.jpg")
 	cover				= models.ImageField(upload_to=profile_cover_upload, default="default.jpg")
-	bio					= models.TextField(max_length=150, blank=True, null=True)
+	bio					= models.TextField(max_length=300, blank=True, null=True)
 	university			= models.CharField(max_length=30)
 	faculty				= models.CharField(max_length=30)
 	level				= models.CharField(max_length=30)

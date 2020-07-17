@@ -6,6 +6,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetCompleteVi
 urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', views.login_form, name='login'),
+    path('profil/<str:username>/edit', views.edit_profile, name='edit_profile'),
     path('logout', views.log_out, name='logout'),
     path('<str:username>', views.profile, name='profile'),
     path('follow/profile', views.follow),

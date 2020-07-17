@@ -3,9 +3,9 @@ function autosize_textarea() {
     $('textarea').on('input',function autosize() {
         var el = this;
         setTimeout(function(){
-            el.style.cssText = 'height:auto;';
-            el.style.cssText = 'margin:0px;';
-            el.style.cssText = 'height:' + el.scrollHeight + 'px';
+            el.style.cssText += 'height:auto;';
+            el.style.cssText += 'margin:0px;';
+            el.style.cssText += 'height:' + el.scrollHeight + 'px';
 
             },0
         );

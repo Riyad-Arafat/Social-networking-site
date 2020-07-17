@@ -493,6 +493,15 @@ ul.errorlist{
 
 
 
+/*profile edit page */
+
+.e-form textarea{
+    width: 100%;
+    text-align: center;
+    outline: none;
+    border: 1px solid rgba(119, 116, 116, 0.42);
+    border-radius: 5px;
+}
 
 
 

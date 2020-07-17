@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="margin-top: 50px">
+        {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+        <div class="container-fluid">
+            <div style="top: 0px;" class="user-p col">
+                <img src="{{ user.profile.picture.url }}" alt="pic">
+            </div>
+            <form class="e-form container" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="form-row text-center">
+                    <div class="col-md-6 m-auto">
+                        <label for="id_picture" class="btn btn-outline-dark" >Chang profile picture</label>
+                        <input type="file" name="picture" accept="image/*" id="id_picture" style="display: none">
+                    </div>
+                </div><br>
+                <div class="form-row row-cols-md-2">
+                    <div class="form-group m-auto ">
+                        <label for="id_first_name">First Name</label>
+                        {{user_form.first_name}}
+                    </div>
+                    <div class="form-group m-auto ">
+                        <label for="id_last_name">Last Name</label>
+                        {{user_form.last_name}}
+                    </div>
+                </div><br>
+                <div class="form-row row-cols-md-2 ">
+                    <div class="form-group m-auto">
+                        <label for="id_first_name">username</label>
+                        {{user_form.username}}
+                    </div>
+                    <div class="form-group m-auto ">
+                        <label for="id_email">Email</label>
+                        {{user_form.email}}
+                        <span></span>
+                    </div>
+                </div><br>
+                <div class="form-row row-cols-md-2 text-center">
+                    <div class="form-group m-auto col">
+                        <label for="id_bio">Bio</label>
+                        <div>{{profile_form.bio}}</div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <span>to save all changes  click this button </span>
+                    <input class="btn btn-outline-success" type="submit" value="save">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

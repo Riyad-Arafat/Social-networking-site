@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
-from .models import Users
+from .models import Users, Profile
 
 
 
@@ -35,10 +35,10 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserLoginForm(forms.ModelForm):
     email    = forms.EmailField(max_length=100)
-    password    = forms.CharField(max_length=100,widget=forms.PasswordInput(attrs={'autocomplete':'on'}))
+    password    = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'autocomplete':'on'}))
     class Meta:
         model = Users
-        fields = ( 'email', 'password')
+        fields = ('email', 'password')
 
     def clean(self):
         if self.is_valid():
@@ -46,3 +46,21 @@ class UserLoginForm(forms.ModelForm):
             password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Invalid login")
+
+
+
+
+
+########################### Edit profile form ###############3333
+
+
+class UserForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'pattern' : "[a-zA-Z0-9-._%+-]+", 'title': 'remove all spaces'}))
+    class Meta:
+        model = Users
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('picture', 'bio')

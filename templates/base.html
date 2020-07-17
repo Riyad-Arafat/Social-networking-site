@@ -50,10 +50,10 @@
                                   <li class="nav-item dropdown">
                                     <div class="dropdown">
                                         <a class="btn nav-link " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Settings <i class="icofont-ui-settings"></i>
+                                            <i class="icofont-ui-settings"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                          <a class="dropdown-item" href="#">Edit Your Profile</a>
+                                          <a class="dropdown-item" href="{% url 'edit_profile' request.user.username %}">Edit Your Profile</a>
                                           <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                                         </div>
                                       </div>
@@ -63,9 +63,8 @@
                         </nav>
                     </div>
                 </header>
-                <br>s
+                <br>
             {% endif %}
-
             {% block content %}
             {% endblock %}
 
