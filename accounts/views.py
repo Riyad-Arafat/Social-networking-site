@@ -59,6 +59,9 @@ def login_form(request):
         user        = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
+            user = Users.objects.get(email=email)
+            user.is_online = True
+            user.save()
             return redirect("timeline_page")
         else:
             messages.warning(request, 'The username and password you entered did not match our records. Please double-check and try again.')
@@ -78,9 +81,11 @@ def login_form(request):
 ################################ logout ###################################33
 
 def log_out(request):
+    user = Users.objects.get(username=request.user)
+    user.is_online = False
+    user.save()
     logout(request)
     return redirect('/')
-
 
 
 

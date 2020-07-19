@@ -3,15 +3,20 @@
     <div id="ov" class="op"></div>
     <div class="fm create-post">
         <div class="_hp">Creat Post</div>
-            <div class="_bp">
-                <form id="creat_post" action="" method="POST"> {% csrf_token %}
-                        <textarea dir=auto role="textbox" contenteditable id="post" placeholder="what's on your mind" name="post"></textarea>
-                    <input class="btn-post" type="submit" value="Post">
-                </form>
-            </div>
+        <div class="_bp">
+            <form id="creat_post" action="" method="POST">
+                {% csrf_token %}
+                <textarea dir=auto role="textbox" maxlength="500" contenteditable id="post" placeholder="what's on your mind" name="post"></textarea>
+
+                <div class="d-flex">
+                    <input class="btn-post " type="submit" value="Post">
+                    <span id="post-count" class="ml-auto" style="color: #a0a0a0e8">0/500</span>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 
 {% endif %}

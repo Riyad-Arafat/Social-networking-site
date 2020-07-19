@@ -1,3 +1,17 @@
+html{
+    scroll-behavior: smooth;
+}
+html::-webkit-scrollbar{
+    width: 10px;
+    max-height: 20px;
+}
+html::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+html::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
 body{
     background-color: #e9ebee;
     overflow-wrap: break-word;
@@ -15,12 +29,6 @@ textarea{
     resize: none;
 }
 
-
-.loading{
-    background-color: white;
-    position: relative;
-
-}
 
 
 /* login page */
@@ -72,35 +80,11 @@ ul.errorlist{
 
 
 
-
-
-
-
 /*  NavBar */
 
-.navbar-dark .navbar-nav .nav-link{
-    color: #fff;
-}
 
 .navbar form input{
     flex: 1;
-}
-
-.bg-nav{
-    background-color: #264380;
-}
-
-.navbar .dropdown-item:hover{
-    background-color: #40a8f1   ;
-}
-
-.navbar .btn {
-    color: #fff;
-}
-
-
-.navbar .btn-s-i:hover{
-    background-color: #40a8f1   ;
 }
 
 .dropdown .btn{
@@ -110,20 +94,20 @@ ul.errorlist{
     font-size: 20pt;
 }
 
+.navbar-nav .dropdown-menu{
+    position: absolute;
+    left: -67px;
 
-
-
-
-
-
-#home-body{
-    margin-top: 50px;
 }
+
 
 /* Time Line */
 #time-line{
     margin-top: 25px;
 
+}
+#post-m{
+    width: 660px;
 }
 .create-post {
     background-color: #fff;
@@ -142,8 +126,8 @@ ul.errorlist{
     z-index: 311 !important;
     left: 0;
     top: 0;
-    overflow: auto;
-    border: 1px solid #7d7d7d94;
+    border: 1px solid #a2a2a26e;
+    border-radius: 5px;
 }
 .op{
     background: #000;
@@ -164,18 +148,16 @@ ul.errorlist{
 .create-post textarea{
     width: 100%;
     border: 0;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     resize: none;
     outline: none;
 }
 .btn-post{
-    width: 100%;
     color: black;
     border: 0;
     padding: 6px;
-    color: black;
-    background-color: #b3d7ff;
+    background-color: #e9ebee;
     border-radius: 6px;
     margin: 0;
 
@@ -193,12 +175,19 @@ ul.errorlist{
     background-color: #fff;
     border-radius: 3px ;
     padding: 18px;
-    width: 660px;
+    width: 500px;
 }
 .publisher img{
     width: 80px;
     height: 45px;
     border-radius: 100%;
+}
+.online{
+    height: 13px;
+    width: 13px;
+    background-color: #00ff1a;
+    border-radius: 50%;
+    display: inline-block
 }
 .since{
     position: relative;
@@ -211,6 +200,16 @@ ul.errorlist{
 .post-content{
     padding: 10px 7px 0px 16px;
     overflow: hidden;
+}
+.post-image{
+    overflow: hidden;
+    max-width: 500px;
+    max-height: 500px;
+    margin-top: 10px;
+}
+.post-image img{
+    width: 100%;
+
 }
 .post-content p{
     margin-bottom: 0px;
@@ -583,3 +582,6 @@ ul.errorlist{
     font-weight: bolder;
 
 }
+
+
+

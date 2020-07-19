@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row row-cols-1">
+            <div id="searched-post" class="container">
+                {% for post in posts %}
+                    {% include 'post-box.html' %}
+                {% endfor %}
+                <div class="m-auto" style="width: 500px">
+                    <a class="btn btn-block btn-outline-primary" id="{{ query }}" href="{% url 'more_posts' query %}">More</a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

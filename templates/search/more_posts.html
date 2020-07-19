@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="row row-cols-1">
+            <div id="time-line">
+                {% for post in posts %}
+                    {% include 'post-box.html' %}
+                {% endfor %}
+            </div>
+            {% if posts.has_next %}
+                        <a class="page-more-link" style="display: none" href="?={{ posts.next_page_number }}">More</a>
+                    {% endif %}
+            <div class="loading" style="display: none;">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

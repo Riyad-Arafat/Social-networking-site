@@ -164,10 +164,8 @@ var infinite = new Waypoint.Infinite({
     element: $('#time-line')[0],
     items: '.post',
     more: '.page-more-link',
-    loadingClass: 'infinite-loading',
     onBeforePageLoad: function () {
         $('.loading').show();
-
     },
     onAfterPageLoad: function ($items) {
         read_more();

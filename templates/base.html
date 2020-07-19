@@ -2,70 +2,72 @@
     <!DOCTYPE html>
     <html lang="ar">
         <head>
-            <title>FB</title>
-            <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/Riyad.jpg' %}">
-
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <link rel="stylesheet" href="{% static 'icofont/icofont.min.css' %}">
-            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-            <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+            <title>FB</title>
+            <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/Riyad.jpg' %}">
+            <link rel="stylesheet" href="{% static 'css/icofont/icofont.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/libs/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/libs/swiper-bundle.min.css' %}">
             <link rel="stylesheet" href="{% static 'css/style.css' %}">
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="{% static 'js/libs/jquery-3.5.1.slim.min.js' %}"></script>
 
 
         </head>
         <body>
             {% if request.user.is_authenticated %}
-                <header class="bg-nav fixed-top">
+                <header class="bg-light sticky-top">
                     <div class="container">
-                        <nav class="navbar navbar-expand-md navbar-dark">
-                            <a class="navbar-brand" href="#">Navbar</a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="navbar-toggler-icon"></span>
-                            </button>
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 8px 0px;">
                             <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
-                                <form class="form-inline m-auto my-2 my-lg-0 col col-lg-6">
-                                <input class="form-control mr-sm-2 col" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-s-i my-2 my-sm-0" type="submit"><i class="icofont-search-2"></i></button>
-                              </form>
-                                <ul class="navbar-nav m-auto col">
-                                  <li class="nav-item m-auto">
-                                  <a class="nav-link" href="{% url 'timeline_page' %}">Home </a>
-                                </li>
-                                  <li class="nav-item m-auto">
-                                    <a class="nav-link" href="{% url 'profile' user.username %}">
-                                        <span>{{ user.first_name }}</span>
-                                  </a>
-                                </li>
-                                  <li class="nav-item m-auto dropdown">
-                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Create
-                                  </a>
-                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="#">Community</a>
-                                  </div>
-                                </li>
-                                  <li class="nav-item dropdown">
-                                    <div class="dropdown">
-                                        <a class="btn nav-link " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="navbar-brand" href="#">Navbar</a>
+                                <form class="form-inline m-auto my-2 my-lg-0 col col-lg-6" role="search" action="{% url 'search' %}">
+                                    <input class="form-control mr-sm-2 col" type="search" placeholder="Search" aria-label="Search" name="q">
+                                    <button class="btn btn-outline-dark btn-s-i my-2 my-sm-0" type="submit"><i class="icofont-search-2"></i></button>
+                                </form>
+                                <ul class="navbar-nav m-auto col" style="flex-direction: row">
+                                    <li class="nav-item m-auto">
+                                        <a class="nav-link" href="{% url 'timeline_page' %}">
+                                            <i class="icofont-ui-home"></i>
+                                            <span>Home</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item m-auto">
+                                        <a class="nav-link" href="{% url 'profile' user.username %}">
+                                            <i class="icofont-user-alt-4"></i>
+                                            <span>{{ user.first_name }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item m-auto dropdown">
+                                        <a class="btn nav-link dropdown-toggle" type="button" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Create
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">
+                                                <i class="icofont-users-alt-5"></i>
+                                                <span>Community</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item m-auto dropdown">
+                                        <a class="btn nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
                                             <i class="icofont-ui-settings"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                          <a class="dropdown-item" href="{% url 'edit_profile' request.user.username %}">Edit Your Profile</a>
-                                          <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                            <a class="dropdown-item" href="{% url 'edit_profile' request.user.username %}">Edit Your Profile</a>
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                                         </div>
-                                      </div>
-                                  </li>
-                              </ul>
+                                    </li>
+                                </ul>
                             </div>
                         </nav>
                     </div>
                 </header>
                 <br>
             {% endif %}
+
             {% block content %}
+
             {% endblock %}
 
             <script>
@@ -75,21 +77,16 @@
                 var  $get_comments  = '{% url 'get_comment' %}'
                 var  $creat_comment = '{% url 'creat_comment' %}'
                 var  $like_btn      = '{% url 'like_btn' %}'
-
             </script>
 
 
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-            <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-            <script src="{% static 'js/shortcuts/infinite.min.js' %}"></script>
-            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-            <script src="{% static 'js/bootstrap.min.js' %}"></script>
-            <script src="{% static 'ajax/create_post_ajax.js'%}"></script>
+            <script src="{% static 'js/libs/popper.min.js' %}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="{% static 'js/libs/ajax.min.js' %}"></script>
+            <script src="{% static 'js/libs/jquery.waypoints.min.js' %}"></script>
+            <script src="{% static 'js/libs/shortcuts/infinite.min.js' %}"></script>
+            <script src="{% static 'js/libs/swiper-bundle.min.js' %}"></script>
+            <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
+            <script src="{% static 'ajax/all_ajax.js'%}"></script>
             <script src="{% static 'js/main.js' %}"></script>
         </body>
     </html>

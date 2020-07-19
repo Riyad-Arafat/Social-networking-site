@@ -10,8 +10,8 @@ function autosize_textarea() {
             },0
         );
     })
-
 }
+
 
 function countViews(x){
     var i;
@@ -87,18 +87,31 @@ if  (C_POST){
 
 /////////////////////////////////// count views of post ////////////////////////
 $(document).ready(function () {
+
     read_more()
     autosize_textarea();
     var $x = $(".post-body")
     countViews($x);
 
+    if($( window ).width() < 992 ){
+        $('.navbar-collapse').show()
+
+    }
 
 })
 
 
+$(window).resize(function () {
+    if($( window ).width() < 992 ){
+        $('.navbar-collapse').show()
+
+    }
+})
 
 
-
+$("#post").keyup(function(){
+  $("#post-count").text( $(this).val().length + '/500');
+});
 
 
 //////////////////////////////// COMMUNITY TAGS PAGE

@@ -42,4 +42,3 @@ def home_page(request):
 
     return redirect('login')
 
-

@@ -3,7 +3,7 @@
 {% block content %}
     <div id="home-body" class="container">
         <div class="row row-cols-md-2 row-cols-1">
-            <section id="left-side" class=" col col-md-4 container-fluid ">
+            <div id="left-side" class=" col col-md-4 container-fluid ">
                 <div class="info-side row row-cols-1">
                     <div class="user col">
                         <a href="{% url 'profile' user.username %}">
@@ -12,30 +12,27 @@
                         </a>
                     </div>
                 </div>
-            </section>
-
+            </div>
             <div class="container">
+                {% include 'create_post.html' %}
                 <div class="row row-cols-1">
-                    {% include 'create_post.html' %}
                     <div id="time-line">
                         {% for post in posts %}
                             {% include 'post-box.html' %}
-
                         {% endfor %}
-                        {% if posts.has_next %}
-                            <div class="post">اعلان</div>
-                        {% endif %}
-
                     </div>
                     {% if posts.has_next %}
                         <a class="page-more-link" style="display: none" href="?={{ posts.next_page_number }}">More</a>
                     {% endif %}
-                    <div class="loading" style="display: none;">Loading...</div>
+                    <div class="loading" style="display: none;">
+                        <div class="d-flex justify-content-center">
+                          <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
 {% endblock %}

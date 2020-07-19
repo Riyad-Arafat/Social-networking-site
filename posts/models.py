@@ -10,10 +10,17 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 
 
+######### save post image #################
+def post_image_upload(instance, filename):
+    iconname , extension = filename.split('.')
+    return f'Posts/{instance.id}/{iconname}.{extension}'
+
+
 class Post(models.Model):
     author          = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
     community       = models.ForeignKey(Community, on_delete=models.CASCADE, default=None, related_name='posts', blank=True, null=True)
     content         = RichTextField(blank=True, null=True)
+    image           = models.ImageField(upload_to=post_image_upload, default=None, null=True, blank=True)
     created_at      = models.DateTimeField(default=timezone.now)
     update_at       = models.DateTimeField(auto_now=True)
     viewers         = models.ManyToManyField(Users, related_name='viewed_posts', default=None, blank=True)

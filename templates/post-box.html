@@ -1,12 +1,16 @@
+
     <div class="post">
         <div data-key="{{ post.id }}" class="post-body col container">
             <div class="row row-cols-1">
                 <div class="publisher col">
-                    <div>
+                    <div style="position: relative;display: flex; flex-wrap: wrap;">
                         <a href="{% url 'profile' post.author.username %}">
                             <img src="{{ post.author.profile.picture.url }}" alt="{{ post.author.username }}" class="col">
                             <span style="color: #385898" >{{ post.author.first_name }} {{ post.author.last_name }}</span>
                         </a>
+                        {% if post.author.is_online %}
+                                <span class="online" style="position: absolute;top: 27px;left: 55px;"></span>
+                        {% endif %}
                     </div>
                     {% if post.created_at|date:'P' == now|date:'P' %}
                         <span class="since" style="color: #007bff">Now</span>
@@ -18,9 +22,25 @@
                 </div>
                 <div class="post-content col">
                     {{ post.content |safe}}
-
                 </div>
-                <div class="load-more" style="display: none"><a href="#">There is more</a></div>
+                {% if post.image %}
+                    <div class="post-image">
+                        <div class="modal fade bd-example-modal-lg show" id="post-img-{{ post.id }}">
+                            <div class="modal-dialog">
+                                    <div class="modal-content" style="background: unset; border: 0;display: unset;top: 50px">
+                                        <button type="button" class="close" data-dismiss="modal" style="width: fit-content; position: inherit;left: 0; color: #fff; top: 39px; outline: none;border-radius: 3px;background-color: #000000;padding: 3px 10px 11px;">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <img src="{{ post.image.url }}" class="img-fluid" alt=""/>
+                                    </div>
+                               </div>
+                        </div>
+                        <a href="#post-img-{{ post.id }}" data-toggle="modal">
+                            <img src="{{ post.image.url }}">
+                        </a>
+
+                    </div>
+                {% endif %}
                 <ul class="stat" style="text-align: end; list-style: none; margin: 0; padding: 0px 5px; font-size: small;">
                     {% if post.comments.count > 0 %}
                         <span>{{ post.comments.count }} comments</span>
@@ -30,15 +50,23 @@
                     {% endif %}
                 </ul>
                 <hr>
-
                 <div class="_ip col ">
                     <ul class="row">
                         {% if request.user in post.likes.all %}
-                            <a class="col like-btn active" href="#"><i class="icofont-like"></i></a>
+                            <a class="col like-btn active" href="#">
+                                <i class="icofont-like"></i>
+                                <span>Like</span>
+                            </a>
                             {% else %}
-                                <a class="col like-btn" href="#"><i class="icofont-like"></i></a>
+                                <a class="col like-btn" href="#">
+                                    <i class="icofont-like"></i>
+                                    <span>Like</span>
+                                </a>
                         {% endif %}
-                        <a class="col comment-btn" href="#">Comment</a>
+                        <a class="col comment-btn" href="#">
+                            <i class="icofont-comment"></i>
+                            <span>Comment</span>
+                        </a>
                     </ul>
                 </div>
             </div>
