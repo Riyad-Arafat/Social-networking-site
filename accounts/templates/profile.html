@@ -19,10 +19,12 @@
                 {% if request.user.is_authenticated %}
                 {% if user != profile %}
                 <span>
-                    {% if request.user in profile.followers.all %}
-                        <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
-                        {% else %}
-                        <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                    {% if request.user != profile.user %}
+                        {% if request.user in profile.followers.all %}
+                            <input class="btn btn-outline-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
+                            {% else %}
+                            <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                        {% endif %}
                     {% endif %}
                 </span>
                 {% endif %}

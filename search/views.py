@@ -20,9 +20,11 @@ def search(request):
             q = None
         if q:
             posts = Post.objects.filter(Q(content__contains=q)).order_by('-created_at')[:5]
+            accounts = Users.objects.filter(Q(first_name__contains=q.split(" ")[0]) | Q(last_name__contains=q.split(" ")[-1]) | Q(username__contains=q))
             context = {
                 'query' : q,
                 'posts' : posts,
+                'accounts' : accounts,
             }
             template = 'search/search_page.html'
             return render(request , template, context)

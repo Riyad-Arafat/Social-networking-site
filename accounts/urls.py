@@ -9,7 +9,7 @@ urlpatterns = [
     path('profil/<str:username>/edit', views.edit_profile, name='edit_profile'),
     path('logout', views.log_out, name='logout'),
     path('<str:username>', views.profile, name='profile'),
-    path('follow/profile', views.follow),
+    path('follow/profile', views.follow, name='follow'),
     path('accounts/password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('accounts/password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

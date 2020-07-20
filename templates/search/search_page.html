@@ -1,15 +1,68 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <div class="container">
-        <div class="row row-cols-1">
-            <div id="searched-post" class="container">
-                {% for post in posts %}
-                    {% include 'post-box.html' %}
-                {% endfor %}
-                <div class="m-auto" style="width: 500px">
-                    <a class="btn btn-block btn-outline-primary" id="{{ query }}" href="{% url 'more_posts' query %}">More</a>
+        <div class="row row-cols-md-2">
+            <div class="col-md-4 container">
+                <div class="sticky-top l-s">
+                    <span>All result for</span>
+                    <span style="font-weight: bold; color: #007bff">{{ query }}</span>
+                    <br>
+                    <hr>
+                    <span>{{ accounts.count }}#</span>
+                    <span>People</span>
+                    <br>
+                    <hr>
+                    <span>{{ posts.count }}#</span>
+                    <span>Post</span>
                 </div>
-                <br>
+            </div>
+            <br>
+            <div class="col container">
+                <div class="row row-cols-1">
+                    {% if accounts %}
+                        <div class="container">
+                            <div class="container searched-accounts">
+                                <div style="padding: 8px 17px;font-weight: bold;font-size: 19px">
+                                    <span>People</span>
+                                </div>
+                                <ul>
+                                    {% for account in accounts %}
+                                        <li class="container-fluid row  justify-content-between">
+                                            <div class="col-9">
+                                                <a href="{% url 'profile' account.username %}">
+                                                    <img class="col" src="{{ account.profile.picture.url }}">
+                                                    <span>{{ account.first_name }} {{ account.last_name }}</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-3">
+                                                {% if request.user != account %}
+                                                    {% if request.user in account.profile.followers.all%}
+                                                        <input style="position: relative;left: -17px;" class="btn btn-outline-primary follow-btn" data-key="{{ account.profile.id }}" type="submit" value="Unfollow">
+                                                    {% else %}
+                                                        <input style="position: relative;left: -17px;" class="btn btn-primary follow-btn" data-key="{{ account.profile.id }}" type="submit" value="Follow">
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                        <hr>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if posts %}
+                        <div id="searched-post" class="container">
+                            {% for post in posts %}
+                                {% include 'post-box.html' %}
+                            {% endfor %}
+                            <div class="m-auto" style="max-width: 500px">
+                                <a class="btn btn-block btn-outline-primary" id="{{ query }}" href="{% url 'more_posts' query %}">More</a>
+                            </div>
+                            <br>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

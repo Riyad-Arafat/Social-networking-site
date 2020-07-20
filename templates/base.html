@@ -20,11 +20,13 @@
                     <div class="container">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 8px 0px;">
                             <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
-                                <a class="navbar-brand" href="#">Navbar</a>
-                                <form class="form-inline m-auto my-2 my-lg-0 col col-lg-6" role="search" action="{% url 'search' %}">
+                                <div class="d-flex col">
+                                    <a class="navbar-brand">Navbar</a>
+                                    <form class="form-inline m-auto my-2 my-lg-0 col" role="search" action="{% url 'search' %}">
                                     <input class="form-control mr-sm-2 col" type="search" placeholder="Search" aria-label="Search" name="q">
                                     <button class="btn btn-outline-dark btn-s-i my-2 my-sm-0" type="submit"><i class="icofont-search-2"></i></button>
                                 </form>
+                                </div>
                                 <ul class="navbar-nav m-auto col" style="flex-direction: row">
                                     <li class="nav-item m-auto">
                                         <a class="nav-link" href="{% url 'timeline_page' %}">
@@ -73,10 +75,11 @@
             <script>
                 $audio = new Audio( "{% static 'sound_effects/comment.mp3' %}");
                 var  $count_views   = "{% url 'count_views' %}";
-                var  $creat_post    = '{% url 'crate_post' %}'
-                var  $get_comments  = '{% url 'get_comment' %}'
-                var  $creat_comment = '{% url 'creat_comment' %}'
-                var  $like_btn      = '{% url 'like_btn' %}'
+                var  $creat_post    = '{% url 'crate_post' %}';
+                var  $get_comments  = '{% url 'get_comment' %}';
+                var  $creat_comment = '{% url 'creat_comment' %}';
+                var  $like_btn      = '{% url 'like_btn' %}';
+                var  $follow        = '{% url 'follow' %}'
             </script>
 
 

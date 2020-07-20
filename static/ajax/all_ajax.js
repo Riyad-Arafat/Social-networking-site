@@ -185,11 +185,10 @@ $(document).ready(function () {
     $('.follow-btn').off('click').on('click',function (e) {
         e.preventDefault()
         var $x = e.target;
-
         var $id = $($x).attr('data-key')
 
         $.ajax({
-            url : 'follow/profile',
+            url : $follow,
             type: 'Get',
             cache: false,
             data : {
@@ -200,9 +199,13 @@ $(document).ready(function () {
                 $audio.play();
                 if ( $($x).val() ==='Follow'){
                     $($x).val('Unfollow');
+                    $($x).removeClass('btn-primary').addClass('btn-outline-primary')
+
                 }
                 else {
                     $($x).val('Follow');
+                    $($x).removeClass('btn-outline-primary').addClass('btn-primary')
+
                 }
 
 

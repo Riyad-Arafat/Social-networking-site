@@ -28,7 +28,9 @@ textarea{
     overflow: hidden;
     resize: none;
 }
-
+span{
+    display: inline-block;
+}
 
 
 /* login page */
@@ -96,7 +98,7 @@ ul.errorlist{
 
 .navbar-nav .dropdown-menu{
     position: absolute;
-    left: -67px;
+    left: -73px;
 
 }
 
@@ -419,14 +421,6 @@ ul.errorlist{
 
 
 /* profile page */
-
-.follow-btn{
-    outline: none;
-    background-color: white;
-    color: #000;
-    border: 1px solid #464545;
-}
-
 .p_h{
     justify-content: center;
     text-align: center;
@@ -585,3 +579,46 @@ ul.errorlist{
 
 
 
+/* search page */
+
+.l-s{
+    top: 80px;
+    background-color: #fff;
+    margin: 0px 0px 11px 5px;
+    font-size: 25px;
+    padding: 14px;
+    max-width: 500px;
+    z-index: unset;
+}
+.searched-accounts{
+    max-width: 500px;
+    background: #fff;
+    padding: 10px 0px 1px 0px;
+    margin-bottom: 15px;
+}
+.searched-accounts ul{
+    padding: 0;
+    list-style: none;
+}
+.searched-accounts img{
+    height: 70px;
+    width: 103px;
+    border-radius: 100%;
+}
+.searched-accounts .btn{
+    position: relative;
+    top: 15px;
+}
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .info-side{
+        top: 120px;
+    }
+    .l-s{
+        top: 120px;
+    }
+}
