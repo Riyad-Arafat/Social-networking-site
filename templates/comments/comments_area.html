@@ -1,18 +1,20 @@
-    <div id="comments" class="comments-area container">
+ <div id="comments" class="comments-area container">
         {% include 'comments/creat_comment_form.html' %}
         <div class="comments">
-            {% for comment in comments %}
-                <ul class="comment col">
-                    <li class="u_c col">
-                        <div>
-                            <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
-                        </div>
-                        <div class="rp col">
-                            <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
-                            <span dir="auto">{{ comment.content |linebreaks }}</span>
-                        </div>
-                    </li>
-                </ul>
-            {% endfor %}
+            {% if comments %}
+                {% for comment in comments %}
+                    <ul class="comment col">
+                        <li class="u_c col">
+                            <div>
+                                <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
+                            </div>
+                            <div class="rp col">
+                                <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
+                                <span dir="auto" style="text-align: justify;">{{ comment.content|safe }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>

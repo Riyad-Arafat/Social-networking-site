@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 
 
 
-from .models import Post, Comment, Profile, Users
+from .models import Post, Comment, Users
 
 # Create your views here.
 
@@ -17,8 +17,8 @@ from .models import Post, Comment, Profile, Users
 @csrf_protect
 def CreatePost(request):
     if request.method == 'POST' and request.is_ajax():
-        content = request.POST['content']
-        community = request.POST['community']
+        content = request.POST.get('content')
+        community = request.POST.get('community')
         if community != 'none':
             post = Post.objects.create(
                 author=Users.objects.get(username=request.user),
@@ -49,12 +49,13 @@ def CreatePost(request):
 @csrf_protect
 def CreateComment(request):
     if request.method == 'POST' and request.is_ajax():
-        content = request.POST['content']
-        post = request.POST['post']
+        content = request.POST.get('content')
+        post = request.POST.get('post')
+        print(post)
 
         x = Comment.objects.create(
             author = Users.objects.get(username=request.user),
-            post = Post.objects.get(id=post),
+            post = Post.objects.get(pk=post),
             content = content,
         )
         pk = x.pk
@@ -76,10 +77,10 @@ def CreateComment(request):
 
 ## Get comments that related to post fun
 def get_comments(request):
-    if request.method == 'GET' and request.is_ajax():
-        post = request.GET['post']
+    if request.is_ajax():
+        post = request.GET.get('post')
         user = Users.objects.get(username=request.user)
-        comments = Comment.objects.filter(post=post).order_by('-created_at')
+        comments = Comment.objects.filter(post_id=post).order_by('-created_at')
         context = {
             'user': user,
             'comments': comments
@@ -93,7 +94,7 @@ def get_comments(request):
 def like_button(request):
     if request.method == 'GET' and request.is_ajax():
         user = Users.objects.get(username=request.user)
-        pk = request.GET['post']
+        pk = request.GET.get('post')
         post = Post.objects.get(id=pk)
         likes = post.likes.all()
         if user not in likes:
@@ -121,7 +122,7 @@ def like_button(request):
 def count_post_views(request):
     if request.user.is_authenticated and request.is_ajax():
         user = Users.objects.get(username=request.user)
-        pk = request.GET['id']
+        pk = request.GET.get('id')
         post = Post.objects.get(id=pk)
         viewers = post.viewers.all()
         if user not in viewers:

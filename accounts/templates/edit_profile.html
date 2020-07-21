@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <div style="margin-top: 50px; margin-bottom: 50px;">
+    <link rel="stylesheet" href="{% static 'css/libs/croppie.css' %}" />
         {% if messages %}
         {% for message in messages %}
             <div>{{ message }}</div>
@@ -8,8 +9,9 @@
     {% endif %}
         <div class="container-fluid">
             <div style="top: 0px;" class="user-p col">
-                <img src="{{ user.profile.picture.url }}" alt="pic">
+                <img id="ss" src="{{ user.profile.picture.url }}" alt="pic">
             </div>
+            <div id="upload-pic"></div>
             <form class="e-form container" method="POST" enctype="multipart/form-data" >
                 {% csrf_token %}
                 <div class="form-row text-center">
@@ -33,10 +35,9 @@
                         <label for="id_first_name">username</label>
                         {{user_form.username}}
                     </div>
-                    <div class="form-group m-auto ">
+                    <div class="form-group m-auto">
                         <label for="id_email">Email</label>
                         {{user_form.email}}
-                        <span></span>
                     </div>
                 </div><br>
                 <div class="form-row row-cols-md-2 text-center">
@@ -52,6 +53,27 @@
                 </div>
             </form>
         </div>
-    </div>
+
+    <script src="{% static 'js/libs/croppie.min.js' %}"></script>
+   <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#ss').attr('src', e.target.result);
+          $('#ss').Jcrop({
+              aspectRatio: 1,
+              setSelect: [50, 0, 300, 300],
+              allowResize: false
+          });
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#id_picture").change(function() {
+      readURL(this);
+    });
+   </script>
 
 {% endblock %}

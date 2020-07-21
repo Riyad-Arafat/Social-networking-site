@@ -8,10 +8,12 @@ from .forms import UserRegistrationForm, UserLoginForm, UserForm, ProfileForm
 from django.contrib import messages
 
 from .models import Profile, Users
-from posts.models import Comment , Post
+from posts.models import Comment
 
 
-
+from django.conf import settings
+import os
+import random
 
 from django.http import HttpResponse, HttpResponseRedirect
 from urlextract import URLExtract
@@ -114,12 +116,36 @@ def profile(request, username):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    ### View all media files related to user
+    media_root = settings.MEDIA_ROOT
+    try:
+        pictures   = os.listdir(f'{media_root}/profile/{profile_user.id}/picture')[:3]
+        pictures   = reversed(pictures)
+    except:
+        pictures = None
+
+    try:
+        covers      = os.listdir(f'{media_root}/profile/{profile_user.id}/cover')[:3]
+        covers      = reversed(covers)
+    except:
+        covers = None
+
+    try:
+        images      = os.listdir(f'{media_root}/profile/{profile_user.id}/posts')[:3]
+        images      = reversed(images)
+    except:
+        images = None
+
 
 
     context = {
 
         'user': user,
         'profile' : profile_user,
+        'pictures' : pictures,
+        'covers' : covers,
+        'images' : images,
+        'media_url' : f"{settings.MEDIA_URL}\profile\{profile_user.id}",
         'posts' : posts,
         'comments': comments,
         'now': timezone.now

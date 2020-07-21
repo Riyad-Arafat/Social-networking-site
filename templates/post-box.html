@@ -50,20 +50,20 @@
                     {% endif %}
                 </ul>
                 <hr>
-                <div class="_ip col ">
+                <div class="_ip col">
                     <ul class="row">
                         {% if request.user in post.likes.all %}
-                            <a class="col like-btn active" href="#">
+                            <a class="btn col like-btn active">
                                 <i class="icofont-like"></i>
                                 <span>Like</span>
                             </a>
                             {% else %}
-                                <a class="col like-btn" href="#">
+                                <a class="btn col like-btn">
                                     <i class="icofont-like"></i>
                                     <span>Like</span>
                                 </a>
                         {% endif %}
-                        <a class="col comment-btn" href="#">
+                        <a class="btn col comment-btn">
                             <i class="icofont-comment"></i>
                             <span>Comment</span>
                         </a>
@@ -71,7 +71,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 

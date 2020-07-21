@@ -327,7 +327,7 @@ ul.errorlist{
 .u_c .rp {
     width: fit-content;
     padding: 6px 14px;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     background: #e9ebee;
     border-radius: 15px;
 
@@ -483,7 +483,16 @@ ul.errorlist{
     font-weight: 600;
 }
 
-
+.photos{
+    background-color: #fff;
+    padding: 0px 4px 9px;
+    border-radius: 3px;
+}
+.photos img{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #fff;
+}
 
 
 /*profile edit page */

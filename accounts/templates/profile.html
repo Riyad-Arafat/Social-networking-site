@@ -1,98 +1,115 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <div class="p_h container-fluid">
-            <div class="cover-page">
-                <img src="{{ profile.cover.url }}">
-            </div>
-            <div class="user-p col">
-                <img src="{{ profile.picture.url }}">
+    <div class="p_h container-fluid">
+        <div class="cover-page">
+            <img src="{{ profile.cover.url }}">
+        </div>
 
-            </div>
-
-            <div class="info-user">
-
-                <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}{% if profile.user.is_online %}
-                    <span class="online" style="top: 27px;left: 55px;"></span>
-                {% endif%}</h2>
-
-                {% if request.user.is_authenticated %}
+        <div class="user-p col">
+            <img src="{{ profile.picture.url }}">
+        </div>
+        <div class="info-user">
+            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}{% if profile.user.is_online %}
+                <span class="online" style="top: 27px;left: 55px;"></span>
+            {% endif%}</h2>
+            {% if request.user.is_authenticated %}
                 {% if user != profile %}
-                <span>
-                    {% if request.user != profile.user %}
-                        {% if request.user in profile.followers.all %}
-                            <input class="btn btn-outline-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
+                    <span>
+                        {% if request.user != profile.user %}
+                            {% if request.user in profile.followers.all %}
+                                <input class="btn btn-outline-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
                             {% else %}
-                            <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                                <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                </span>
+                    </span>
                 {% endif %}
-                {% endif %}
-                <div class="row">
-                    <div class="bio col-sm-6">
-                        <h4>Bio</h4>
-                        <span>
-                            {{ profile.bio }}
-                        </span>
-                    </div>
+            {% endif %}
+            <div class="row">
+                <div class="bio col-sm-6">
+                    <h4>Bio</h4>
+                    <span>
+                        {{ profile.bio }}
+                    </span>
                 </div>
-                <br>
-                <div class="container">
-                    <div class="row row-cols-2 offset-md-1">
+            </div>
+            <br>
+            <div class="container">
+                <div class="row row-cols-md-2 row-cols-1 offset-md-1">
                     <div class="career col  row-cols-12 ">
-                        <div class="col" >
+                        <div class="col btn" >
                             <h6>University: <span><a href="#">{{ profile.university }}</a></span></h6>
                         </div>
-                        <div class="col" >
+                        <div class="col btn" >
                             <h6>Faculty: <span><a href="#">{{ profile.faculty }}</a></span></h6>
                         </div>
-                        <div class="col" >
+                        <div class="col btn" >
                             <h6>Level: <span>{{profile.level}}</span></h6>
                         </div>
-                        <div class="col" >
+                        <div class="col btn" >
                             <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
                         </div>
-                        <div class="col" >
+                        <div class="col btn" >
                             <h6>Location: <span>{{ profile.location }}</span></h6>
                         </div>
                     </div>
                     <div class="career col row-cols-12">
                         <div class="col" >
-                            <h6>Followers: <span><a href="#">{{ profile.followers.count }}</a></span></h6>
-                            <h6>Following: <span><a href="#">{{ profile.following.count }}</a></span></h6>
-
+                            <h6>Followers: <span><a class="btn" style="color: #007bff">{{ profile.followers.count }}</a></span></h6>
+                            <h6>Following: <span><a class="btn" style="color: #007bff">{{ profile.following.count }}</a></span></h6>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
-
-        <section id="posts-list" class="container">
-            {% if user == profile.user %}
-                {% include 'create_post.html' %}
-            {% endif %}
-            <div class="row row-cols-1">
-                <div id="time-line">
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col-md-4" style="margin-bottom: 25px;">
+                <div class="sticky-top" style="z-index: unset;top: 77px;">
+                    {% if pictures or covers or images %}
+                        <div class="photos row row-cols-2 container m-auto">
+                        <span class="col-12"><i class="icofont-ui-image" style="color: #4cd433;"></i> Photos</span>
+                        <br>
+                        {% for picture in pictures %}
+                            <img src="{{ media_url }}\picture\{{ picture }}">
+                        {% endfor %}
+                        {% for cover in covers %}
+                            <img src="{{ media_url }}\cover\{{ cover }}">
+                        {% endfor %}
+                        {% for image in images %}
+                            <img src="{{ media_url }}\posts\{{ image }}">
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div id="posts-list" class="container col">
+                {% if user == profile.user %}
+                    {% include 'create_post.html' %}
+                {% endif %}
+                <div class="row row-cols-1">
+                    <div id="time-line">
                         {% for post in posts %}
                             {% include 'post-box.html' %}
                         {% endfor %}
-                </div>
-                {% if posts.has_next %}
-                    <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
-                {% endif %}
-                <div class="loading" style="display: none;">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
+                    </div>
+                    {% if posts.has_next %}
+                        <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
+                    {% endif %}
+                    <div class="loading" style="display: none;">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </section>
-
+        </div>
+    </div>
 
 
 

@@ -4,7 +4,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-
+import os.path
 
 #################### USER CUSTOMIZE ###################################
 
@@ -91,11 +91,11 @@ class Users(AbstractBaseUser):
 
 ###################### PROFILE METHOD ########################
 
-def profile_picture_upload(instance,filename):
-	iconname , extension = filename.split('.')
+def profile_picture_upload(instance , filename):
+	iconname , extension = os.path.splitext(filename)
 	return f'profile/{instance.id}/picture/{iconname}.{extension}'
-def profile_cover_upload(instance,filename):
-	iconname , extension = filename.split('.')
+def profile_cover_upload(instance, filename):
+	iconname , extension = os.path.splitext(filename)
 	return f'profile/{instance.id}/cover/{iconname}.{extension}'
 
 class Profile(models.Model):

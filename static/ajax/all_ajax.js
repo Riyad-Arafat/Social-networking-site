@@ -1,4 +1,3 @@
-
 ///////////////////////////////// create new post ///////////////////
 
 $('#creat_post').submit(function (e) {
@@ -48,17 +47,18 @@ $(document).bind('DOMSubtreeModified', function() {
     $('.comment-btn').off('click').on('click',function (e) {
         e.preventDefault()
         var $x = e.target;
-        var $post = $($x).offsetParent().offsetParent()
+        var $post = $($x).parents('.post-body')
+
         $.ajax({
             url: $get_comments,
             type: 'GET',
             cache: false,
             data: {
-                post: $post.attr("data-key"),
+                post: $($post).attr("data-key"),
             },
             success: function (data, status, xhr) {
-                if ($post.find('#comments').length > 0){
-                    $post.find('#comments').remove()
+                if ($($post).find('#comments').length > 0){
+                    $($post).find('#comments').remove()
                 }else {
                     $post.append(data)
                 }
@@ -78,7 +78,7 @@ $(document).bind('DOMSubtreeModified', function() {
     $('.like-btn').off('click').on('click',function (e) {
         e.preventDefault()
         var $x = e.target;
-        var $post = $($x).offsetParent().offsetParent()
+        var $post = $($x).parents(".post-body")
 
         $.ajax({
             url: $like_btn,
@@ -90,8 +90,7 @@ $(document).bind('DOMSubtreeModified', function() {
             success: function (data, status, xhr) {
                 $data = $.parseHTML(data)
                 $s = $data[1]
-                $post.find('.stat').replaceWith($($data).find('.stat'))
-
+                $($post).find('.stat').replaceWith($($data).find('.stat'))
                 $audio.play()
 
             },
@@ -99,12 +98,12 @@ $(document).bind('DOMSubtreeModified', function() {
 
             },
         }).done(function () {
-            if( $post.find(".like-btn").hasClass('active')){
-                $post.find(".like-btn").removeClass('active');
+            if( $($post).find(".like-btn").hasClass('active')){
+                $($post).find(".like-btn").removeClass('active');
 
             }else {
 
-                $post.find(".like-btn").addClass('active');
+                $($post).find(".like-btn").addClass('active');
             }
         })
 
@@ -118,7 +117,7 @@ $(document).bind('DOMSubtreeModified', function(){
     $('.comments-area' ).off('submit').on("submit",function (e) {
         e.preventDefault()
         var $x = e.target;
-        var $post = $($x).offsetParent().attr('data-key');
+        var $post = $($x).parents('.post-body').attr('data-key');
         var $comment = $($x).children('#content');
 
         var $new_comment = $($x).offsetParent().find(".comments")
@@ -137,7 +136,6 @@ $(document).bind('DOMSubtreeModified', function(){
 
                     $comment.val(null)
                     $($comment).css('height' , 'unset')
-
                     $data= $.parseHTML(data);
                     $($data).prependTo($new_comment)
                     $audio.play();
@@ -182,27 +180,26 @@ var infinite = new Waypoint.Infinite({
 ///////////////////// follow profile ////////////////
 
 $(document).ready(function () {
-    $('.follow-btn').off('click').on('click',function (e) {
+    $('.follow-btn').off('click').on('click', function (e) {
         e.preventDefault()
         var $x = e.target;
         var $id = $($x).attr('data-key')
 
         $.ajax({
-            url : $follow,
+            url: $follow,
             type: 'Get',
             cache: false,
-            data : {
-                id : $id
+            data: {
+                id: $id
 
             },
             success: function () {
                 $audio.play();
-                if ( $($x).val() ==='Follow'){
+                if ($($x).val() === 'Follow') {
                     $($x).val('Unfollow');
                     $($x).removeClass('btn-primary').addClass('btn-outline-primary')
 
-                }
-                else {
+                } else {
                     $($x).val('Follow');
                     $($x).removeClass('btn-outline-primary').addClass('btn-primary')
 
@@ -212,6 +209,4 @@ $(document).ready(function () {
             }
         })
     })
-
 })
-

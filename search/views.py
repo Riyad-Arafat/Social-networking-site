@@ -52,3 +52,27 @@ def more_posts(request, query):
 
     template = 'search/more_posts.html'
     return render(request, template, context)
+
+
+
+### Hash_tags #####
+
+
+def hash_tag(request, tag):
+    user = request.user
+    if user.is_authenticated:
+
+        tag = "#"+tag
+        posts = Post.objects.filter(Q(content__iregex=tag)).order_by('-created_at')
+
+        context = {
+            'query': tag,
+            'posts' : posts,
+
+        }
+        template = 'search/hash_tag.html'
+        return render(request, template, context)
+
+    else:
+        return redirect('timeline_page')
+
