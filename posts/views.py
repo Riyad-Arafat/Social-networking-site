@@ -9,14 +9,17 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import Post, Comment, Users
 
+
 # Create your views here.
 
 
 ## create post fun
+
 @csrf_protect
 def CreatePost(request):
     if request.method == 'POST' and request.is_ajax():
         content = request.POST.get('content')
+        image   = request.FILES.get('image')
         community = request.POST.get('community')
         if community != 'none':
             post = Post.objects.create(
@@ -28,6 +31,7 @@ def CreatePost(request):
             post = Post.objects.create(
                 author=Users.objects.get(username=request.user),
                 content=content,
+                image=image,
             )
         pk = post.pk
         post = Post.objects.get(pk=pk)
@@ -38,6 +42,7 @@ def CreatePost(request):
 
         template = "post-box.html"
         return render(request, template, context)
+
 
     return redirect("timeline_page")
 

@@ -1,6 +1,6 @@
 ///////////////////////////////// create new post ///////////////////
 
-$('#creat_post').submit(function (e) {
+$('#creat_post').off('submit').on('submit',function (e) {
     e.preventDefault()
     var $community = $('#community');
     var $cid;
@@ -10,7 +10,14 @@ $('#creat_post').submit(function (e) {
         $cid = 'none';
     }
     var $content = $('#post').val();
-    var $post = '<p dir="auto">' + $content.replace(/\n/g, "</p>\n<p dir='auto' >") + '</p>';
+    var $file =  $('#id_image')[0].files[0];
+    var $postContent = '<p dir="auto">' + $content.replace(/\n/g, "</p>\n<p dir='auto' >") + '</p>';
+    var $data = new FormData();
+    $data.append("content", $postContent);
+    $data.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+    $data.append("image", $file);
+    $data.append('community', $cid)
+
 
 
     if ($content !== "" && $content !== ' '){
@@ -18,14 +25,14 @@ $('#creat_post').submit(function (e) {
             url : $creat_post,
             type : 'POST',
             cache: false,
-            data:{
-                content : $post,
-                community : $cid,
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+            contentType: false,
+            processData: false,
+            data: $data,
 
-            },
             success: function (data,status,xhr) {
                 $('#post').val(null)
+                $("#ss").attr('src', '')
+                $("#ss").hide()
                 $('#post').css('height' , 'unset')
                 var $new_post = $.parseHTML(data)
                 $('#time-line').prepend($new_post)

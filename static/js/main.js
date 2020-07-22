@@ -56,9 +56,10 @@ function read_more() {
 
 /////////////////// CREAT POST MODEL///////////////
 
-var C_POST = document.getElementById("post");
-if  (C_POST){
-    C_POST.onfocus =function(){
+var C_POST = document.getElementById("post"),
+    Photo = $('#add-photo')
+if  (C_POST && Photo){
+    C_POST.onfocus=function(){
         var x = document.getElementById("ov"),
             nav = nav = document.getElementsByTagName("header")[0],
             y = document.getElementById('post-m');
@@ -68,6 +69,15 @@ if  (C_POST){
 
 
     };
+    $('#add-photo').click(function () {
+        var x = document.getElementById("ov"),
+            nav = nav = document.getElementsByTagName("header")[0],
+            y = document.getElementById('post-m');
+        x.classList.add("op1");
+        nav.style.zIndex = 30;
+        y.classList.add('pm')
+
+    })
     window.onclick = function(event) {
         var $postBtn = $('.btn-post')
 
@@ -125,3 +135,5 @@ var swiper = new Swiper('.swiper-tags', {
       prevEl: '.swiper-button-prev',
     },
 });
+
+

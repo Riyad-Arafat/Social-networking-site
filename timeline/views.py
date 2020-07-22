@@ -21,8 +21,8 @@ def home_page(request):
     user = request.user
     if user.is_authenticated:
         user = Users.objects.get(username=request.user)
-        posts = Post.objects.filter(Q(author__profile__followers=user) | Q(author=user)).order_by('-created_at')
-        page = request.GET.get('', 1)
+        posts = Post.objects.filter(Q(author=request.user) | Q(author__profile__followers=user.id)).order_by('-created_at')
+        page = request.GET.get('page', 1)
         paginator = Paginator(posts, 5)
         try:
             posts = paginator.page(page)

@@ -63,11 +63,22 @@ class UserLoginForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'pattern' : "[a-zA-Z0-9-._%+-]+", 'title': 'remove all spaces'}))
+    birthday = forms.CharField(max_length=12, widget=forms.DateInput(attrs={"type": "hidden"}))
     class Meta:
         model = Users
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'username', 'email', 'birthday', 'gender',)
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('picture', 'bio')
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'

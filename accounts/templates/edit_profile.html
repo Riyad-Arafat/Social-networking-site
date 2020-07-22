@@ -4,46 +4,67 @@
     <link rel="stylesheet" href="{% static 'css/libs/croppie.css' %}" />
         {% if messages %}
         {% for message in messages %}
-            <div>{{ message }}</div>
+            <div style="text-align: center;" class=" m-auto alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
     {% endif %}
-        <div class="container-fluid">
+    <div class="container-fluid">
+
+        <div class="login-form bg-light m-auto mt-5 col-md-6">
             <div style="top: 0px;" class="user-p col">
-                <img id="ss" src="{{ user.profile.picture.url }}" alt="pic">
-            </div>
-            <div id="upload-pic"></div>
+            <img id="ss" src="{{ user.profile.picture.url }}" alt="pic">
+        </div>
             <form class="e-form container" method="POST" enctype="multipart/form-data" >
-                {% csrf_token %}
+            {% csrf_token %}
+
                 <div class="form-row text-center">
                     <div class="col-md-6 m-auto">
                         <label for="id_picture" class="btn btn-outline-dark" >Chang profile picture</label>
                         <input type="file" name="picture" accept="image/*" id="id_picture" style="display: none">
                     </div>
                 </div><br>
-                <div class="form-row row-cols-md-2">
-                    <div class="form-group m-auto ">
-                        <label for="id_first_name">First Name</label>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="{{ user_form.first_name.id_for_label }}">First Name</label>
                         {{user_form.first_name}}
+                        {{ user_form.first_name.errors }}
                     </div>
-                    <div class="form-group m-auto ">
-                        <label for="id_last_name">Last Name</label>
+                    <div class="form-group col-sm-6">
+                        <label for="{{ user_form.last_name.id_for_label }}">Last Name</label>
                         {{user_form.last_name}}
+                        {{ user_form.lasr_name.errors }}
                     </div>
-                </div><br>
-                <div class="form-row row-cols-md-2 ">
-                    <div class="form-group m-auto">
-                        <label for="id_first_name">username</label>
-                        {{user_form.username}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.username.id_for_label }}">Username</label>
+                    {{user_form.username}}
+                    {{ user_form.username.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.email.id_for_label }}">Email</label>
+                    {{user_form.email}}
+                    {{ user_form.email.errors }}
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-3">
+                        <label for="{{ user_form.gender.id_for_label }}">Gender</label>
+                        {{ user_form.gender }}
+                        {{ user_form.gender.errors }}
+                        {{ user_form.birthday }}
                     </div>
-                    <div class="form-group m-auto">
-                        <label for="id_email">Email</label>
-                        {{user_form.email}}
-                    </div>
-                </div><br>
-                <div class="form-row row-cols-md-2 text-center">
-                    <div class="form-group m-auto col">
-                        <label for="id_bio">Bio</label>
-                        <div>{{profile_form.bio}}</div>
+
+                    <div class="form-row col-sm">
+                        <div class="form-group col-sm-4">
+                            <label for="inputDay">Day</label>
+                            <select id="inputDay" class="form-control"></select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="inputMonth">Month</label>
+                            <select id="inputMonth" class="form-control"></select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="inputYear">Year</label>
+                            <select id="inputYear" class="form-control"></select>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -53,19 +74,14 @@
                 </div>
             </form>
         </div>
-
-    <script src="{% static 'js/libs/croppie.min.js' %}"></script>
+    </div>
+    <script type="text/javascript" src="{% static 'js/sign_up.js' %}"></script>
    <script>
     function readURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
           $('#ss').attr('src', e.target.result);
-          $('#ss').Jcrop({
-              aspectRatio: 1,
-              setSelect: [50, 0, 300, 300],
-              allowResize: false
-          });
         }
         reader.readAsDataURL(input.files[0]);
       }

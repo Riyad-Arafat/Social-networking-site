@@ -172,7 +172,7 @@ def edit_profile(request, username):
                 if user_form.is_valid and profile_form.is_valid :
                     user_form.save()
                     profile_form.save()
-                    messages.success(request, 'update profile is done')
+                    messages.success(request, 'Your profile has been updated')
                     username = user_form.cleaned_data['username']
                     return redirect('edit_profile', username)
             else:
