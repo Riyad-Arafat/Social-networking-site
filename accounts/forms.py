@@ -11,14 +11,16 @@ from .models import Users, Profile
 ########################### USER SIGNUP FORM #########################
 
 class UserRegistrationForm(UserCreationForm):
-    first_name  = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'autocomplete': 'on', 'autofocus' : "on"}))
-    last_name   = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'autocomplete': 'on'}))
-    email       = forms.CharField(max_length=50, widget=forms.TextInput(attrs={"type" : 'email', 'autocomplete': 'on', }))
+    first_name  = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'autocomplete': 'on', 'autofocus' : "on"}))
+    last_name   = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'autocomplete': 'on'}))
+    email       = forms.CharField(max_length=50, widget=forms.TextInput(attrs= {'placeholder' : "name@example.com", "type" : 'email', 'autocomplete': 'on', }))
+    birthday    = forms.CharField(max_length=12, widget=forms.DateTimeInput(attrs={"type": "hidden"}))
+
 
     class Meta(UserCreationForm.Meta):
         model = Users
         # I've tried both of these 'fields' declaration, result is the same
-        fields = ('first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('first_name', 'last_name', 'email', 'birthday', 'gender', 'password1', 'password2', )
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -26,6 +28,11 @@ class UserRegistrationForm(UserCreationForm):
         if r.count():
             raise ValidationError("Email already exists")
         return email
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 
 

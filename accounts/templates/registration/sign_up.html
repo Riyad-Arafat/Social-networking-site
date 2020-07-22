@@ -1,17 +1,149 @@
 {% extends "base_generic.html" %}
         {% block content %}
 
+            <div class="container">
+                <div class="container log">
+                    <div class="login-form  bg-light m-auto mt-5 col-md-6">
+                        {% if form.errors %}
+                            {{ form.errors }}
+                        {% endif %}
+                        <form method="POST" class="form-group">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                                    {{form.first_name}}
+                                    {{ form.first_name.errors }}
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                                    {{form.last_name}}
+                                    {{ form.lasr_name.errors }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Email</label>
+                                {{form.email}}
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-3">
+                                    <label for="{{ form.gender.id_for_label }}">Gender</label>
+                                    {{ form.gender }}
+                                    {{ form.gender.errors }}
+                                </div>
+                                {{ form.birthday }}
+                                <div class="form-row col-sm">
+                                    <div class="form-group col-sm-4">
+                                        <label for="inputDay">Day</label>
+                                        <select id="inputDay" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="inputMonth">Month</label>
+                                        <select id="inputMonth" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="inputYear">Year</label>
+                                        <select id="inputYear" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.password1.id_for_label}}">Password</label>
+                                {{form.password1}}
+                                {{ form.password1.errors }}
+                                {{ form.password1.help_text }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.password2.id_for_label }}">Password confirmation</label>
+                                {{form.password2}}
+                                {{ form.password2.errors }}
+                            </div>
+                            <hr>
+                            <input class="btn" type="submit" value="Sign up">
+                        </form>
 
-        <div class="container">
-            <div class="container log">
-                <div class="login-form  bg-light m-auto mt-5 col-md-6">
-                    <form method="POST" class="form-group">
-                        {% csrf_token %}
-                        {{ form }}
-                        <hr>
-                        <input class="btn" type="submit" value="Sign up">
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+            <script type="text/javascript">
+                var days = document.getElementById("inputDay"),
+                    months = document.getElementById("inputMonth"),
+                    years = document.getElementById("inputYear"),
+                    month = new Array();
+
+                month[0] = "January";
+                month[1] = "February";
+                month[2] = "March";
+                month[3] = "April";
+                month[4] = "May";
+                month[5] = "June";
+                month[6] = "July";
+                month[7] = "August";
+                month[8] = "September";
+                month[9] = "October";
+                month[10] = "November";
+                month[11] = "December";
+
+
+
+                for (var i = 1; i <= 31; i++){
+
+                    var x = document.createElement('option');
+                    if( i < 10 ){
+                        x.innerHTML = '0' + i;
+                        x.value = '0' + i;
+                    }else {
+                        x.innerHTML = i;
+                        x.value = i;
+                    }
+
+                    days.appendChild(x);
+                }
+
+                for (i = 0; i <= 11; i++){
+
+                    var x = document.createElement('option');
+                    if( i < 9 ){
+
+                        x.value = '0' + (i+1);
+                    }else {
+
+                        x.value = i+1;
+                    }
+
+                    x.innerHTML = month[i];
+
+                    months.appendChild(x);
+                }
+
+                for (i = new Date().getFullYear() - 10; i >= 1900; i--){
+
+                    var x = document.createElement('option');
+
+                    x.innerHTML = i;
+                    x.value = i;
+                    years.appendChild(x);
+                }
+                $('select').change(function () {
+                    var $day = $('#inputDay').val(),
+                        $month = $('#inputMonth').val(),
+                        $year = $('#inputYear').val(),
+                        $birthdayInput = $('#{{ form.birthday.id_for_label }}');
+                    var $birthday;
+
+
+
+                    $birthday = $year + "-" + $month + "-" + $day;
+                    $birthdayInput.val($birthday)
+                    console.log($birthdayInput);
+
+
+
+
+
+
+                })
+
+            </script>
         {% endblock %}

@@ -1,4 +1,4 @@
-import random
+from django.conf import settings
 from django.utils import timezone
 
 
@@ -7,8 +7,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.cache import cache
 
 
-from posts.models import Post, Comment
-from accounts.models import Profile, Users
+from posts.models import Post
+from accounts.models import Users
 from django.db.models import Q
 
 
@@ -34,7 +34,8 @@ def home_page(request):
         context = {
             'user' : user,
             'posts' : posts,
-            'now': timezone.now
+            'now': timezone.now,
+
 
         }
         template = "home.html"

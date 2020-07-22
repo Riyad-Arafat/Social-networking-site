@@ -13,10 +13,10 @@ from posts.models import Comment
 
 from django.conf import settings
 import os
-import random
 
-from django.http import HttpResponse, HttpResponseRedirect
-from urlextract import URLExtract
+
+from django.http import HttpResponse
+
 
 
 # Create your views here.
@@ -30,8 +30,10 @@ def signup(request):
         return redirect("timeline_page")
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
+
         if form.is_valid():
             form.save()
+            messages.success(request, 'You have successfully registered. Login now')
             return redirect('login')
     else:
         form = UserRegistrationForm()
@@ -66,7 +68,8 @@ def login_form(request):
             user.save()
             return redirect("timeline_page")
         else:
-            messages.warning(request, 'The username and password you entered did not match our records. Please double-check and try again.')
+            messages.warning(request, 'The username and password you entered did not match our records. Please check '
+                                      'inputs and try again.')
     else:
         form = UserLoginForm()
 
@@ -121,6 +124,7 @@ def profile(request, username):
     try:
         pictures   = os.listdir(f'{media_root}/profile/{profile_user.id}/picture')[:3]
         pictures   = reversed(pictures)
+
     except:
         pictures = None
 

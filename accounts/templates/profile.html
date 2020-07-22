@@ -5,59 +5,61 @@
         <div class="cover-page">
             <img src="{{ profile.cover.url }}">
         </div>
-
         <div class="user-p col">
             <img src="{{ profile.picture.url }}">
         </div>
-        <div class="info-user">
-            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}{% if profile.user.is_online %}
-                <span class="online" style="top: 27px;left: 55px;"></span>
-            {% endif%}</h2>
-            {% if request.user.is_authenticated %}
-                {% if user != profile %}
-                    <span>
-                        {% if request.user != profile.user %}
-                            {% if request.user in profile.followers.all %}
-                                <input class="btn btn-outline-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
-                            {% else %}
-                                <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
-                            {% endif %}
-                        {% endif %}
-                    </span>
-                {% endif %}
-            {% endif %}
-            <div class="row">
-                <div class="bio col-sm-6">
-                    <h4>Bio</h4>
-                    <span>
-                        {{ profile.bio }}
-                    </span>
+        <div class="info-user container m-auto">
+            <div class="row row-cols-1 justify-content-center">
+                <div class="justify-content-center mb-2">
+                    <h2 class="m-auto" >{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
                 </div>
-            </div>
-            <br>
-            <div class="container">
-                <div class="row row-cols-md-2 row-cols-1 offset-md-1">
-                    <div class="career col  row-cols-12 ">
-                        <div class="col btn" >
-                            <h6>University: <span><a href="#">{{ profile.university }}</a></span></h6>
-                        </div>
-                        <div class="col btn" >
-                            <h6>Faculty: <span><a href="#">{{ profile.faculty }}</a></span></h6>
-                        </div>
-                        <div class="col btn" >
-                            <h6>Level: <span>{{profile.level}}</span></h6>
-                        </div>
-                        <div class="col btn" >
-                            <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
-                        </div>
-                        <div class="col btn" >
-                            <h6>Location: <span>{{ profile.location }}</span></h6>
-                        </div>
+                {% if request.user.is_authenticated %}
+                    {% if user != profile %}
+                        {% if request.user != profile.user %}
+                            <span>
+                                {% if request.user in profile.followers.all %}
+                                    <input class="btn btn-outline-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Unfollow">
+                                {% else %}
+                                    <input class="btn btn-primary follow-btn" data-key="{{ profile.id }}" type="submit" value="Follow">
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                <div class="row mb-2">
+                    <div class="bio col-sm-6">
+                        <span>
+                            {% if profile.bio %}
+                                {{ profile.bio }}
+                            {% endif %}
+                        </span>
                     </div>
-                    <div class="career col row-cols-12">
-                        <div class="col" >
-                            <h6>Followers: <span><a class="btn" style="color: #007bff">{{ profile.followers.count }}</a></span></h6>
-                            <h6>Following: <span><a class="btn" style="color: #007bff">{{ profile.following.count }}</a></span></h6>
+                </div>
+
+                <div class="container">
+                    <div class="row row-cols-md-2 row-cols-1 offset-md-1 m-auto">
+                        <div class="career col  row-cols-12 ">
+                            <div class="col btn" >
+                                <h6>Gender: <span>{{ profile.user.gender }}</span></h6>
+                            </div>
+                            <div class="col btn" >
+                                <h6>Birthday: <span>{{ profile.user.birthday }}</span></h6>
+                            </div>
+                            <div class="col btn" >
+                                <h6>Level: <span>{{profile.level}}</span></h6>
+                            </div>
+                            <div class="col btn" >
+                                <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
+                            </div>
+                            <div class="col btn" >
+                                <h6>Location: <span>{{ profile.location }}</span></h6>
+                            </div>
+                        </div>
+                        <div class="career col row-cols-12">
+                            <div class="col" >
+                                <h6>Followers: <span><a class="btn" style="color: #007bff">{{ profile.followers.count }}</a></span></h6>
+                                <h6>Following: <span><a class="btn" style="color: #007bff">{{ profile.following.count }}</a></span></h6>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,19 +69,21 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col-md-4" style="margin-bottom: 25px;">
-                <div class="sticky-top" style="z-index: unset;top: 77px;">
+                <div class="sticky-top"  style=" z-index: unset; top: 77px;">
                     {% if pictures or covers or images %}
                         <div class="photos row row-cols-2 container m-auto">
                         <span class="col-12"><i class="icofont-ui-image" style="color: #4cd433;"></i> Photos</span>
                         <br>
                         {% for picture in pictures %}
-                            <img src="{{ media_url }}\picture\{{ picture }}">
+
+                            <img src="{{ media_url }}\picture\{{ picture }}" alt="photo">
+
                         {% endfor %}
                         {% for cover in covers %}
-                            <img src="{{ media_url }}\cover\{{ cover }}">
+                            <img src="{{ media_url }}\cover\{{ cover }}" alt="photo">
                         {% endfor %}
                         {% for image in images %}
-                            <img src="{{ media_url }}\posts\{{ image }}">
+                            <img src="{{ media_url }}\posts\{{ image }}" alt="photo">
                         {% endfor %}
                     </div>
                     {% endif %}

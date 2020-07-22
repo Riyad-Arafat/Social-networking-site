@@ -340,6 +340,14 @@ ul.errorlist{
     z-index: 33;
 }
 
+
+.hash-tag {
+    font-weight: bold;
+    color: #0090ff;
+}
+
+
+
 .comment-form{
     display: flex;
 }

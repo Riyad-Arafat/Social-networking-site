@@ -44,6 +44,10 @@ class Post(models.Model):
                 self.content = self.content.replace(str(url), i)
 
 
+        for tag in hash_tag:
+            i = f'<span class="hash-tag">{tag}</span>'
+            if i not in self.content:
+                self.content = self.content.replace(tag, i)
 
         for tag in mentions:
             i = f'<a href="{tag[1:]}">{tag[1:]}</a>'
@@ -84,6 +88,11 @@ class Comment(models.Model):
             if i not in self.content:
                 self.content = self.content.replace(str(url), i)
 
+
+        for tag in hash_tag:
+            i = f'<span class="hash-tag">{tag}</span>'
+            if i not in self.content:
+                self.content = self.content.replace(tag, i)
 
         for tag in mentions:
             i = f'<a href="{tag[1:]}">{tag[1:]}</a>'

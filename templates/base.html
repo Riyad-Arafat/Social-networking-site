@@ -4,7 +4,7 @@
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <title>FB</title>
+            <title>SB</title>
             <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/Riyad.jpg' %}">
             <link rel="stylesheet" href="{% static 'css/icofont/icofont.min.css' %}">
             <link rel="stylesheet" href="{% static 'css/libs/bootstrap.min.css' %}">
@@ -19,10 +19,10 @@
             {% if request.user.is_authenticated %}
                 <header class="bg-light sticky-top">
                     <div class="container">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 8px 0px;">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 8px 0px;font-size: x-large">
                             <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
                                 <div class="d-flex col">
-                                    <a class="navbar-brand">Navbar</a>
+                                    <a class="navbar-brand h1" href="/">Sociable</a>
                                     <form class="form-inline m-auto my-2 my-lg-0 col" role="search" action="{% url 'search' %}">
                                         <input class="form-control mr-sm-2 col" type="search" placeholder="Search" aria-label="Search" name="q">
                                         <button class="btn btn-outline-dark btn-s-i my-2 my-sm-0" type="submit"><i class="icofont-search-2"></i></button>
@@ -31,26 +31,13 @@
                                 <ul class="navbar-nav m-auto col" style="flex-direction: row">
                                     <li class="nav-item m-auto">
                                         <a class="nav-link" href="{% url 'timeline_page' %}">
-                                            <i class="icofont-ui-home"></i>
-                                            <span>Home</span>
+                                            <i class="icofont-ui-home">Home</i>
                                         </a>
                                     </li>
                                     <li class="nav-item m-auto">
                                         <a class="nav-link" href="{% url 'profile' user.username %}">
-                                            <i class="icofont-user-alt-4"></i>
-                                            <span>{{ user.first_name }}</span>
+                                            <i class="icofont-user-alt-4">Profile</i>
                                         </a>
-                                    </li>
-                                    <li class="nav-item m-auto dropdown">
-                                        <a class="btn nav-link dropdown-toggle" type="button" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Create
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">
-                                                <i class="icofont-users-alt-5"></i>
-                                                <span>Community</span>
-                                            </a>
-                                        </div>
                                     </li>
                                     <li class="nav-item m-auto dropdown">
                                         <a class="btn nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
