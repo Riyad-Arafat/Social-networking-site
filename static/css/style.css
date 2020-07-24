@@ -608,10 +608,23 @@ ul.errorlist{
     z-index: unset;
 }
 .searched-accounts{
+    overflow: auto;
+    max-height: 550px;
     max-width: 500px;
     background: #fff;
     padding: 10px 0px 1px 0px;
     margin-bottom: 15px;
+}
+.searched-accounts::-webkit-scrollbar{
+    width: 10px;
+    max-height: 20px;
+}
+.searched-accounts::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.searched-accounts::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
 }
 .searched-accounts ul{
     padding: 0;

@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.db.models import Count
 from django.utils import timezone
 
 
@@ -8,7 +8,7 @@ from django.core.cache import cache
 
 
 from posts.models import Post
-from accounts.models import Users
+from accounts.models import Users, Profile
 from django.db.models import Q
 
 
@@ -21,7 +21,15 @@ def home_page(request):
     user = request.user
     if user.is_authenticated:
         user = Users.objects.get(username=request.user)
-        posts = Post.objects.filter(Q(author=request.user) | Q(author__profile__followers=user.id)).order_by('-created_at')
+        ##
+        if user.profile.following.count() < 4 :
+            accounts = Profile.objects.all().annotate(followers_count=Count('followers')).order_by('-followers_count')
+        else:
+            accounts = None
+
+
+        ## Paginator Posts
+        posts = Post.objects.filter(Q(author=request.user) | Q(author__in=user.profile.following.all())).order_by('-created_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(posts, 5)
         try:
@@ -34,6 +42,7 @@ def home_page(request):
         context = {
             'user' : user,
             'posts' : posts,
+            'accounts' : accounts,
             'now': timezone.now,
 
 

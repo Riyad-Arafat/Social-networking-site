@@ -1,4 +1,3 @@
-
     <div class="post">
         <div data-key="{{ post.id }}" class="post-body col container">
             <div class="row row-cols-1">
@@ -11,6 +10,15 @@
                         {% if post.author.is_online %}
                                 <span class="online" style="position: absolute;top: 27px;left: 55px;"></span>
                         {% endif %}
+                        {% if post.author == request.user %}
+                            <span class="ml-auto" style="font-size: xx-large" type="button" type="button" id="drop-post-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="post-options icofont-toggle-off"></i>
+                            </span>
+                            <div class="dropdown-menu" aria-labelledby="drop-post-men">
+                                <a class="remove-post dropdown-item" data-key="{{ post.id }}" href="#">Remove</a>
+                            </div>
+                        {% endif %}
+
                     </div>
                     {% if post.created_at|date:'P' == now|date:'P' %}
                         <span class="since" style="color: #007bff">Now</span>
@@ -19,6 +27,7 @@
                     {% else %}
                         <span class="since">{{ post.created_at|timesince }} ago</span>
                     {% endif %}
+
                 </div>
                 <div class="post-content col">
                     {{ post.content |safe}}

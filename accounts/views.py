@@ -66,6 +66,12 @@ def login_form(request):
             user = Users.objects.get(email=email)
             user.is_online = True
             user.save()
+            if user.first_login:
+                user.first_login = False
+                user.save()
+                return redirect("edit_profile", user.username)
+
+
             return redirect("timeline_page")
         else:
             messages.warning(request, 'The username and password you entered did not match our records. Please check '

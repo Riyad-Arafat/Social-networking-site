@@ -23,6 +23,38 @@
                     </div>
                     {% if posts.has_next %}
                         <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
+                    {% else %}
+                        {% if accounts %}
+                            <div class="container">
+                                <div class="m-auto h1 text-center col" style="width: 500px;"><span>Follow some people to get more updates </span></div>
+                                <div class="container searched-accounts">
+
+                                    <ul>
+                                        {% for account in accounts %}
+                                            {% if request.user != account.user %}
+                                                <li class="container-fluid row  justify-content-between">
+                                                    <div class="col-9">
+                                                        <a href="{% url 'profile' account.user.username %}">
+                                                            <img class="col" src="{{ account.picture.url }}">
+                                                            <span>{{ account.user.first_name }} {{ account.user.last_name }}</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        {% if request.user in account.followers.all%}
+                                                            <input style="position: relative;left: -17px;" class="btn btn-outline-primary follow-btn" data-key="{{ account.id }}" type="submit" value="Unfollow">
+                                                        {% else %}
+                                                            <input style="position: relative;left: -17px;" class="btn btn-primary follow-btn" data-key="{{ account.id }}" type="submit" value="Follow">
+                                                        {% endif %}
+
+                                                    </div>
+                                                </li>
+                                                <hr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endif %}
                     <div class="loading" style="display: none;">
                         <div class="d-flex justify-content-center">

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 
 
+
 from django.views.decorators.csrf import csrf_protect
 
 
@@ -46,6 +47,25 @@ def CreatePost(request):
 
     return redirect("timeline_page")
 
+## Remove Post
+
+def RemovePost(request):
+    if request.method == 'POST' and request.is_ajax():
+        post = request.POST.get('post')
+        if post :
+            post = Post.objects.get(id=post)
+            image = post.image
+            if image:
+                image.delete()
+
+            post.delete()
+
+
+            return HttpResponse('success')
+
+        return redirect("timeline_page")
+
+    return redirect("timeline_page")
 
 
 

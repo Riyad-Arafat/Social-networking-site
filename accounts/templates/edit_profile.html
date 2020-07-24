@@ -44,6 +44,11 @@
                     {{user_form.email}}
                     {{ user_form.email.errors }}
                 </div>
+                <div class="form-group">
+                    <label for="{{ profile_form.bio.id_for_label }}">Bio</label>
+                    {{profile_form.bio}}
+                    {{ profile_form.bio.errors }}
+                </div>
                 <div class="form-row">
                     <div class="form-group col-sm-3">
                         <label for="{{ user_form.gender.id_for_label }}">Gender</label>

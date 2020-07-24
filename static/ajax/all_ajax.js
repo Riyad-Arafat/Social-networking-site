@@ -48,6 +48,84 @@ $('#creat_post').off('submit').on('submit',function (e) {
 })
 
 
+
+////////////////// Remove post ////////////////////
+
+$(document).bind('DOMSubtreeModified', function () {
+    $('.post-options').off('click').on('click', function (e) {
+        e.preventDefault();
+        var  $i = $(e.target)[0];
+        if ($($i).is('.icofont-toggle-off')){
+
+            $($i).removeClass('icofont-toggle-off')
+            $($i).addClass('icofont-toggle-on')
+            $($i).css('color','#007bff')
+
+        }else {
+            $($i).removeClass('icofont-toggle-on')
+            $($i).addClass('icofont-toggle-off')
+            $($i).css('color','unset')
+        }
+
+
+    })
+
+})
+
+
+$(document).bind('DOMSubtreeModified', function () {
+    $('.remove-post').off('click').on('click', function (e) {
+        e.preventDefault();
+        var  $i = $(e.target)[0];
+
+        $.ajax({
+            url: 'remove/post/',
+            type: 'Post',
+            cache: false,
+            data: {
+                post: $($i).attr("data-key"),
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+
+            },
+            success: function (data, status, xhr) {
+                var $post = $($i).parents('.post')
+                $($post).replaceWith('<div style="width: 500px" class="m-auto alert alert-success" ><p>The Post is Removed</p></div>')
+            },
+            error: function (data, status, xhr) {
+                console.log(status)
+
+
+            },
+        })
+
+
+
+
+    })
+
+})
+
+
+
+$(window).on('click', function () {
+
+    var  $i = $('.post-options');
+    if ($($i).is('.icofont-toggle-on')){
+
+        $($i).removeClass('icofont-toggle-on');
+        $($i).addClass('icofont-toggle-off');
+        $($i).css('color','unset')
+    }
+
+
+})
+
+
+
+
+
+
+
 ////////////////////////////// Get Comments of post ////////////////////////
 $(document).bind('DOMSubtreeModified', function() {
     autosize_textarea()

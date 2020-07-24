@@ -3,10 +3,36 @@
 {% block content %}
     <div class="p_h container-fluid">
         <div class="cover-page">
-            <img src="{{ profile.cover.url }}">
+            <div class="modal fade bd-example-modal-lg show" id="cover-{{ profile.user.username }}">
+                <div class="modal-dialog">
+                        <div class="modal-content" style="background: unset; border: 0;display: unset;top: 50px">
+                            <button type="button" class="close" data-dismiss="modal" style=" z-index: 1;width: fit-content; position: inherit;left: 0; color: #fff; top: 39px; outline: none;border-radius: 3px;background-color: #000000;padding: 3px 10px 11px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <img src="{{ profile.cover.url }}" class="img-fluid" alt="profile.user.username"/>
+                        </div>
+                   </div>
+            </div>
+            <a href="#cover-{{ profile.user.username }}" data-toggle="modal">
+                <img src="{{ profile.cover.url }}">
+            </a>
+
         </div>
         <div class="user-p col">
-            <img src="{{ profile.picture.url }}">
+            <div class="modal fade bd-example-modal-lg show" id="picture-{{ profile.user.username }}">
+                <div class="modal-dialog">
+                        <div class="modal-content" style="background: unset; border: 0;display: unset;top: 50px">
+                            <button type="button" class="close" data-dismiss="modal" style="width: fit-content; position: inherit;left: 0; color: #fff; top: 39px; outline: none;border-radius: 3px;background-color: #000000;padding: 3px 10px 11px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <img src="{{ profile.picture.url }}" class="img-fluid" alt="profile.user.username"/>
+                        </div>
+                   </div>
+            </div>
+            <a href="#picture-{{ profile.user.username }}" data-toggle="modal">
+                <img src="{{ profile.picture.url }}">
+            </a>
+
         </div>
         <div class="info-user container m-auto">
             <div class="row row-cols-1 justify-content-center">
@@ -27,7 +53,7 @@
                     {% endif %}
                 {% endif %}
                 <div class="row mb-2">
-                    <div class="bio col-sm-6">
+                    <div class="bio col-sm-6" style="overflow-wrap: anywhere;">
                         <span>
                             {% if profile.bio %}
                                 {{ profile.bio }}
@@ -39,26 +65,26 @@
                 <div class="container">
                     <div class="row row-cols-md-2 row-cols-1 offset-md-1 m-auto">
                         <div class="career col  row-cols-12 ">
-                            <div class="col btn" >
+                            <div class="col">
                                 <h6>Gender: <span>{{ profile.user.gender }}</span></h6>
                             </div>
-                            <div class="col btn" >
+                            <div class="col">
                                 <h6>Birthday: <span>{{ profile.user.birthday }}</span></h6>
                             </div>
-                            <div class="col btn" >
+                            <div class="col">
                                 <h6>Level: <span>{{profile.level}}</span></h6>
                             </div>
-                            <div class="col btn" >
+                            <div class="col" >
                                 <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
                             </div>
-                            <div class="col btn" >
+                            <div class="col">
                                 <h6>Location: <span>{{ profile.location }}</span></h6>
                             </div>
                         </div>
                         <div class="career col row-cols-12">
                             <div class="col" >
-                                <h6>Followers: <span><a class="btn" style="color: #007bff">{{ profile.followers.count }}</a></span></h6>
-                                <h6>Following: <span><a class="btn" style="color: #007bff">{{ profile.following.count }}</a></span></h6>
+                                <h6>Followers: <span><a  style="color: #007bff">{{ profile.followers.count }}</a></span></h6>
+                                <h6>Following: <span><a  style="color: #007bff">{{ profile.following.count }}</a></span></h6>
                             </div>
                         </div>
                     </div>

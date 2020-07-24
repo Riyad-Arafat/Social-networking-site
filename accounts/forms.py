@@ -54,6 +54,11 @@ class UserLoginForm(forms.ModelForm):
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Invalid login")
 
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 
 

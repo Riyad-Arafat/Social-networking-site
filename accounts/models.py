@@ -61,6 +61,7 @@ class Users(AbstractBaseUser):
 	is_online				= models.BooleanField(default=False)
 	date_joined 			= models.DateTimeField(verbose_name='date joined', auto_now_add=True)
 	last_login 				= models.DateTimeField(verbose_name='last login', auto_now=True)
+	first_login				= models.BooleanField(default=True)
 
 
 	USERNAME_FIELD = 'email'
@@ -111,8 +112,8 @@ def profile_cover_upload(instance, filename):
 class Profile(models.Model):
 
 	user                = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='profile')
-	picture				= models.ImageField(upload_to=profile_picture_upload, default="default.jpg")
-	cover				= models.ImageField(upload_to=profile_cover_upload, default="default.jpg")
+	picture				= models.ImageField(upload_to=profile_picture_upload, default="user-default.png")
+	cover				= models.ImageField(upload_to=profile_cover_upload, default="default-cover.jpg")
 	bio					= models.TextField(max_length=300, blank=True, null=True)
 	university			= models.CharField(max_length=30)
 	faculty				= models.CharField(max_length=30)
