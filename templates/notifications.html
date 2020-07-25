@@ -1,0 +1,65 @@
+    <div class="notes">
+        {% if notifications %}
+            {% for note in notifications %}
+                {% if note.readable == True %}
+                    <div class="note" >
+                        <ul style="list-style: none; padding: 0">
+                            {% if note.post %}
+                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                    <div class="col-2" style="color: unset">
+                                        <a href="{% url 'view_post' note.post.id %}">
+                                            <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
+                                        </a>
+                                    </div>
+                                    <a class="col-10" href="{% url 'view_post' note.post.id %}" style="color: #1b1e21">
+                                        <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                    <div class="col-2" style="color: unset">
+                                        <a href="{% url 'profile' note.sender.username %}">
+                                            <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
+                                        </a>
+                                    </div>
+                                    <a class="col-10" href="{% url 'profile' note.sender.username %}" style="color: #1b1e21">
+                                        <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <hr>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="note false" style="background-color: #c0cfe666;">
+                        <ul style="list-style: none; padding: 0">
+                            {% if note.post %}
+                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                    <div class="col-2" style="color: unset">
+                                        <a href="{% url 'view_post' note.post.id %}">
+                                            <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
+                                        </a>
+                                    </div>
+                                    <a class="col-10" href="{% url 'view_post' note.post.id %}" style="color: #1b1e21">
+                                        <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                    <div class="col-2" style="color: unset">
+                                        <a href="{%  url 'profile' note.sender.username %}">
+                                            <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
+                                        </a>
+                                    </div>
+                                    <a class="col-10" href="{%  url 'profile' note.sender.username %}" style="color: #1b1e21">
+                                        <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <hr>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>

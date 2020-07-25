@@ -1,6 +1,6 @@
 {% load static %}
     <!DOCTYPE html>
-    <html lang="ar">
+    <html lang="en">
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,16 +28,27 @@
                                         <button class="btn btn-outline-dark btn-s-i my-2 my-sm-0" type="submit"><i class="icofont-search-2"></i></button>
                                     </form>
                                 </div>
-                                <ul class="navbar-nav m-auto col" style="flex-direction: row">
+                                <ul class="navbar-nav m-auto col container-fluid" style="flex-direction: row">
                                     <li class="nav-item m-auto">
                                         <a class="nav-link" href="{% url 'timeline_page' %}">
-                                            <i class="icofont-ui-home">Home</i>
+                                            <i class="icofont-ui-home"></i>
                                         </a>
                                     </li>
                                     <li class="nav-item m-auto">
                                         <a class="nav-link" href="{% url 'profile' user.username %}">
-                                            <i class="icofont-user-alt-4">Profile</i>
+                                            <i class="icofont-user-alt-4"></i>
                                         </a>
+                                    </li>
+                                    <li class="nav-item m-auto">
+                                        <div class="dropdown nav-link">
+                                          <a class="btn" role="button" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              <i class="icofont-alarm"></i>
+                                          </a>
+                                          <div class="dropdown-menu" aria-labelledby="notifications" style="left: -156px;">
+                                              <div style="text-align: end;width: 94%;"><a id="r-note" class="btn" style="color: #007bff">read all</a></div>
+                                              <div id="notifications-area" style="max-height: 450px;overflow: auto;"></div>
+                                          </div>
+                                        </div>
                                     </li>
                                     <li class="nav-item m-auto dropdown">
                                         <a class="btn nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
@@ -62,12 +73,15 @@
 
             <script>
                 $audio = new Audio( "{% static 'sound_effects/comment.mp3' %}");
-                const  $count_views   = "{% url 'count_views' %}";
-                const  $creat_post    = '{% url 'crate_post' %}';
-                const  $get_comments  = '{% url 'get_comments' %}';
-                const  $creat_comment = '{% url 'creat_comment' %}';
-                const  $like_btn      = '{% url 'like_btn' %}';
-                const  $follow        = '{% url 'follow' %}'
+                const  $count_views          = "{% url 'count_views' %}";
+                const  $creat_post           = '{% url 'crate_post' %}';
+                const  $remove_post          = '{% url 'remove_post' %}';
+                const  $get_comments         = '{% url 'get_comments' %}';
+                const  $creat_comment        = '{% url 'creat_comment' %}';
+                const  $like_btn             = '{% url 'like_btn' %}';
+                const  $follow               = '{% url 'follow' %}'
+                const  $get_notifications    = "{% url 'get_notifications' %}";
+                const  $read_notifications   = "{% url 'read_notifications' %}";
 
             </script>
 

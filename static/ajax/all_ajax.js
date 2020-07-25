@@ -79,7 +79,7 @@ $(document).bind('DOMSubtreeModified', function () {
         var  $i = $(e.target)[0];
 
         $.ajax({
-            url: 'remove/post/',
+            url: $remove_post,
             type: 'Post',
             cache: false,
             data: {
@@ -294,4 +294,87 @@ $(document).ready(function () {
             }
         })
     })
+})
+
+
+////// Get Notifications //////////////////
+
+$(document).ready(function () {
+    $.ajax({
+        url: $get_notifications,
+        type: 'Get',
+        cache: false,
+        success: function (data, status, xhr) {
+            $('#notifications-area').append(data);
+            var $n = $('.note');
+
+            if( $n.is('.false')){
+                $('#notifications').css('color', '#ff0000')
+            }
+        }
+    })
+    function note() {
+        $.ajax({
+            url: $get_notifications,
+            type: 'Get',
+            cache: false,
+            success: function (data, status, xhr) {
+                $('#notifications-area').append(data);
+                var $n = $('.note');
+
+                if ($n.is('.false')) {
+                    $('#notifications').css('color', '#ff0000')
+                }
+
+
+            }
+        })
+    }
+    setInterval(function(){
+      note();
+    }, 15000)
+})
+
+
+
+
+$(document).ready(function () {
+    $('#notifications').off('click').on('click', function () {
+        $.ajax({
+            url: $get_notifications,
+            type: 'Get',
+            cache: false,
+            success: function (data, status, xhr) {
+              var $x =   $('#notifications-area').children('.notes')
+                $x.replaceWith(data)
+                var $n = $('.note');
+                if( $n.is('.false')){
+                    $('#notifications').css('color', '#ff0000')
+                }else{
+                    $('#notifications').css('color', 'unset')
+                }
+            }
+
+        })
+    })
+})
+
+
+////// Read Notifications //////////////////
+
+$(document).ready(function () {
+    $('#r-note').off('click').on('click', function () {
+        $.ajax({
+            url: $read_notifications,
+            type: 'Get',
+            cache: false,
+            success: function (data, status, xhr) {
+                $('.note').removeClass('false');
+                $('#notifications').css('color', 'unset');
+            }
+
+
+        })
+    })
+
 })

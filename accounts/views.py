@@ -9,6 +9,7 @@ from django.contrib import messages
 
 from .models import Profile, Users
 from posts.models import Comment
+from notification.models import Notification
 
 
 from django.conf import settings
@@ -213,6 +214,9 @@ def follow(request):
             user.profile.save()
             profile1.followers.add(request.user)
             profile1.save()
+            Notification.objects.create(sender=user,
+                                        user=user2,
+                                        content='followed you')
         else:
             user.profile.following.remove(user2)
             user.profile.save()

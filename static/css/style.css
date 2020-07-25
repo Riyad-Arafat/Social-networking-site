@@ -102,6 +102,20 @@ ul.errorlist{
 
 }
 
+.note{
+    width: 430px;
+}
+#notifications-area::-webkit-scrollbar{
+    width: 10px;
+    max-height: 20px;
+}
+#notifications-area::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+#notifications-area::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
 
 /* Time Line */
 #time-line{
@@ -651,4 +665,12 @@ ul.errorlist{
     .l-s{
         top: 120px;
     }
+
+}
+
+@media (max-width: 767.98px) {
+    .note{
+        width: 302px;
+    }
+
 }

@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 
 
 from .models import Post, Comment, Users
+from notification.models import Notification
 
 
 # Create your views here.
@@ -47,8 +48,29 @@ def CreatePost(request):
 
     return redirect("timeline_page")
 
-## Remove Post
 
+########### View Post
+
+def view_post(request, post):
+    user = Users.objects.get(username=request.user)
+    post = get_object_or_404(Post, pk=post)
+
+    context = {
+        'post': post,
+        'user' : user,
+        'now': timezone.now,
+    }
+    template = 'post_detail.html'
+
+    return render(request, template, context)
+
+
+
+
+
+
+
+#### Remove Post
 def RemovePost(request):
     if request.method == 'POST' and request.is_ajax():
         post = request.POST.get('post')
@@ -59,7 +81,6 @@ def RemovePost(request):
                 image.delete()
 
             post.delete()
-
 
             return HttpResponse('success')
 
@@ -75,13 +96,19 @@ def CreateComment(request):
     if request.method == 'POST' and request.is_ajax():
         content = request.POST.get('content')
         post = request.POST.get('post')
-        print(post)
-
+        author = Users.objects.get(username=request.user)
+        post = Post.objects.get(pk=post)
         x = Comment.objects.create(
-            author = Users.objects.get(username=request.user),
-            post = Post.objects.get(pk=post),
+            author = author,
+            post = post,
             content = content,
         )
+        if author != post.author:
+            Notification.objects.create(sender=author,
+                                        user=post.author,
+                                        post=post,
+                                        content='commented to your post')
+
         pk = x.pk
         comment = Comment.objects.get(pk=pk)
         context = {
@@ -124,6 +151,11 @@ def like_button(request):
         if user not in likes:
             post.likes.add(user)
             post.save()
+            if user != post.author:
+                Notification.objects.create(sender=user,
+                                            user=post.author,
+                                            post=post,
+                                            content='liked to your post')
         else:
             post.likes.remove(user)
             post.save()
