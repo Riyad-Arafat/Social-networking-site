@@ -3,7 +3,7 @@
         <div class="comments">
             {% if comments %}
                 {% for comment in comments %}
-                    <ul class="comment col">
+                    <ul class="comment col d-flex">
                         <li class="u_c col">
                             <div>
                                 <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
@@ -13,6 +13,15 @@
                                 <span dir="auto" style="text-align: justify;">{{ comment.content|safe }}</span>
                             </div>
                         </li>
+
+                        {% if comment.author == request.user %}
+                            <span class="ml-auto" style="max-height: 25px;"  type="button" id="drop-comment-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icofont-options"></i>
+                            </span>
+                            <div class="dropdown-menu" aria-labelledby="drop-comment-men">
+                                <a class="remove-comment dropdown-item" data-key="{{ comment.id }}" href="#">Remove</a>
+                            </div>
+                        {% endif %}
                     </ul>
                 {% endfor %}
             {% endif %}

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from posts.models import Post, Comment
@@ -57,22 +59,30 @@ def more_posts(request, query):
 
 ### Hash_tags #####
 
-
-def hash_tag(request, tag):
+def get_hash_tag(request, tag):
     user = request.user
     if user.is_authenticated:
+        user = Users.objects.get(username=request.user)
 
-        tag = "#"+tag
+        tag = '#'+tag
         posts = Post.objects.filter(Q(content__iregex=tag)).order_by('-created_at')
+        count = posts.count()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(posts, 5)
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
 
         context = {
+            'user' : user,
             'query': tag,
-            'posts' : posts,
+            'posts': posts,
+            'count' : count,
+            'now' : timezone,
 
         }
         template = 'search/hash_tag.html'
         return render(request, template, context)
-
-    else:
-        return redirect('timeline_page')
-

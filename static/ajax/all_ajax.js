@@ -156,6 +156,37 @@ $(document).bind('DOMSubtreeModified', function() {
 
     })
 })
+//////////////////// Remove comment ////////////
+
+
+$(document).bind('DOMSubtreeModified', function () {
+    $('.remove-comment').off('click').on('click', function (e) {
+        e.preventDefault();
+        var  $i = $(e.target)[0];
+        $.ajax({
+            url: $remove_comment,
+            type: 'Post',
+            cache: false,
+            data: {
+                comment: $($i).attr("data-key"),
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+            },
+            success: function (data, status, xhr) {
+                var $comment = $($i).parents('.comment');
+                $comment.remove();
+            },
+            error: function (data, status, xhr) {
+                alert('tray again')
+
+            },
+        })
+
+
+
+
+    })
+
+})
 
 
 /////////////////// like button ////////////////////////
@@ -377,4 +408,16 @@ $(document).ready(function () {
         })
     })
 
+})
+
+////////// Hash Tag ////////////
+$(document).bind('DOMSubtreeModified', function() {
+    $('.hash-tag').off('click').on('click',function (e) {
+        e.preventDefault();
+        var $x = e.target;
+        var $tag = $($x).text();
+        $tag = $tag.replace('#',"")
+        window.location.href = $hash.replace(0, $tag)
+
+    })
 })

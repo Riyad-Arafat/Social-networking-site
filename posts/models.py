@@ -45,7 +45,7 @@ class Post(models.Model):
 
 
         for tag in hash_tag:
-            i = f'<span class="hash-tag">{tag}</span>'
+            i = f'<a  class="hash-tag" href="#">{tag}</a>'
             if i not in self.content:
                 self.content = self.content.replace(tag, i)
 

@@ -15,6 +15,13 @@
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
                                     </a>
                                 </li>
+                                {% if note.created_at|date:'P' == now|date:'P' %}
+                                    <span class="since" style="color: #0b61ffd1;">Now</span>
+                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
+                                {% else %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
+                                {% endif %}
                             {% else %}
                                 <li class="m-auto row row-cols-2" style="padding: 3px;">
                                     <div class="col-2" style="color: unset">
@@ -26,8 +33,15 @@
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
                                     </a>
                                 </li>
+                                {% if note.created_at|date:'P' == now|date:'P' %}
+                                    <span class="since" style="color: #0b61ffd1;">Now</span>
+                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
+                                {% else %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
+                                {% endif %}
                             {% endif %}
-                            <hr>
+
                         </ul>
                     </div>
                 {% else %}
@@ -44,6 +58,13 @@
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
                                     </a>
                                 </li>
+                                {% if note.created_at|date:'P' == now|date:'P' %}
+                                    <span class="since" style="color: #0b61ffd1;">Now</span>
+                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
+                                {% else %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
+                                {% endif %}
                             {% else %}
                                 <li class="m-auto row row-cols-2" style="padding: 3px;">
                                     <div class="col-2" style="color: unset">
@@ -55,8 +76,14 @@
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
                                     </a>
                                 </li>
+                                {% if note.created_at|date:'P' == now|date:'P' %}
+                                    <span class="since" style="color: #0b61ffd1;">Now</span>
+                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
+                                {% else %}
+                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
+                                {% endif %}
                             {% endif %}
-                            <hr>
                         </ul>
                     </div>
                 {% endif %}

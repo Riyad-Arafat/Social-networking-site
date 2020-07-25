@@ -9,12 +9,12 @@
                     <span style="font-weight: bold; color: #007bff">{{ query }}</span>
                     <br>
                     <hr>
-                    {% if posts.count < 999 %}
-                        <span>{{ posts.count }}#</span>
-                        <span>Post about this</span>
-                        {% else %}
+                    {% if count < 999 %}
+                        <span>{{ count }}</span>
+                        <span>Post are talking about this</span>
+                    {% else %}
                         <span>1K</span>
-                        <span>Post about this</span>
+                        <span>Post are talking about this</span>
                     {% endif %}
                 </div>
             </div>
@@ -23,15 +23,19 @@
                 <div class="row row-cols-1">
 
                     {% if posts %}
-                        <div id="searched-post" class="container">
+                        <div id="time-line" class="container">
                             {% for post in posts %}
                                 {% include 'post-box.html' %}
                             {% endfor %}
                             <br>
                         </div>
+                        {% if posts.has_next %}
+                            <a class="page-more-link" style="display: none" href="?page={{ posts.next_page_number }}">More</a>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

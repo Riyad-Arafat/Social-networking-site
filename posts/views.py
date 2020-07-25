@@ -140,6 +140,20 @@ def get_comments(request):
         return render(request, template, context)
     return redirect("timeline_page")
 
+### Remove comment
+def remove_comment(request):
+    if request.method == 'POST' and request.is_ajax():
+        comment = request.POST.get('comment')
+        if comment :
+            comment = Comment.objects.get(id=comment)
+            comment.delete()
+
+            return HttpResponse('success')
+
+        return redirect("timeline_page")
+
+    return redirect("timeline_page")
+
 
 ## like button
 def like_button(request):
