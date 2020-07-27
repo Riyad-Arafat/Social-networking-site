@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 
 
+
 urlpatterns = [
     path('', include('timeline.urls')),
     path('', include('posts.urls')),
@@ -34,3 +35,5 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'posts.views.error_404_view'

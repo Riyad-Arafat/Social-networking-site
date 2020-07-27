@@ -115,11 +115,6 @@ class Profile(models.Model):
 	picture				= models.ImageField(upload_to=profile_picture_upload, default="user-default.png")
 	cover				= models.ImageField(upload_to=profile_cover_upload, default="default-cover.jpg")
 	bio					= models.TextField(max_length=300, blank=True, null=True)
-	university			= models.CharField(max_length=30)
-	faculty				= models.CharField(max_length=30)
-	level				= models.CharField(max_length=30)
-	nationality			= models.CharField(max_length=30)
-	location			= models.CharField(max_length=30)
 	followers 			= models.ManyToManyField(Users, related_name='followers', default=None, blank=True)
 	following 			= models.ManyToManyField(Users, related_name='following', default=None, blank=True)
 

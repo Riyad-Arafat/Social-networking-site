@@ -18,60 +18,62 @@ $(document).ready(function () {
     month[11] = "December";
 
 
+    if (days && month && years) {
 
-    for (var i = 1; i <= 31; i++){
 
-        var x = document.createElement('option');
-        if( i < 10 ){
-            x.innerHTML = '0' + i;
-            x.value = '0' + i;
-        }else {
+        for (var i = 1; i <= 31; i++) {
+
+            var x = document.createElement('option');
+            if (i < 10) {
+                x.innerHTML = '0' + i;
+                x.value = '0' + i;
+            } else {
+                x.innerHTML = i;
+                x.value = i;
+            }
+
+            days.appendChild(x);
+        }
+
+        for (i = 0; i <= 11; i++) {
+
+            var x = document.createElement('option');
+            if (i < 9) {
+
+                x.value = '0' + (i + 1);
+            } else {
+
+                x.value = i + 1;
+            }
+
+            x.innerHTML = month[i];
+
+            months.appendChild(x);
+        }
+
+        for (i = new Date().getFullYear() - 10; i >= 1900; i--) {
+
+            var x = document.createElement('option');
+
             x.innerHTML = i;
             x.value = i;
+            years.appendChild(x);
         }
 
-        days.appendChild(x);
-    }
+        var $birthdayInput = $('#id_birthday');
 
-    for (i = 0; i <= 11; i++){
+        if ($birthdayInput.val()) {
+            var x = $birthdayInput.val().split('-', 3)
+            var $day = $('#inputDay'),
+                $month = $('#inputMonth'),
+                $year = $('#inputYear');
 
-        var x = document.createElement('option');
-        if( i < 9 ){
+            $year.val(x[0]);
+            $month.val(x[1]);
+            $day.val(x[2]);
 
-            x.value = '0' + (i+1);
-        }else {
-
-            x.value = i+1;
         }
-
-        x.innerHTML = month[i];
-
-        months.appendChild(x);
     }
-
-    for (i = new Date().getFullYear() - 10; i >= 1900; i--){
-
-        var x = document.createElement('option');
-
-        x.innerHTML = i;
-        x.value = i;
-        years.appendChild(x);
-    }
-
-    var $birthdayInput = $('#id_birthday');
-
-    if($birthdayInput.val()){
-        var x = $birthdayInput.val().split('-',3)
-        var $day = $('#inputDay'),
-            $month = $('#inputMonth'),
-            $year = $('#inputYear');
-
-        $year.val(x[0]);
-        $month.val(x[1]);
-        $day.val(x[2]);
-
-    }
-
 })
 
 

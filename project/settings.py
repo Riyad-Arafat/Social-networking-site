@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'ckeditor',
     'timeline',
     'posts',
@@ -46,6 +45,11 @@ INSTALLED_APPS = [
     'community',
 
 ]
+
+
+
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -146,12 +150,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 
 ]
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
+if not DEBUG:
+    # for dropbox
+    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+    DROPBOX_OAUTH2_TOKEN = 'PHVIwpyhOnAAAAAAAAAAHPOkHTH2hPBV-g3a56k08YKGTawXeiZZFeDFe6VA6djY'
+    DROPBOX_ROOT_PATH = 'media'
 
 
 ################ SESSION time ###########

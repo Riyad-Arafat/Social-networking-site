@@ -104,10 +104,13 @@ def CreateComment(request):
             content = content,
         )
         if author != post.author:
-            Notification.objects.create(sender=author,
-                                        user=post.author,
-                                        post=post,
-                                        content='commented to your post')
+            Notification.objects.create(
+                type='comment',
+                sender=author,
+                user=post.author,
+                post=post,
+            )
+
 
         pk = x.pk
         comment = Comment.objects.get(pk=pk)
@@ -147,6 +150,10 @@ def remove_comment(request):
         if comment :
             comment = Comment.objects.get(id=comment)
             comment.delete()
+            note = Notification.objects.get(type='comment', sender=comment.author, user=comment.post.author, post=comment.post)
+            if note:
+                note.delete()
+
 
             return HttpResponse('success')
 
@@ -166,13 +173,17 @@ def like_button(request):
             post.likes.add(user)
             post.save()
             if user != post.author:
-                Notification.objects.create(sender=user,
+                Notification.objects.create(type='like',
+                                            sender=user,
                                             user=post.author,
-                                            post=post,
-                                            content='liked to your post')
+                                            post=post,)
         else:
             post.likes.remove(user)
             post.save()
+            note = Notification.objects.get(type='like', sender=request.user, user=post.author, post=post)
+            if note:
+                note.delete()
+
 
         context = {
             'user': user,
@@ -204,3 +215,6 @@ def count_post_views(request):
 
 
 
+
+def error_404_view(request, exception):
+    return render(request, '404_page.html')

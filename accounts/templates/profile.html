@@ -69,16 +69,7 @@
                                 <h6>Gender: <span>{{ profile.user.gender }}</span></h6>
                             </div>
                             <div class="col">
-                                <h6>Birthday: <span>{{ profile.user.birthday }}</span></h6>
-                            </div>
-                            <div class="col">
-                                <h6>Level: <span>{{profile.level}}</span></h6>
-                            </div>
-                            <div class="col" >
-                                <h6>Nationality: <span>{{ profile.nationality }}</span></h6>
-                            </div>
-                            <div class="col">
-                                <h6>Location: <span>{{ profile.location }}</span></h6>
+                                <h6>Birthday: <span>{{ profile.user.birthday|date:'M,d' }}</span></h6>
                             </div>
                         </div>
                         <div class="career col row-cols-12">

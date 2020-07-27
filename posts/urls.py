@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('create/post/', views.CreatePost, name="crate_post"),
-    path('vies/post/<int:post>', views.view_post, name="view_post"),
+    path('view/post/<int:post>', views.view_post, name="view_post"),
     path('remove/post/', views.RemovePost, name="remove_post"),
     path('create/comment/', views.CreateComment, name='creat_comment'),
     path('remove/comment/', views.remove_comment, name="remove_comment"),

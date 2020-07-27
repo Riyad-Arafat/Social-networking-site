@@ -214,14 +214,17 @@ def follow(request):
             user.profile.save()
             profile1.followers.add(request.user)
             profile1.save()
-            Notification.objects.create(sender=user,
-                                        user=user2,
-                                        content='followed you')
+            Notification.objects.create(type='follow',
+                                        sender=user,
+                                        user=user2,)
         else:
             user.profile.following.remove(user2)
             user.profile.save()
             profile1.followers.remove(request.user)
             profile1.save()
+            note = Notification.objects.get(type='follow', sender=user, user=user2)
+            if note:
+                note.delete()
 
 
 

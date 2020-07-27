@@ -350,12 +350,12 @@ $(document).ready(function () {
             type: 'Get',
             cache: false,
             success: function (data, status, xhr) {
-                $('#notifications-area').append(data);
-                var $n = $('.note');
-
-                if ($n.is('.false')) {
-                    $('#notifications').css('color', '#ff0000')
-                }
+               var $notes = $('#notifications-area').children('.notes');
+               $($notes).replaceWith(data);
+               var $n = $('.note');
+               if ($n.is('.false')) {
+                   $('#notifications').css('color', '#ff0000')
+               }
 
 
             }
