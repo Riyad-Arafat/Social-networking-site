@@ -71,22 +71,7 @@
 
             {% endblock %}
 
-            <script>
-                $audio = new Audio( "{% static 'sound_effects/comment.mp3' %}");
-                const  $count_views          = "{% url 'count_views' %}";
-                const  $creat_post           = '{% url 'crate_post' %}';
-                const  $remove_post          = '{% url 'remove_post' %}';
-                const  $remove_comment       = '{% url 'remove_comment' %}';
-                const  $get_comments         = '{% url 'get_comments' %}';
-                const  $creat_comment        = '{% url 'creat_comment' %}';
-                const  $like_btn             = '{% url 'like_btn' %}';
-                const  $follow               = '{% url 'follow' %}'
-                const  $get_notifications    = "{% url 'get_notifications' %}";
-                const  $read_notifications   = "{% url 'read_notifications' %}";
-                const  $hash                 = "{% url 'get_hash_tag' 0  %}";
-
-
-            </script>
+            <script>$audio=new Audio("{% static 'sound_effects/comment.mp3' %}");const $count_views="{% url 'count_views' %}",$creat_post='{% url "crate_post" %}',$remove_post='{% url "remove_post" %}',$remove_comment='{% url "remove_comment" %}',$get_comments='{% url "get_comments" %}',$creat_comment='{% url "creat_comment" %}',$like_btn='{% url "like_btn" %}',$follow='{% url "follow" %}',$get_notifications="{% url 'get_notifications' %}",$read_notifications="{% url 'read_notifications' %}",$hash="{% url 'get_hash_tag' 0  %}";</script>
 
 
             <script src="{% static 'js/libs/popper.min.js' %}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
