@@ -12,11 +12,14 @@ class Notification(models.Model):
     TYPE = [
         ('like', 'like'),
         ('comment', 'comment'),
+        ('comment_like', 'comment_like'),
+        ('reply', 'reply'),
+        ('reply_like', 'reply_like'),
         ('follow', 'follow'),
     ]
 
 
-    type            = models.CharField(max_length=10, choices=TYPE, null=True, blank=True)
+    type            = models.CharField(max_length=30, choices=TYPE, null=True, blank=True)
     user            = models.ForeignKey(Users, related_name='notification', on_delete=models.CASCADE, null=True, blank=True)
     sender          = models.ForeignKey(Users, related_name='note', on_delete=models.CASCADE, null=True, blank=True)
     post            = models.ForeignKey(Post,  related_name='notification', on_delete=models.CASCADE, null=True, blank=True)
@@ -36,13 +39,22 @@ class Notification(models.Model):
 
     def save(self, *args, **kwargs):
         if self.type == 'like':
-            self.content = "liked to your post"
+            self.content = "Liked to your post"
 
         elif self.type == 'comment':
-            self.content = 'commented to your post'
+            self.content = 'Commented to your post'
+
+        elif self.type == 'comment_like':
+            self.content = 'Liked to your comment'
+
+        elif self.type == 'reply':
+            self.content = 'Replied to your comment'
+
+        elif self.type == 'reply_like':
+            self.content = 'Liked to your reply'
 
         elif self.type == 'follow':
-            self.content = 'followed you'
+            self.content = 'Followed you'
 
         super(Notification, self).save(*args, **kwargs)
 

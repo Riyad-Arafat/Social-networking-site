@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 
 
 
-from .models import Post, Comment, Users
+from .models import Post, Comment, Reply, Users
 from notification.models import Notification
 
 
@@ -52,7 +52,10 @@ def CreatePost(request):
 ########### View Post
 
 def view_post(request, post):
-    user = Users.objects.get(username=request.user)
+    try:
+        user = Users.objects.get(username=request.user)
+    except:
+        user = None
     post = get_object_or_404(Post, pk=post)
 
     context = {
@@ -137,11 +140,44 @@ def get_comments(request):
         comments = Comment.objects.filter(post_id=post).order_by('-created_at')
         context = {
             'user': user,
-            'comments': comments
+            'comments': comments,
+
         }
         template = "comments/comments_area.html"
         return render(request, template, context)
     return redirect("timeline_page")
+
+
+## like button for replies
+def like_comment(request):
+    if request.method == 'GET' and request.is_ajax():
+        user = Users.objects.get(username=request.user)
+        pk = request.GET.get('comment')
+        comment = Comment.objects.get(id=pk)
+        likes = comment.likes.all()
+        if user not in likes:
+            comment.likes.add(user)
+            comment.save()
+            if user != comment.author:
+                Notification.objects.create(type='comment_like',
+                                            sender=user,
+                                            user=comment.author,
+                                            post=comment.post,)
+        else:
+            comment.likes.remove(user)
+            comment.save()
+            try:
+                note = Notification.objects.get(type='comment_like', sender=request.user, user=comment.author, post=comment.post)
+                note.delete()
+            except:
+                pass
+
+        return HttpResponse('success')
+    return redirect("timeline_page")
+
+
+
+
 
 ### Remove comment
 def remove_comment(request):
@@ -149,10 +185,14 @@ def remove_comment(request):
         comment = request.POST.get('comment')
         if comment :
             comment = Comment.objects.get(id=comment)
-            comment.delete()
-            note = Notification.objects.get(type='comment', sender=comment.author, user=comment.post.author, post=comment.post)
-            if note:
+            try:
+                note = Notification.objects.get(type='comment', sender=comment.author.id, user=comment.post.author.id, post=comment.post.id)
                 note.delete()
+            except:
+                pass
+
+            comment.delete()
+
 
 
             return HttpResponse('success')
@@ -162,7 +202,117 @@ def remove_comment(request):
     return redirect("timeline_page")
 
 
-## like button
+
+
+
+## Creat Replay fun
+@csrf_protect
+def creat_reply(request):
+    if request.method == 'POST' and request.is_ajax():
+        content = request.POST.get('content')
+        comment = request.POST.get('comment')
+
+        author = Users.objects.get(username=request.user)
+        comment = Comment.objects.get(pk=comment)
+
+        x = Reply.objects.create(
+            author = author,
+            comment = comment,
+            content = content,
+        )
+        if author != comment.author:
+            Notification.objects.create(
+                type='reply',
+                sender=author,
+                user=comment.author,
+                post=comment.post,
+            )
+
+        pk = x.pk
+        reply = Reply.objects.get(pk=pk)
+        context = {
+            'reply': reply
+        }
+        template = "comments/created_reply.html"
+        return render(request, template, context)
+    return redirect('timeline_page')
+
+
+### Remove Reply
+def remove_reply(request):
+    if request.method == 'POST' and request.is_ajax():
+        reply = request.POST.get('reply')
+        if reply :
+            reply = Reply.objects.get(id=reply)
+            try:
+                note = Notification.objects.get(type='reply', sender=reply.author.id, user=reply.comment.author.id, post=reply.comment.post.id)
+                note.delete()
+            except:
+                pass
+
+            reply.delete()
+
+
+            return HttpResponse('success')
+
+        return redirect("timeline_page")
+
+    return redirect("timeline_page")
+
+
+
+## Get Replies that related to comment fun
+def get_replies(request):
+    if request.is_ajax():
+        comment = request.GET.get('comment')
+        user = Users.objects.get(username=request.user)
+        replies = Reply.objects.filter(comment=comment).order_by('created_at')
+        comment = Comment.objects.get(id=comment)
+
+        context = {
+            'user': user,
+            'replies': replies,
+            'comment': comment,
+        }
+        template = "comments/replies_area.html"
+        return render(request, template, context)
+    return redirect("timeline_page")
+
+
+## like button for replies
+def like_reply(request):
+    if request.method == 'GET' and request.is_ajax():
+        user = Users.objects.get(username=request.user)
+        pk = request.GET.get('reply')
+        reply = Reply.objects.get(id=pk)
+        likes = reply.likes.all()
+        if user not in likes:
+            reply.likes.add(user)
+            reply.save()
+            if user != reply.author:
+                Notification.objects.create(type='reply_like',
+                                            sender=user,
+                                            user=reply.author,
+                                            post=reply.comment.post,)
+        else:
+            reply.likes.remove(user)
+            reply.save()
+            try:
+                note = Notification.objects.get(type='reply_like', sender=request.user, user=reply.author, post=reply.comment.post)
+                note.delete()
+            except:
+                pass
+
+        return HttpResponse('success')
+    return redirect("timeline_page")
+
+
+
+
+
+
+
+## like button for posts
 def like_button(request):
     if request.method == 'GET' and request.is_ajax():
         user = Users.objects.get(username=request.user)
@@ -180,9 +330,12 @@ def like_button(request):
         else:
             post.likes.remove(user)
             post.save()
-            note = Notification.objects.get(type='like', sender=request.user, user=post.author, post=post)
-            if note:
+            try:
+                note = Notification.objects.get(type='like', sender=request.user, user=post.author, post=post)
                 note.delete()
+            except:
+                pass
+
 
 
         context = {

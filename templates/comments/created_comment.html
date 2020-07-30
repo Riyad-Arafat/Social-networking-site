@@ -1,20 +1,31 @@
-
-<ul class="comment col d-flex">
-    <li class="u_c col">
-        <div>
+<ul class="comment col mb-3" style="display:grid;" data-key="{{ comment.id }}">
+    <li class="u_c col row row-cols-2">
+        <div style="max-height: 35px;max-width: 65px;">
             <a href="{% url 'profile' comment.author.username%}"><img src="{{ comment.author.profile.picture.url }}" class="col"></a>
         </div>
-        <div class="rp col">
+        <div class="rp col-9">
             <div><a href="{% url 'profile' comment.author.username %}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a></div>
-            <span dir="auto" style="text-align: justify;">{{ comment.content|safe|linebreaks}}</span>
+            <span dir="auto" style="text-align: justify;">{{ comment.content|safe }}</span>
+            {% if comment.author == request.user %}
+                <span style="float: right;"  type="button" id="drop-comment-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icofont-options"></i>
+                </span>
+                <div class="dropdown-menu" aria-labelledby="drop-comment-men">
+                    <a class="remove-comment dropdown-item" data-key="{{ comment.id }}" href="#">Remove</a>
+                </div>
+            {% endif %}
+        </div>
+        <div style="display: grid" class="m-auto">
+            <div class="text-center m-auto">
+                <a type="button" style="color: #007bff">Like</a>
+                <span>|</span>
+                <a href="#" class='g_rp'>Reply</a>
+            </div>
+
+            {% if comment.replies.count > 0 %}
+                <a type="button" class='g_rp' style="color: #007bff">{{ comment.replies.count }} Replies</a>
+            {% endif %}
         </div>
     </li>
-    {% if comment.author == request.user %}
-        <span class="ml-auto" style="max-height: 25px;"  type="button" id="drop-comment-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="icofont-options"></i>
-        </span>
-        <div class="dropdown-menu" aria-labelledby="drop-comment-men">
-            <a class="remove-comment dropdown-item" data-key="{{ comment.id }}" href="#">Remove</a>
-        </div>
-    {% endif %}
+
 </ul>

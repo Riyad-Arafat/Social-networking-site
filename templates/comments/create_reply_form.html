@@ -1,0 +1,13 @@
+{% if request.user.is_authenticated %}
+<div class="creat_comment row">
+    <a href="{% url 'profile' user.username  %}"><img src="{{user.profile.picture.url }}" class="col"></a>
+    <form id="reply_form" action="" method="POST" class= "col comment-form" data-key="{{ comment.id }}">
+        {% csrf_token %}
+        <textarea dir="auto" id="content" class="comment_content" placeholder="write Reply"></textarea>
+        <input id="post_id" type="hidden" value="{{ comment.id }}">
+        <input class="btn-post btn-reply" type="submit" value="Post">
+    </form>
+</div><br>
+{% endif %}
+
+

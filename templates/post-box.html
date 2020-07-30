@@ -11,7 +11,7 @@
                                 <span class="online" style="position: absolute;top: 27px;left: 55px;"></span>
                         {% endif %}
                         {% if post.author == request.user %}
-                            <span class="ml-auto" style="font-size: xx-large" type="button" type="button" id="drop-post-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ml-auto" style="font-size: xx-large; background-color: unset;" type="button" type="button" id="drop-post-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="post-options icofont-toggle-off"></i>
                             </span>
                             <div class="dropdown-menu" aria-labelledby="drop-post-men">
@@ -28,9 +28,10 @@
                         <span class="since">{{ post.created_at|timesince }} ago</span>
                     {% endif %}
 
+
                 </div>
                 <div class="post-content col">
-                    {{ post.content |safe}}
+                    {{ post.content|safe}}
                 </div>
                 {% if post.image %}
                     <div class="post-image">

@@ -222,9 +222,11 @@ def follow(request):
             user.profile.save()
             profile1.followers.remove(request.user)
             profile1.save()
-            note = Notification.objects.get(type='follow', sender=user, user=user2)
-            if note:
+            try:
+                note = Notification.objects.get(type='follow', sender=user, user=user2)
                 note.delete()
+            except:
+                pass
 
 
 

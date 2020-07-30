@@ -12,6 +12,9 @@ from accounts.models import Users, Profile
 from django.db.models import Q
 
 
+
+import urllib3
+
 # Create your views here.
 
 
@@ -38,6 +41,10 @@ def home_page(request):
             posts = paginator.page(1)
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
+
+
+
+        ############# check if user is online ################
 
         context = {
             'user' : user,

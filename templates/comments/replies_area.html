@@ -1,0 +1,35 @@
+ <ul id="replies" class="comments-area container" style="overflow: unset">
+    {% include 'comments/create_reply_form.html' %}
+    {% if replies %}
+        {% for reply in replies %}
+            <li id="reply" class="comment col d-flex mb-3" data-key="{{ reply.id }}">
+                    <div class="u_c col">
+                        <div style="max-height: 35px;max-width: 65px;">
+                            <a href="{% url 'profile' reply.author.username%}"><img src="{{ reply.author.profile.picture.url }}" class="col"></a>
+                        </div>
+                        <div>
+                            <div class="rp col">
+                                <div><a href="{% url 'profile' reply.author.username %}">{{ reply.author.first_name }} {{ reply.author.last_name }}</a></div>
+                                <span dir="auto" style="text-align: justify;">{{ reply.content|safe }}</span>
+                                {% if reply.author == request.user %}
+                                    <span class="ml-auto" style="float: right;"  type="button" id="drop-reply-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="icofont-options"></i>
+                                    </span>
+                                    <div class="dropdown-menu" aria-labelledby="drop-reply-men">
+                                        <a class="remove-reply dropdown-item" data-key="{{ reply.id }}" href="#">Remove</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="text-center">
+                                {% if request.user in reply.likes.all %}
+                                    <a type="button" class="like-reply" style="color: #007bff">unLike</a>
+                                {% else %}
+                                    <a type="button" class="like-reply" style="color: #007bff">Like</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+        {% endfor %}
+    {% endif %}
+</ul>
