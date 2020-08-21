@@ -1,11 +1,12 @@
-    <div class="notes">
+{% load humanize %}
+    <div class="notes" style="margin-top:20px;">
         {% if notifications %}
             {% for note in notifications %}
                 {% if note.readable == True %}
-                    <div class="note" >
+                    <div class="note" style="border-block-end: 1px solid;margin-bottom: 2px; border-color: #e9ebee">
                         <ul style="list-style: none; padding: 0">
                             {% if note.post %}
-                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                <li style="align-items: center;" class="m-auto row row-cols-2">
                                     <div class="col-2" style="color: unset">
                                         <a href="{% url 'view_post' note.post.id %}">
                                             <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
@@ -13,17 +14,18 @@
                                     </div>
                                     <a class="col-10" href="{% url 'view_post' note.post.id %}" style="color: #1b1e21">
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                        {% if note.created_at|date:'P' == now|date:'P' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">Now</span>
+                                        {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturalday }}</span>
+                                        {% else %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturaltime }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
-                                {% if note.created_at|date:'P' == now|date:'P' %}
-                                    <span class="since" style="color: #0b61ffd1;">Now</span>
-                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
-                                {% else %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
-                                {% endif %}
+
                             {% else %}
-                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                <li style="align-items: center;" class="m-auto row row-cols-2">
                                     <div class="col-2" style="color: unset">
                                         <a href="{% url 'profile' note.sender.username %}">
                                             <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
@@ -31,24 +33,25 @@
                                     </div>
                                     <a class="col-10" href="{% url 'profile' note.sender.username %}" style="color: #1b1e21">
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                        {% if note.created_at|date:'P' == now|date:'P' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">Now</span>
+                                        {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturalday }}</span>
+                                        {% else %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturaltime }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
-                                {% if note.created_at|date:'P' == now|date:'P' %}
-                                    <span class="since" style="color: #0b61ffd1;">Now</span>
-                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
-                                {% else %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
-                                {% endif %}
+
                             {% endif %}
 
                         </ul>
                     </div>
                 {% else %}
-                    <div class="note false" style="background-color: #c0cfe666;">
+                    <div class="note false" style="background-color: #c0cfe666;border-block-end: 1px solid;margin-bottom: 2px; border-color: #e9ebee">
                         <ul style="list-style: none; padding: 0">
                             {% if note.post %}
-                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                <li style="align-items: center;" class="m-auto row row-cols-2">
                                     <div class="col-2" style="color: unset">
                                         <a href="{% url 'view_post' note.post.id %}">
                                             <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
@@ -56,17 +59,18 @@
                                     </div>
                                     <a class="col-10" href="{% url 'view_post' note.post.id %}" style="color: #1b1e21">
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                        {% if note.created_at|date:'P' == now|date:'P' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">Now</span>
+                                        {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturalday }}</span>
+                                        {% else %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturaltime }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
-                                {% if note.created_at|date:'P' == now|date:'P' %}
-                                    <span class="since" style="color: #0b61ffd1;">Now</span>
-                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
-                                {% else %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
-                                {% endif %}
+
                             {% else %}
-                                <li class="m-auto row row-cols-2" style="padding: 3px;">
+                                <li style="align-items: center;" class="m-auto row row-cols-2">
                                     <div class="col-2" style="color: unset">
                                         <a href="{%  url 'profile' note.sender.username %}">
                                             <img style="width: 55px;height: 55px;border-radius: 100%;" src="{{ note.sender.profile.picture.url }}">
@@ -74,15 +78,15 @@
                                     </div>
                                     <a class="col-10" href="{%  url 'profile' note.sender.username %}" style="color: #1b1e21">
                                         <div style="margin-top: 9px;" class="col"><span><strong>{{ note.sender.first_name }} {{ note.sender.last_name }}</strong> {{ note.content }}</span></div>
+                                        {% if note.created_at|date:'P' == now|date:'P' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">Now</span>
+                                        {% elif note.created_at|date:'Y' <  now|date:'Y' %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturalday }}</span>
+                                        {% else %}
+                                            <span class="since" style="color: #0b61ffd1;left: 0;margin-top:20px;">{{ note.created_at|naturaltime }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
-                                {% if note.created_at|date:'P' == now|date:'P' %}
-                                    <span class="since" style="color: #0b61ffd1;">Now</span>
-                                {% elif note.created_at|date:'Y' <  now|date:'Y' %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|date:'Y,M,d' }}</span>
-                                {% else %}
-                                    <span class="since" style="color: #0b61ffd1;">{{ note.created_at|timesince }} ago</span>
-                                {% endif %}
                             {% endif %}
                         </ul>
                     </div>

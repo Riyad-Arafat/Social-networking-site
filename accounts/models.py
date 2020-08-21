@@ -72,15 +72,9 @@ class Users(AbstractBaseUser):
 
 	def save(self, *args, **kwargs):
 		if not self.username:
-			x = self.email
-			i = 0
-			m = ""
-			while i < len(x):
-				if x[i] == "@":
-					break
-				m += x[i]
-				i += 1
-			self.username = m
+			user = Users.objects.all().order_by('-pk').first()
+			pk = user.pk + 1
+			self.username = f'{self.first_name}{pk}'
 		super(Users, self).save(*args, **kwargs)
 
 	def __str__(self):
@@ -105,6 +99,7 @@ class Users(AbstractBaseUser):
 def profile_picture_upload(instance , filename):
 	iconname , extension = os.path.splitext(filename)
 	return f'profile/{instance.id}/picture/{iconname}.{extension}'
+
 def profile_cover_upload(instance, filename):
 	iconname , extension = os.path.splitext(filename)
 	return f'profile/{instance.id}/cover/{iconname}.{extension}'

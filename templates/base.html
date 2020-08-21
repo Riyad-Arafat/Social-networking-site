@@ -4,16 +4,20 @@
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <title>SB</title>
+            <meta http-equiv='cache-control' content='no-cache'>
+            <meta http-equiv='expires' content='0'>
+            <meta http-equiv='pragma' content='no-cache'>
+            <title>Sociable</title>
+            <meta name="copyright" content="https://www.facebook.com/RiyadElberkawy"/>
+            <meta name="Description" content="sociable is a sociable platform, which enables the user to communicate with friends and public figures and its first and foremost goal is privacy">
+            <meta name="Keywords" content="sociable,sociable network,sociable platform,egyption sociable platform">
             <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/Riyad.jpg' %}">
             <link rel="stylesheet" href="{% static 'css/icofont/icofont.min.css' %}">
             <link rel="stylesheet" href="{% static 'css/libs/bootstrap.min.css' %}">
             <link rel="stylesheet" href="{% static 'css/libs/swiper-bundle.min.css' %}">
-            <link rel="stylesheet" href="{% static 'css/style.css' %}">
+            <link rel="stylesheet" href="{% static 'css/style.css' %}?version = 1.0">
             <script src="{% static 'js/libs/jquery-3.5.1.slim.min.js' %}"></script>
             <script src="{% static 'js/libs/ajax.min.js' %}"></script>
-
-
         </head>
         <body>
             {% if request.user.is_authenticated %}
@@ -79,7 +83,7 @@
             <script src="{% static 'js/libs/shortcuts/infinite.min.js' %}"></script>
             <script src="{% static 'js/libs/swiper-bundle.min.js' %}"></script>
             <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-            <script src="{% static 'ajax/all_ajax.js'%}"></script>
-            <script src="{% static 'js/main.js' %}"></script>
+            <script src="{% static 'ajax/all_ajax.js'%}?version = 1.0"></script>
+            <script src="{% static 'js/main.js' %}?version = 1.0"></script>
         </body>
     </html>
